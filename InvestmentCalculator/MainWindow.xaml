@@ -1,0 +1,71 @@
+﻿<Window x:Class="InvestmentCalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:InvestmentCalculator"
+        Title="Investment Calculator" Height="350" Width="647">
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+    <TabControl Margin="10">
+        <!-- Tab 1: Investment Calculator -->
+        <TabItem Header="Investment Calculator">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- For Labels -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- For TextBoxes and Button -->
+                </Grid.ColumnDefinitions>
+                <!-- Principal -->
+                <Label Content="Principal Amount ($):" Grid.Row="0" Grid.Column="0"/>
+                <TextBox x:Name="PrincipalTextBox" Grid.Row="0" Grid.Column="1" Margin="120,0,0,5" Height="25"/>
+
+                <!-- Interest Rate -->
+                <Label Content="Annual Interest Rate (%):" Grid.Row="1" Grid.Column="0"/>
+                <TextBox x:Name="RateTextBox" Grid.Row="1" Grid.Column="1" Margin="120,0,0,5" Height="25"/>
+
+                <!-- Time -->
+                <Label Content="Time (Years):" Grid.Row="2" Grid.Column="0"/>
+                <TextBox x:Name="TimeTextBox" Grid.Row="2" Grid.Column="1" Margin="120,0,0,5" Height="25"/>
+
+                <!-- Compound Interest Checkbox -->
+                <CheckBox x:Name="CompoundCheckBox" Content="Compound Interest?" Grid.Row="3" Grid.Column="0" Margin="0,0,0,5" 
+                  VerticalAlignment="Center"/>
+
+                <!-- Compounding Frequency (Visible only if compound checked) -->
+                <Label Content="Compounding Frequency:" Grid.Row="4" Grid.Column="0" Visibility="{Binding IsChecked, 
+            ElementName=CompoundCheckBox, 
+            Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox x:Name="FrequencyTextBox" Grid.Row="4" Grid.Column="1" Margin="120,0,0,5" Height="25" 
+                 Visibility="{Binding IsChecked, 
+            ElementName=CompoundCheckBox, 
+            Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <!-- Calculate Button -->
+                <Button x:Name="CalculateButton" Content="Calculate" Grid.Row="5" Grid.Column="1" Margin="0,10,0,0" Width="100" 
+                Height="30" Click="CalculateButton_Click"/>
+
+                <!-- Result -->
+                <Label x:Name="ResultLabel" Content="Future Value: " Grid.Row="6" Grid.Column="0" Margin="0,10,0,0" 
+               FontWeight="Bold"/>
+            </Grid>
+
+        </TabItem>
+        <!-- Tab 2: Placeholder for Future Feature -->
+        <TabItem Header="Future Feature">
+            <Grid>
+                <TextBlock Text="This is a placeholder for another feature." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
