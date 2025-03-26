@@ -23,6 +23,27 @@ namespace InvestmentCalculators
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded; // Hook up the Loaded event
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Perform complex calculation here
+            double dogecoinAverageAnualReturnRateFromBorn = CalculateDogecoinAverageAnualReturnRateFromBorn();
+            CalculatedDogecoinAverageAnualReturnRate.Content = $"{dogecoinAverageAnualReturnRateFromBorn * 100:F2}%";
+        }
+
+        private static double CalculateDogecoinAverageAnualReturnRateFromBorn()
+        {
+            var dogecoinPriceAt2013Dec15th = 0.00056;
+            var dogecoinPriceAt2025Mar25th = 0.1901;
+            var yearSpan = 11.29;
+
+            var totalGrowthFactor = dogecoinPriceAt2025Mar25th / dogecoinPriceAt2013Dec15th;
+
+            // Use Math.Pow instead of ^ for exponentiation
+            var compoundAnnualGrowthRate = Math.Pow(totalGrowthFactor, 1 / yearSpan) - 1;
+            return compoundAnnualGrowthRate;
         }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
