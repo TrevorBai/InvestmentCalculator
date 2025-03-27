@@ -121,13 +121,20 @@
                     <ColumnDefinition Width="*"/>
                     <!-- For TextBoxes and Button -->
                 </Grid.ColumnDefinitions>
-                <!-- Principal -->
+                <!-- Dogecoin Section -->
                 <Label Content="Dogecoin:" Grid.Row="0" Grid.Column="0" Foreground="White"/>
                 <Label Content="Historical data:" Grid.Row="1" Grid.Column="0" Foreground="White"/>
+                <Label Content="( Until March 25th 2025 )" Grid.Row="1" Grid.Column="2" Foreground="White"/>
                 <Label Content="Average annual return rate from birth:" Grid.Row="2" Grid.Column="1" Foreground="White"/>
-                <Label x:Name="CalculatedDogecoinAverageAnualReturnRate" Grid.Row="2" Grid.Column="2" Foreground="White"/>
+                <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate" Grid.Row="2" Grid.Column="2" Foreground="White"/>
                 <!-- Horizontal Line Break -->
-                <Separator Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
+                <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
+                <!-- Bitcoin Section -->
+                <Label Content="Bitcoin:" Grid.Row="4" Grid.Column="0" Foreground="White"/>
+                <Label Content="Historical data:" Grid.Row="5" Grid.Column="0" Foreground="White"/>
+                <Label Content="( Until March 26th 2025 )" Grid.Row="5" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from birth:" Grid.Row="6" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate" Grid.Row="6" Grid.Column="2" Foreground="White"/>
             </Grid>
         </TabItem>
         <!-- Tab 3: Placeholder for Stock Calculators -->

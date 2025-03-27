@@ -28,22 +28,28 @@ namespace InvestmentCalculators
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // Perform complex calculation here
-            double dogecoinAverageAnualReturnRateFromBorn = CalculateDogecoinAverageAnualReturnRateFromBorn();
-            CalculatedDogecoinAverageAnualReturnRate.Content = $"{dogecoinAverageAnualReturnRateFromBorn * 100:F2}%";
+            PopulateDogecoinAverageAnualReturnRateFromBorn();
+            PopulateBitcoinAverageAnualReturnRateFromBorn();
         }
 
-        private static double CalculateDogecoinAverageAnualReturnRateFromBorn()
+        private void PopulateDogecoinAverageAnualReturnRateFromBorn()
         {
             var dogecoinPriceAt2013Dec15th = 0.00056;
             var dogecoinPriceAt2025Mar25th = 0.1901;
             var yearSpan = 11.29;
+            double dogecoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                dogecoinPriceAt2013Dec15th, dogecoinPriceAt2025Mar25th, yearSpan);
+            CalculatedDogecoinAverageAnnualReturnRate.Content = $"{dogecoinAverageAnnualReturnRateFromBirth * 100:F2}%";
+        }
 
-            var totalGrowthFactor = dogecoinPriceAt2025Mar25th / dogecoinPriceAt2013Dec15th;
-
-            // Use Math.Pow instead of ^ for exponentiation
-            var compoundAnnualGrowthRate = Math.Pow(totalGrowthFactor, 1 / yearSpan) - 1;
-            return compoundAnnualGrowthRate;
+        private void PopulateBitcoinAverageAnualReturnRateFromBorn()
+        {
+            var bitcoinPriceAt2009Oct15th = 0.00099;
+            var bitcoinPriceAt2025Mar26th = 86888.01;
+            var yearSpan = 15.4757;
+            double bitcoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                bitcoinPriceAt2009Oct15th, bitcoinPriceAt2025Mar26th, yearSpan);
+            CalculatedBitcoinAverageAnnualReturnRate.Content = $"{bitcoinAverageAnnualReturnRateFromBirth * 100:F2}%";
         }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
@@ -76,4 +82,6 @@ namespace InvestmentCalculators
             }
         }
     }
+
+
 }
