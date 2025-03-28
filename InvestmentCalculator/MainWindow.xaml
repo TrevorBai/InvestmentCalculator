@@ -112,6 +112,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -125,16 +126,20 @@
                 <Label Content="Dogecoin:" Grid.Row="0" Grid.Column="0" Foreground="White"/>
                 <Label Content="Historical data:" Grid.Row="1" Grid.Column="0" Foreground="White"/>
                 <Label Content="( Until March 25th 2025 )" Grid.Row="1" Grid.Column="2" Foreground="White"/>
-                <Label Content="Average annual return rate from birth:" Grid.Row="2" Grid.Column="1" Foreground="White"/>
-                <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate" Grid.Row="2" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from birth (2013-Dec-15th):" Grid.Row="2" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedDogecoinAverageAnnualReturnRateFromBirth" Grid.Row="2" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from 10 years ago (2015-March-25th):" Grid.Row="3" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate10Years" Grid.Row="3" Grid.Column="3" Foreground="White"/>
                 <!-- Horizontal Line Break -->
-                <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
+                <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
                 <!-- Bitcoin Section -->
-                <Label Content="Bitcoin:" Grid.Row="4" Grid.Column="0" Foreground="White"/>
-                <Label Content="Historical data:" Grid.Row="5" Grid.Column="0" Foreground="White"/>
-                <Label Content="( Until March 26th 2025 )" Grid.Row="5" Grid.Column="2" Foreground="White"/>
-                <Label Content="Average annual return rate from birth:" Grid.Row="6" Grid.Column="1" Foreground="White"/>
-                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate" Grid.Row="6" Grid.Column="2" Foreground="White"/>
+                <Label Content="Bitcoin:" Grid.Row="5" Grid.Column="0" Foreground="White"/>
+                <Label Content="Historical data:" Grid.Row="6" Grid.Column="0" Foreground="White"/>
+                <Label Content="( Until March 26th 2025 )" Grid.Row="6" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from birth (2009-Oct-15th):" Grid.Row="7" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRateFromBirth" Grid.Row="7" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from 10 years ago (2015-March-28th):" Grid.Row="8" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate10Years" Grid.Row="8" Grid.Column="2" Foreground="White"/>
             </Grid>
         </TabItem>
         <!-- Tab 3: Placeholder for Stock Calculators -->
