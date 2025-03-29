@@ -31,10 +31,12 @@ namespace InvestmentCalculators
             // Dogecoin
             PopulateDogecoinAverageAnnualReturnRateFromBirth();
             PopulateDogecoinAverageAnnualReturnRate10Years();
+            PopulateDogecoinAverageAnnualReturnRate9Years();
 
             // Bitcoin
             PopulateBitcoinAverageAnnualReturnRateFromBirth();
             PopulateBitcoinAverageAnnualReturnRate10Years();
+            PopulateBitcoinAverageAnnualReturnRate9Years();
         }
 
         private void PopulateDogecoinAverageAnnualReturnRateFromBirth()
@@ -55,7 +57,17 @@ namespace InvestmentCalculators
             double dogecoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
                 dogecoinPriceAt2015Mar25th, dogecoinPriceAt2025Mar25th, yearSpan);
             CalculatedDogecoinAverageAnnualReturnRate10Years.Content = $"{dogecoinAverageAnnualReturnRateFromBirth * 100:F2}%";
-        }  
+        }
+
+        private void PopulateDogecoinAverageAnnualReturnRate9Years()
+        {
+            var dogecoinPriceAt2016Mar25th = 0.0002144;
+            var dogecoinPriceAt2025Mar25th = 0.1901;
+            var yearSpan = 9;
+            double dogecoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                dogecoinPriceAt2016Mar25th, dogecoinPriceAt2025Mar25th, yearSpan);
+            CalculatedDogecoinAverageAnnualReturnRate9Years.Content = $"{dogecoinAverageAnnualReturnRateFromBirth * 100:F2}%";
+        }
 
         private void PopulateBitcoinAverageAnnualReturnRateFromBirth()
         {
@@ -76,6 +88,22 @@ namespace InvestmentCalculators
                 bitcoinPriceAt2015Mar28th, bitcoinPriceAt2025Mar26th, yearSpan);
             CalculatedBitcoinAverageAnnualReturnRate10Years.Content = $"{bitcoinAverageAnnualReturnRateFromBirth * 100:F2}%";
         }
+
+        private void PopulateBitcoinAverageAnnualReturnRate9Years()
+        {
+            var bitcoinPriceAt2016Mar23th = 418.42;
+            var bitcoinPriceAt2025Mar26th = 86888.01;
+            var yearSpan = 9;
+            double bitcoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                bitcoinPriceAt2016Mar23th, bitcoinPriceAt2025Mar26th, yearSpan);
+            CalculatedBitcoinAverageAnnualReturnRate9Years.Content = 
+                $"{bitcoinAverageAnnualReturnRateFromBirth * 100:F2}%";
+        }
+
+
+
+
+
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
