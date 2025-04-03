@@ -119,6 +119,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -142,22 +144,26 @@
                 <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate8Years" Grid.Row="5" Grid.Column="4" Foreground="White"/>
                 <Label Content="Average annual return rate from 7 years ago (2018-March-26th, bull market):" Grid.Row="6" Grid.Column="1" Foreground="White"/>
                 <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate7Years" Grid.Row="6" Grid.Column="4" Foreground="White"/>
+                <Label Content="Average annual return rate from 6 years ago (2019-March-27th):" Grid.Row="7" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate6Years" Grid.Row="7" Grid.Column="4" Foreground="White"/>
                 <!-- Horizontal Line Break -->
-                <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
+                <Separator Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
                 <!-- Bitcoin Section -->
-                <Label Content="Bitcoin:" Grid.Row="8" Grid.Column="0" Foreground="White"/>
-                <Label Content="Historical data:" Grid.Row="9" Grid.Column="0" Foreground="White"/>
-                <Label Content="( Until March 26th 2025, bull market )" Grid.Row="9" Grid.Column="2" Foreground="White"/>
-                <Label Content="Average annual return rate from birth (2009-Oct-15th):" Grid.Row="10" Grid.Column="1" Foreground="White"/>
-                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRateFromBirth" Grid.Row="10" Grid.Column="2" Foreground="White"/>
-                <Label Content="Average annual return rate from 10 years ago (2015-March-28th):" Grid.Row="11" Grid.Column="1" Foreground="White"/>
-                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate10Years" Grid.Row="11" Grid.Column="2" Foreground="White"/>
-                <Label Content="Average annual return rate from 9 years ago (2016-March-23th):" Grid.Row="12" Grid.Column="1" Foreground="White"/>
-                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate9Years" Grid.Row="12" Grid.Column="2" Foreground="White"/>
-                <Label Content="Average annual return rate from 8 years ago (2017-March-28th):" Grid.Row="13" Grid.Column="1" Foreground="White"/>
-                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate8Years" Grid.Row="13" Grid.Column="2" Foreground="White"/>
-                <Label Content="Average annual return rate from 7 years ago (2018-March-24th, bull market):" Grid.Row="14" Grid.Column="1" Foreground="White"/>
-                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate7Years" Grid.Row="14" Grid.Column="2" Foreground="White"/>
+                <Label Content="Bitcoin:" Grid.Row="9" Grid.Column="0" Foreground="White"/>
+                <Label Content="Historical data:" Grid.Row="10" Grid.Column="0" Foreground="White"/>
+                <Label Content="( Until March 26th 2025, bull market )" Grid.Row="10" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from birth (2009-Oct-15th):" Grid.Row="11" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRateFromBirth" Grid.Row="11" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from 10 years ago (2015-March-28th):" Grid.Row="12" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate10Years" Grid.Row="12" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from 9 years ago (2016-March-23th):" Grid.Row="13" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate9Years" Grid.Row="13" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from 8 years ago (2017-March-28th):" Grid.Row="14" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate8Years" Grid.Row="14" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from 7 years ago (2018-March-24th, bull market):" Grid.Row="15" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate7Years" Grid.Row="15" Grid.Column="2" Foreground="White"/>
+                <Label Content="Average annual return rate from 6 years ago (2019-March-29th):" Grid.Row="16" Grid.Column="1" Foreground="White"/>
+                <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate6Years" Grid.Row="16" Grid.Column="2" Foreground="White"/>
             </Grid>
         </TabItem>
         <!-- Tab 3: Placeholder for Stock Calculators -->
