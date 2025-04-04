@@ -35,6 +35,7 @@ namespace InvestmentCalculators
             PopulateDogecoinAverageAnnualReturnRate8Years();
             PopulateDogecoinAverageAnnualReturnRate7Years();
             PopulateDogecoinAverageAnnualReturnRate6Years();
+            PopulateDogecoinAverageAnnualReturnRate5Years();
 
             // Bitcoin
             PopulateBitcoinAverageAnnualReturnRateFromBirth();
@@ -43,6 +44,7 @@ namespace InvestmentCalculators
             PopulateBitcoinAverageAnnualReturnRate8Years();
             PopulateBitcoinAverageAnnualReturnRate7Years();
             PopulateBitcoinAverageAnnualReturnRate6Years();
+            PopulateBitcoinAverageAnnualReturnRate5Years();
         }
 
         private void PopulateDogecoinAverageAnnualReturnRateFromBirth()
@@ -106,6 +108,16 @@ namespace InvestmentCalculators
             CalculatedDogecoinAverageAnnualReturnRate6Years.Content = $"{dogecoinAverageAnnualReturnRateFromBirth * 100:F2}%";
         }
 
+        private void PopulateDogecoinAverageAnnualReturnRate5Years()
+        {
+            var dogecoinPriceAt2020Mar27th = 0.001805;
+            var dogecoinPriceAt2025Mar25th = 0.1901;
+            var yearSpan = 5;
+            double dogecoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                dogecoinPriceAt2020Mar27th, dogecoinPriceAt2025Mar25th, yearSpan);
+            CalculatedDogecoinAverageAnnualReturnRate5Years.Content = $"{dogecoinAverageAnnualReturnRateFromBirth * 100:F2}%";
+        }
+
         // Bitcoin section
         // ------------------------
 
@@ -153,6 +165,7 @@ namespace InvestmentCalculators
 
         private void PopulateBitcoinAverageAnnualReturnRate7Years()
         {
+            // It's a bull market in year of 2018
             var bitcoinPriceAt2018Mar24th = 8612.8;
             var bitcoinPriceAt2025Mar26th = 86888.01;
             var yearSpan = 7;
@@ -172,6 +185,21 @@ namespace InvestmentCalculators
             CalculatedBitcoinAverageAnnualReturnRate6Years.Content =
                 $"{bitcoinAverageAnnualReturnRateFromBirth * 100:F2}%";
         }
+
+        private void PopulateBitcoinAverageAnnualReturnRate5Years()
+        {
+            var bitcoinPriceAt2020Mar24th = 6738.71;
+            var bitcoinPriceAt2025Mar26th = 86888.01;
+            var yearSpan = 5;
+            double bitcoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                bitcoinPriceAt2020Mar24th, bitcoinPriceAt2025Mar26th, yearSpan);
+            CalculatedBitcoinAverageAnnualReturnRate5Years.Content =
+                $"{bitcoinAverageAnnualReturnRateFromBirth * 100:F2}%";
+        }
+
+
+
+
 
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
