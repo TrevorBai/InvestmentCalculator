@@ -39,6 +39,7 @@ namespace InvestmentCalculators
             PopulateDogecoinAverageAnnualReturnRate4Years();
             PopulateDogecoinAverageAnnualReturnRate3Years();
             PopulateDogecoinAverageAnnualReturnRate2Years();
+            PopulateDogecoinAverageAnnualReturnRate1Year();
 
             // Bitcoin
             PopulateBitcoinAverageAnnualReturnRateFromBirth();
@@ -51,6 +52,7 @@ namespace InvestmentCalculators
             PopulateBitcoinAverageAnnualReturnRate4Years();
             PopulateBitcoinAverageAnnualReturnRate3Years();
             PopulateBitcoinAverageAnnualReturnRate2Years();
+            PopulateBitcoinAverageAnnualReturnRate1Year();
         }
 
         private void PopulateDogecoinAverageAnnualReturnRateFromBirth()
@@ -154,6 +156,17 @@ namespace InvestmentCalculators
             double dogecoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
                 dogecoinPriceAt2023Mar26th, dogecoinPriceAt2025Mar25th, yearSpan);
             CalculatedDogecoinAverageAnnualReturnRate2Years.Content = $"{dogecoinAverageAnnualReturnRateFromBirth * 100:F2}%";
+        }
+
+        private void PopulateDogecoinAverageAnnualReturnRate1Year()
+        {
+            // It's a bull market in year of 2024
+            var dogecoinPriceAt2023Mar27th = 0.1903;
+            var dogecoinPriceAt2025Mar25th = 0.1901;
+            var yearSpan = 1;
+            double dogecoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                dogecoinPriceAt2023Mar27th, dogecoinPriceAt2025Mar25th, yearSpan);
+            CalculatedDogecoinAverageAnnualReturnRate1Year.Content = $"{dogecoinAverageAnnualReturnRateFromBirth * 100:F2}%";
         }
 
         // Bitcoin section
@@ -270,7 +283,17 @@ namespace InvestmentCalculators
                 $"{bitcoinAverageAnnualReturnRateFromBirth * 100:F2}%";
         }
 
-
+        private void PopulateBitcoinAverageAnnualReturnRate1Year()
+        {
+            // It's a bull market in year of 2024
+            var bitcoinPriceAt2024Mar28th = 70744.79;
+            var bitcoinPriceAt2025Mar26th = 86888.01;
+            var yearSpan = 1;
+            double bitcoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                bitcoinPriceAt2024Mar28th, bitcoinPriceAt2025Mar26th, yearSpan);
+            CalculatedBitcoinAverageAnnualReturnRate1Year.Content =
+                $"{bitcoinAverageAnnualReturnRateFromBirth * 100:F2}%";
+        }
 
 
 
