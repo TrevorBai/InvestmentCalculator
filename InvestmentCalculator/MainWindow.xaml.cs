@@ -1,6 +1,10 @@
 ﻿using System.Windows;
 using System.Globalization;
 using System.Windows.Data;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using OxyPlot.Annotations;
 
 namespace InvestmentCalculators
 {
@@ -20,10 +24,108 @@ namespace InvestmentCalculators
 
     public partial class MainWindow : Window
     {
+        public PlotModel PlotModel { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded; // Hook up the Loaded event
+
+            DataContext = this;
+
+            // Create the plot model
+            PlotModel = new PlotModel
+            {
+                Title = "2025 Timeline",
+                TitleColor = OxyColors.White,
+                Background = OxyColors.Black,
+                PlotAreaBackground = OxyColors.Black,
+                PlotAreaBorderColor = OxyColors.White,
+                PlotAreaBorderThickness = new OxyThickness(0), // Clean look
+            };
+
+            // X-Axis: Dates (Jan 1, 2025 to Dec 31, 2025)
+            var startDate = new DateTime(2025, 1, 1);
+            var endDate = new DateTime(2025, 12, 31);
+            var dateAxis = new DateTimeAxis
+            {
+                Position = AxisPosition.Bottom,
+                Minimum = DateTimeAxis.ToDouble(startDate),
+                Maximum = DateTimeAxis.ToDouble(endDate),
+                StringFormat = "MMM dd", // E.g., "Apr 30"
+                TextColor = OxyColors.White,
+                Title = "Date",
+                TitleColor = OxyColors.White,
+                TicklineColor = OxyColors.White,
+                MajorGridlineStyle = LineStyle.Solid,
+                MajorGridlineColor = OxyColor.FromAColor(100, OxyColors.White),
+                MinorGridlineStyle = LineStyle.None,
+            };
+            PlotModel.Axes.Add(dateAxis);
+
+            // Y-Axis: Hidden (dummy axis for bars)
+            var yAxis = new LinearAxis
+            {
+                Position = AxisPosition.Left,
+                IsAxisVisible = false, // No Y-axis
+                Minimum = 0,
+                Maximum = 1.5 // Enough for bars and annotations
+            };
+            PlotModel.Axes.Add(yAxis);
+
+            // Vertical Bars for Critical Dates
+            var barSeries = new RectangleBarSeries
+            {
+                FillColor = OxyColors.Blue,
+                StrokeColor = OxyColors.White,
+                StrokeThickness = 1
+            };
+
+            // Critical Date 1: April 30, 2025 (Tax Owing)
+            var date1 = new DateTime(2025, 4, 30);
+            barSeries.Items.Add(new RectangleBarItem
+            {
+                X0 = DateTimeAxis.ToDouble(date1),
+                X1 = DateTimeAxis.ToDouble(date1),
+                Y0 = 0,
+                Y1 = 1
+            });
+            // Critical Date 2: June 15, 2025 (T2125 Deadline)
+            var date2 = new DateTime(2025, 6, 15);
+            barSeries.Items.Add(new RectangleBarItem
+            {
+                X0 = DateTimeAxis.ToDouble(date2),
+                X1 = DateTimeAxis.ToDouble(date2),
+                Y0 = 0,
+                Y1 = 1
+            });
+            PlotModel.Series.Add(barSeries);
+
+            // Shaded Range: April 1 to April 30, 2025
+            var rangeAnnotation = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2025, 4, 1)),
+                MaximumX = DateTimeAxis.ToDouble(new DateTime(2025, 4, 30)),
+                MinimumY = 0,
+                MaximumY = 1.5,
+                Fill = OxyColor.FromAColor(100, OxyColors.Green), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            PlotModel.Annotations.Add(rangeAnnotation);
+
+            // Comment in Range: "Prepare T2125"
+            var textAnnotation = new TextAnnotation
+            {
+                Text = "Prepare T2125",
+                TextPosition = new DataPoint(DateTimeAxis.ToDouble(new DateTime(2025, 4, 15)), 0.75),
+                TextColor = OxyColors.White,
+                Stroke = OxyColors.Transparent,
+                FontSize = 12,
+                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+            };
+            PlotModel.Annotations.Add(textAnnotation);
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
