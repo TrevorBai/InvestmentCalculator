@@ -36,7 +36,7 @@ namespace InvestmentCalculators
             // Create the plot model
             PlotModel = new PlotModel
             {
-                Title = "2025 Timeline",
+                Title = "Bitcoin/Dogecoin Timelines",
                 TitleColor = OxyColors.White,
                 Background = OxyColors.Black,
                 PlotAreaBackground = OxyColors.Black,
@@ -44,22 +44,26 @@ namespace InvestmentCalculators
                 PlotAreaBorderThickness = new OxyThickness(0), // Clean look
             };
 
-            // X-Axis: Dates (Jan 1, 2025 to Dec 31, 2025)
-            var startDate = new DateTime(2025, 1, 1);
-            var endDate = new DateTime(2025, 12, 31);
+            // X-Axis: Dates
+            var startDate = new DateTime(2009, 10, 15);
+            var endDate = new DateTime(2025, 04, 16);
             var dateAxis = new DateTimeAxis
             {
                 Position = AxisPosition.Bottom,
                 Minimum = DateTimeAxis.ToDouble(startDate),
                 Maximum = DateTimeAxis.ToDouble(endDate),
-                StringFormat = "MMM dd", // E.g., "Apr 30"
+                StringFormat = "yyyy-MMM-dd",
                 TextColor = OxyColors.White,
                 Title = "Date",
                 TitleColor = OxyColors.White,
                 TicklineColor = OxyColors.White,
-                MajorGridlineStyle = LineStyle.Solid,
-                MajorGridlineColor = OxyColor.FromAColor(100, OxyColors.White),
-                MinorGridlineStyle = LineStyle.None,
+                //MajorGridlineStyle = LineStyle.Solid,
+                //MajorGridlineColor = OxyColor.FromAColor(100, OxyColors.White),
+                //MinorGridlineStyle = LineStyle.None,
+                IsAxisVisible = true,
+                MajorStep = 365, // One year (in days)
+                MinorStep = 30,  // One month
+                IntervalLength = 8000 // Adjust label spacing for readability
             };
             PlotModel.Axes.Add(dateAxis);
 
@@ -81,24 +85,42 @@ namespace InvestmentCalculators
                 StrokeThickness = 1
             };
 
-            // Critical Date 1: April 30, 2025 (Tax Owing)
-            var date1 = new DateTime(2025, 4, 30);
+            var firstBitcoinHalvingDate = new DateTime(2012, 11, 18);
             barSeries.Items.Add(new RectangleBarItem
             {
-                X0 = DateTimeAxis.ToDouble(date1),
-                X1 = DateTimeAxis.ToDouble(date1),
+                X0 = DateTimeAxis.ToDouble(firstBitcoinHalvingDate),
+                X1 = DateTimeAxis.ToDouble(firstBitcoinHalvingDate),
                 Y0 = 0,
                 Y1 = 1
             });
-            // Critical Date 2: June 15, 2025 (T2125 Deadline)
-            var date2 = new DateTime(2025, 6, 15);
+
+            var secondBitcoinHalvingDate = new DateTime(2016, 7, 9);
             barSeries.Items.Add(new RectangleBarItem
             {
-                X0 = DateTimeAxis.ToDouble(date2),
-                X1 = DateTimeAxis.ToDouble(date2),
+                X0 = DateTimeAxis.ToDouble(secondBitcoinHalvingDate),
+                X1 = DateTimeAxis.ToDouble(secondBitcoinHalvingDate),
                 Y0 = 0,
                 Y1 = 1
             });
+
+            var thirdBitcoinHalvingDate = new DateTime(2020, 5, 11);
+            barSeries.Items.Add(new RectangleBarItem
+            {
+                X0 = DateTimeAxis.ToDouble(thirdBitcoinHalvingDate),
+                X1 = DateTimeAxis.ToDouble(thirdBitcoinHalvingDate),
+                Y0 = 0,
+                Y1 = 1
+            });
+
+            var forthBitcoinHalvingDate = new DateTime(2024, 4, 19);
+            barSeries.Items.Add(new RectangleBarItem
+            {
+                X0 = DateTimeAxis.ToDouble(forthBitcoinHalvingDate),
+                X1 = DateTimeAxis.ToDouble(forthBitcoinHalvingDate),
+                Y0 = 0,
+                Y1 = 1
+            });
+
             PlotModel.Series.Add(barSeries);
 
             // Shaded Range: April 1 to April 30, 2025
@@ -114,17 +136,49 @@ namespace InvestmentCalculators
             };
             PlotModel.Annotations.Add(rangeAnnotation);
 
-            // Comment in Range: "Prepare T2125"
-            var textAnnotation = new TextAnnotation
+            var firstBitcoinHalvingDateAnnotation = new TextAnnotation
             {
-                Text = "Prepare T2125",
-                TextPosition = new DataPoint(DateTimeAxis.ToDouble(new DateTime(2025, 4, 15)), 0.75),
+                Text = "Btc 1st halving",
+                TextPosition = new DataPoint(DateTimeAxis.ToDouble(firstBitcoinHalvingDate), 1.05),
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
                 TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
             };
-            PlotModel.Annotations.Add(textAnnotation);
+            PlotModel.Annotations.Add(firstBitcoinHalvingDateAnnotation);
+
+            var secondBitcoinHalvingDateAnnotation = new TextAnnotation
+            {
+                Text = "Btc 2nd halving",
+                TextPosition = new DataPoint(DateTimeAxis.ToDouble(secondBitcoinHalvingDate), 1.05),
+                TextColor = OxyColors.White,
+                Stroke = OxyColors.Transparent,
+                FontSize = 12,
+                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+            };
+            PlotModel.Annotations.Add(secondBitcoinHalvingDateAnnotation);
+
+            var thirdBitcoinHalvingDateAnnotation = new TextAnnotation
+            {
+                Text = "Btc 3rd halving",
+                TextPosition = new DataPoint(DateTimeAxis.ToDouble(thirdBitcoinHalvingDate), 1.05),
+                TextColor = OxyColors.White,
+                Stroke = OxyColors.Transparent,
+                FontSize = 12,
+                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+            };
+            PlotModel.Annotations.Add(thirdBitcoinHalvingDateAnnotation);
+
+            var forthBitcoinHalvingDateAnnotation = new TextAnnotation
+            {
+                Text = "Btc 4th halving",
+                TextPosition = new DataPoint(DateTimeAxis.ToDouble(forthBitcoinHalvingDate), 1.05),
+                TextColor = OxyColors.White,
+                Stroke = OxyColors.Transparent,
+                FontSize = 12,
+                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+            };
+            PlotModel.Annotations.Add(forthBitcoinHalvingDateAnnotation);
 
         }
 
