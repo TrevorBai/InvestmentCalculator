@@ -319,19 +319,7 @@ namespace InvestmentCalculators
             AddDateXAxisToCryptoPlotModel();
             AddDummyYAxisToCryptoPlotModel();
             AddVerticalBarsAndAnnotationsToCryptoPlotModel();
-
-            // Shaded Range: April 1 to April 30, 2025
-            var rangeAnnotation = new RectangleAnnotation
-            {
-                MinimumX = DateTimeAxis.ToDouble(new DateTime(2025, 4, 1)),
-                MaximumX = DateTimeAxis.ToDouble(new DateTime(2025, 4, 30)),
-                MinimumY = 0,
-                MaximumY = 1.5,
-                Fill = OxyColor.FromAColor(100, OxyColors.Green), // Semi-transparent green
-                Stroke = OxyColors.White,
-                StrokeThickness = 1
-            };
-            CryptoPlotModel.Annotations.Add(rangeAnnotation);
+            AddRangeAnnotationsToCryptoPlotModel();
         }
 
         private void AddDateXAxisToCryptoPlotModel()
@@ -557,6 +545,72 @@ namespace InvestmentCalculators
             };
             cryptoPlotModel.Annotations.Add(forthBitcoinHalvingDateAnnotation);
         }
+
+        private void AddRangeAnnotationsToCryptoPlotModel()
+        {
+            var btcBullRunRangeAnnotation1 = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2011, 4, 17)),
+                MaximumX = DateTimeAxis.ToDouble(new DateTime(2011, 10, 19)),
+                MinimumY = 0,
+                MaximumY = 1.5,
+                Fill = OxyColor.FromAColor(100, OxyColors.Green), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            CryptoPlotModel.Annotations.Add(btcBullRunRangeAnnotation1);
+
+            var btcBullRunRangeAnnotation2 = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2013, 2, 24)),
+                MaximumX = DateTimeAxis.ToDouble(new DateTime(2015, 1, 19)),
+                MinimumY = 0,
+                MaximumY = 1.5,
+                Fill = OxyColor.FromAColor(100, OxyColors.Green), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            CryptoPlotModel.Annotations.Add(btcBullRunRangeAnnotation2);
+
+            var btcBullRunRangeAnnotation3 = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2017, 3, 23)),
+                MaximumX = DateTimeAxis.ToDouble(new DateTime(2018, 12, 8)),
+                MinimumY = 0,
+                MaximumY = 1.5,
+                Fill = OxyColor.FromAColor(100, OxyColors.Green), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            CryptoPlotModel.Annotations.Add(btcBullRunRangeAnnotation3);
+
+            var btcBullRunRangeAnnotation4 = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2019, 3, 26)),
+                MaximumX = DateTimeAxis.ToDouble(new DateTime(2022, 6, 18)),
+                MinimumY = 0,
+                MaximumY = 1.5,
+                Fill = OxyColor.FromAColor(100, OxyColors.Green), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            CryptoPlotModel.Annotations.Add(btcBullRunRangeAnnotation4);
+
+            var btcBullRunRangeAnnotation5 = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2023, 1, 5)),
+                MaximumX = DateTimeAxis.ToDouble(DateTime.Now),
+                MinimumY = 0,
+                MaximumY = 1.5,
+                Fill = OxyColor.FromAColor(100, OxyColors.Green), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            CryptoPlotModel.Annotations.Add(btcBullRunRangeAnnotation5);
+        }
+
+
+
 
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
