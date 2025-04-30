@@ -5,6 +5,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using OxyPlot.Annotations;
+using OxyPlot.Legends;
 
 namespace InvestmentCalculators
 {
@@ -316,10 +317,55 @@ namespace InvestmentCalculators
                 PlotAreaBorderThickness = new OxyThickness(0), // Clean look
             };
 
+            AddLegendToCryptoPlotModel();
             AddDateXAxisToCryptoPlotModel();
             AddDummyYAxisToCryptoPlotModel();
             AddVerticalBarsAndAnnotationsToCryptoPlotModel();
             AddRangeAnnotationsToCryptoPlotModel();
+        }
+
+        private void AddLegendToCryptoPlotModel()
+        {
+            // Add a Legend to the PlotModel
+            var legend = new Legend
+            {
+                LegendPosition = LegendPosition.TopRight, // Set position
+                LegendOrientation = LegendOrientation.Horizontal,
+                LegendFont = "Arial",
+                LegendFontSize = 12,
+                IsLegendVisible = true,
+                LegendTextColor = OxyColors.White // Set legend text to white
+            };
+
+            CryptoPlotModel.Legends.Add(legend);
+
+            // Create a LineSeries
+            var btcSeries = new LineSeries
+            {
+                Title = "Bitcoin",
+                Color = OxyColors.Green,
+                MarkerType = MarkerType.Circle
+            };
+            btcSeries.Points.Add(new DataPoint(0, 10));
+            btcSeries.Points.Add(new DataPoint(1, 10));
+            btcSeries.Points.Add(new DataPoint(2, 10));
+
+            // Add series to PlotModel
+            CryptoPlotModel.Series.Add(btcSeries);
+            
+            //var series2 = new LineSeries
+            //{
+            //    Title = "Series 2",
+            //    Color = OxyColors.Blue,
+            //    MarkerType = MarkerType.Square
+            //};
+            //series2.Points.Add(new DataPoint(0, 5));
+            //series2.Points.Add(new DataPoint(1, 15));
+            //series2.Points.Add(new DataPoint(2, 25));
+
+            //// Add series to PlotModel
+            //CryptoPlotModel.Series.Add(series2);
+
         }
 
         private void AddDateXAxisToCryptoPlotModel()
