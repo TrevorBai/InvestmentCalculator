@@ -352,19 +352,19 @@ namespace InvestmentCalculators
 
             // Add series to PlotModel
             CryptoPlotModel.Series.Add(btcSeries);
-            
-            //var series2 = new LineSeries
-            //{
-            //    Title = "Series 2",
-            //    Color = OxyColors.Blue,
-            //    MarkerType = MarkerType.Square
-            //};
-            //series2.Points.Add(new DataPoint(0, 5));
-            //series2.Points.Add(new DataPoint(1, 15));
-            //series2.Points.Add(new DataPoint(2, 25));
 
-            //// Add series to PlotModel
-            //CryptoPlotModel.Series.Add(series2);
+            var dogecoinSeries = new LineSeries
+            {
+                Title = "Dogecoin",
+                Color = OxyColors.Blue,
+                MarkerType = MarkerType.Square
+            };
+            dogecoinSeries.Points.Add(new DataPoint(0, 5));
+            dogecoinSeries.Points.Add(new DataPoint(1, 5));
+            dogecoinSeries.Points.Add(new DataPoint(2, 5));
+
+            // Add series to PlotModel
+            CryptoPlotModel.Series.Add(dogecoinSeries);
 
         }
 
@@ -409,12 +409,17 @@ namespace InvestmentCalculators
 
         private void AddVerticalBarsAndAnnotationsToCryptoPlotModel()
         {
+            // Bitcoin
             AddBitcoinBirthDateVerticalBarAndAnnotation(CryptoPlotModel);
             AddFirstBitcoinHalvingDateVerticalBarAndAnnotation(CryptoPlotModel);
             AddSecondBitcoinHalvingDateVerticalBarAndAnnotation(CryptoPlotModel);
             AddThirdBitcoinHalvingDateVerticalBarAndAnnotation(CryptoPlotModel);
             AddForthBitcoinHalvingDateVerticalBarAndAnnotation(CryptoPlotModel);
             AddFifthBitcoinHalvingDateVerticalBarAndAnnotation(CryptoPlotModel);
+
+            // Dogecoin
+            AddDogecoinBirthDateVerticalBarAndAnnotation(CryptoPlotModel);
+
             AddTodaysDateVerticalBarAndAnnotation(CryptoPlotModel);
         }
 
@@ -568,6 +573,31 @@ namespace InvestmentCalculators
             cryptoPlotModel.Annotations.Add(forthBitcoinHalvingDateAnnotation);
         }
 
+        private static void AddDogecoinBirthDateVerticalBarAndAnnotation(PlotModel cryptoPlotModel)
+        {
+            var dogecoinBirthDate = new DateTime(2013, 12, 15); //2013Dec15th
+            var barSeries = new RectangleBarSeries { StrokeColor = OxyColors.BlueViolet };
+            barSeries.Items.Add(new RectangleBarItem
+            {
+                X0 = DateTimeAxis.ToDouble(dogecoinBirthDate),
+                X1 = DateTimeAxis.ToDouble(dogecoinBirthDate),
+                Y0 = 0,
+                Y1 = 0.7,
+            });
+            cryptoPlotModel.Series.Add(barSeries);
+
+            var dogecoinBirthDateAnnotation = new TextAnnotation
+            {
+                Text = "Dogecoin birth date",
+                TextPosition = new DataPoint(DateTimeAxis.ToDouble(dogecoinBirthDate), 0.75),
+                TextColor = OxyColors.White,
+                Stroke = OxyColors.Transparent,
+                FontSize = 12,
+                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+            };
+            cryptoPlotModel.Annotations.Add(dogecoinBirthDateAnnotation);
+        }
+
         private static void AddTodaysDateVerticalBarAndAnnotation(PlotModel cryptoPlotModel)
         {
             var barSeries = new RectangleBarSeries { StrokeColor = OxyColors.Blue };
@@ -593,6 +623,12 @@ namespace InvestmentCalculators
         }
 
         private void AddRangeAnnotationsToCryptoPlotModel()
+        {
+            AddBitcoinBullRunRangeAnnotationsToCryptoPlotModel();
+            AddDogecoinBullRunRangeAnnotationsToCryptoPlotModel();
+        }
+
+        private void AddBitcoinBullRunRangeAnnotationsToCryptoPlotModel()
         {
             var btcBullRunRangeAnnotation1 = new RectangleAnnotation
             {
@@ -655,9 +691,45 @@ namespace InvestmentCalculators
             CryptoPlotModel.Annotations.Add(btcBullRunRangeAnnotation5);
         }
 
+        private void AddDogecoinBullRunRangeAnnotationsToCryptoPlotModel()
+        {
+            // Dogecoin
+            var dogeBullRunRangeAnnotation1 = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2017, 5, 1)),
+                MaximumX = DateTimeAxis.ToDouble(new DateTime(2017, 9, 20)),
+                MinimumY = 0,
+                MaximumY = 1.4,
+                Fill = OxyColor.FromAColor(100, OxyColors.Blue), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            CryptoPlotModel.Annotations.Add(dogeBullRunRangeAnnotation1);
 
+            var dogeBullRunRangeAnnotation2 = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2017, 11, 11)),
+                MaximumX = DateTimeAxis.ToDouble(new DateTime(2018, 2, 5)),
+                MinimumY = 0,
+                MaximumY = 1.4,
+                Fill = OxyColor.FromAColor(100, OxyColors.Blue), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            CryptoPlotModel.Annotations.Add(dogeBullRunRangeAnnotation2);
 
-
+            var dogeBullRunRangeAnnotation3 = new RectangleAnnotation
+            {
+                MinimumX = DateTimeAxis.ToDouble(new DateTime(2020, 12, 31)),
+                MaximumX = DateTimeAxis.ToDouble(DateTime.Today),
+                MinimumY = 0,
+                MaximumY = 1.4,
+                Fill = OxyColor.FromAColor(100, OxyColors.Blue), // Semi-transparent green
+                Stroke = OxyColors.White,
+                StrokeThickness = 1
+            };
+            CryptoPlotModel.Annotations.Add(dogeBullRunRangeAnnotation3);
+        }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
