@@ -228,6 +228,7 @@
                         <Label Content="Historical data:" Grid.Row="1" Grid.Column="0" Foreground="White"/>
                         <Label Content="( Until Dec 19th 2025 )" Grid.Row="1" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 5 years ago (2020-Dec-19th):" Grid.Row="2" Grid.Column="1" Foreground="White"/>
+                        <Label x:Name="CalculatedCostcoAverageAnnualReturnRate5Years" Grid.Row="2" Grid.Column="2" Foreground="White"/>
                         <!-- Horizontal Line Break -->
                         <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
                         <!-- Tesla Section -->
