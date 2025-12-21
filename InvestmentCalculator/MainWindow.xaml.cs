@@ -66,6 +66,10 @@ namespace InvestmentCalculators
 
             // Costco
             PopulateCostcoAverageAnnualReturnRate5Years();
+            PopulateCostcoAverageAnnualReturnRate4Years();
+
+
+
         }
 
         private void PopulateDogecoinAverageAnnualReturnRateFromBirth()
@@ -310,12 +314,22 @@ namespace InvestmentCalculators
 
         private void PopulateCostcoAverageAnnualReturnRate5Years()
         {
-            var costcoPriceAt2020Dec19th = 364.58; // data at 2020Dec21th, use it as an approximation.
+            var costcoPriceAt2020Dec21st = 364.58;
             var costcoPriceAt2025Dec19th = 855.62;
             var yearSpan = 5;
             double costcoAverageAnnualReturnRate5Years = Calculators.CalculateAverageAnualReturnRate(
-                costcoPriceAt2020Dec19th, costcoPriceAt2025Dec19th, yearSpan);
+                costcoPriceAt2020Dec21st, costcoPriceAt2025Dec19th, yearSpan);
             CalculatedCostcoAverageAnnualReturnRate5Years.Content = $"{costcoAverageAnnualReturnRate5Years * 100:F2}%";
+        }
+
+        private void PopulateCostcoAverageAnnualReturnRate4Years()
+        {
+            var costcoPriceAt2021Dec20th = 550.37;
+            var costcoPriceAt2025Dec19th = 855.62;
+            var yearSpan = 4;
+            double costcoAverageAnnualReturnRate4Years = Calculators.CalculateAverageAnualReturnRate(
+                costcoPriceAt2021Dec20th, costcoPriceAt2025Dec19th, yearSpan);
+            CalculatedCostcoAverageAnnualReturnRate4Years.Content = $"{costcoAverageAnnualReturnRate4Years * 100:F2}%";
         }
 
         private void AddCryptoPlotModel()
