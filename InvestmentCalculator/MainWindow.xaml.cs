@@ -68,8 +68,8 @@ namespace InvestmentCalculators
             PopulateCostcoAverageAnnualReturnRate5Years();
             PopulateCostcoAverageAnnualReturnRate4Years();
             PopulateCostcoAverageAnnualReturnRate3Years();
-
-
+            PopulateCostcoAverageAnnualReturnRate2Years();
+            PopulateCostcoAverageAnnualReturnRate1Year();
 
         }
 
@@ -341,6 +341,26 @@ namespace InvestmentCalculators
             double costcoAverageAnnualReturnRate3Years = Calculators.CalculateAverageAnualReturnRate(
                 costcoPriceAt2022Dec19th, costcoPriceAt2025Dec19th, yearSpan);
             CalculatedCostcoAverageAnnualReturnRate3Years.Content = $"{costcoAverageAnnualReturnRate3Years * 100:F2}%";
+        }
+
+        private void PopulateCostcoAverageAnnualReturnRate2Years()
+        {
+            var costcoPriceAt2023Dec18th = 671.60;
+            var costcoPriceAt2025Dec19th = 855.62;
+            var yearSpan = 2;
+            double costcoAverageAnnualReturnRate2Years = Calculators.CalculateAverageAnualReturnRate(
+                costcoPriceAt2023Dec18th, costcoPriceAt2025Dec19th, yearSpan);
+            CalculatedCostcoAverageAnnualReturnRate2Years.Content = $"{costcoAverageAnnualReturnRate2Years * 100:F2}%";
+        }
+
+        private void PopulateCostcoAverageAnnualReturnRate1Year()
+        {
+            var costcoPriceAt2024Dec16th = 954.07;
+            var costcoPriceAt2025Dec19th = 855.62;
+            var yearSpan = 1;
+            double costcoAverageAnnualReturnRate1Year = Calculators.CalculateAverageAnualReturnRate(
+                costcoPriceAt2024Dec16th, costcoPriceAt2025Dec19th, yearSpan);
+            CalculatedCostcoAverageAnnualReturnRate1Year.Content = $"{costcoAverageAnnualReturnRate1Year * 100:F2}%";
         }
 
         private void AddCryptoPlotModel()
