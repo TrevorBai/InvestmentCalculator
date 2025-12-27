@@ -3,7 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:InvestmentCalculators"
+        xmlns:vm="clr-namespace:InvestmentCalculator.ViewModels"
         Title="Investment Calculators" Height="850" Width="2000" Background="Black">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
     <Window.Resources>
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <!-- Define styles for dark theme -->
