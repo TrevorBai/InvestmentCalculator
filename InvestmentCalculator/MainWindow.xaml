@@ -90,12 +90,12 @@
 
                 <!-- Compounding Frequency (Visible only if compound checked) -->
                 <Label Content="Compounding Frequency:" Grid.Row="4" Grid.Column="0" Visibility="{Binding IsChecked, 
-            ElementName=CompoundCheckBox, 
-            Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    ElementName=CompoundCheckBox, 
+                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <TextBox x:Name="FrequencyTextBox" Grid.Row="4" Grid.Column="1" Margin="120,0,0,5" Height="25" 
                  Visibility="{Binding IsChecked, 
-            ElementName=CompoundCheckBox, 
-            Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    ElementName=CompoundCheckBox, 
+                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                 <!-- Calculate Button -->
                 <Button x:Name="CalculateButton" Content="Calculate" Grid.Row="5" Grid.Column="1" Margin="0,10,0,0" Width="100" 
@@ -152,7 +152,7 @@
                         <Label Content="Historical data:" Grid.Row="1" Grid.Column="0" Foreground="White"/>
                         <Label Content="( Until March 25th 2025, bull market )" Grid.Row="1" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from birth (2013-Dec-15th):" Grid.Row="2" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRateFromBirth" Grid.Row="2" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGRFromBirth}" Grid.Row="2" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 10 years ago (2015-March-25th):" Grid.Row="3" Grid.Column="1" Foreground="White"/>
                         <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate10Years" Grid.Row="3" Grid.Column="3" Foreground="White"/>
                         <Label Content="Average annual return rate from 9 years ago (2016-March-25th):" Grid.Row="4" Grid.Column="1" Foreground="White"/>

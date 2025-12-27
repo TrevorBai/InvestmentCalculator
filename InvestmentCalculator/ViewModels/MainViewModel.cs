@@ -1,4 +1,5 @@
-﻿using OxyPlot;
+﻿using InvestmentCalculators;
+using OxyPlot;
 using OxyPlot.Annotations;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
@@ -10,6 +11,11 @@ namespace InvestmentCalculator.ViewModels
     internal class MainViewModel : INotifyPropertyChanged
     {
         private PlotModel? _cryptoPlotModel;
+
+        public string DogecoinCAGRFromBirth { get; private set; }
+
+
+
 
         public PlotModel CryptoPlotModel
         {
@@ -23,8 +29,26 @@ namespace InvestmentCalculator.ViewModels
 
         public MainViewModel()
         {
-
+            LoadData();
             AddCryptoPlotModel();
+        }
+
+        private void LoadData()
+        {
+            DogecoinCAGRFromBirth = GetDogecoinCAGRFromBirth();
+
+            // Raise change notifications (or use SetProperty if using toolkit)
+            OnPropertyChanged(nameof(DogecoinCAGRFromBirth));
+        }
+
+        private static string GetDogecoinCAGRFromBirth()
+        {
+            var dogecoinPriceAt2013Dec15th = 0.00056;
+            var dogecoinPriceAt2025Mar25th = 0.1901;
+            var yearSpan = 11.29;
+            double dogecoinCAGRFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                dogecoinPriceAt2013Dec15th, dogecoinPriceAt2025Mar25th, yearSpan);
+            return $"{dogecoinCAGRFromBirth * 100:F2}%";
         }
 
 

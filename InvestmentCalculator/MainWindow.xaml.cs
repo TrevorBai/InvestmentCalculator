@@ -29,7 +29,6 @@ namespace InvestmentCalculators
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             // Dogecoin
-            PopulateDogecoinAverageAnnualReturnRateFromBirth();
             PopulateDogecoinAverageAnnualReturnRate10Years();
             PopulateDogecoinAverageAnnualReturnRate9Years();
             PopulateDogecoinAverageAnnualReturnRate8Years();
@@ -60,16 +59,6 @@ namespace InvestmentCalculators
             PopulateCostcoAverageAnnualReturnRate3Years();
             PopulateCostcoAverageAnnualReturnRate2Years();
             PopulateCostcoAverageAnnualReturnRate1Year();
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRateFromBirth()
-        {
-            var dogecoinPriceAt2013Dec15th = 0.00056;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 11.29;
-            double dogecoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2013Dec15th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRateFromBirth.Content = $"{dogecoinAverageAnnualReturnRateFromBirth * 100:F2}%";
         }
 
         private void PopulateDogecoinAverageAnnualReturnRate10Years()
