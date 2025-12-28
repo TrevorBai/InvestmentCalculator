@@ -28,18 +28,6 @@ namespace InvestmentCalculators
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // Dogecoin
-            PopulateDogecoinAverageAnnualReturnRate10Years();
-            PopulateDogecoinAverageAnnualReturnRate9Years();
-            PopulateDogecoinAverageAnnualReturnRate8Years();
-            PopulateDogecoinAverageAnnualReturnRate7Years();
-            PopulateDogecoinAverageAnnualReturnRate6Years();
-            PopulateDogecoinAverageAnnualReturnRate5Years();
-            PopulateDogecoinAverageAnnualReturnRate4Years();
-            PopulateDogecoinAverageAnnualReturnRate3Years();
-            PopulateDogecoinAverageAnnualReturnRate2Years();
-            PopulateDogecoinAverageAnnualReturnRate1Year();
-
             // Bitcoin
             PopulateBitcoinAverageAnnualReturnRateFromBirth();
             PopulateBitcoinAverageAnnualReturnRate10Years();
@@ -59,110 +47,6 @@ namespace InvestmentCalculators
             PopulateCostcoAverageAnnualReturnRate3Years();
             PopulateCostcoAverageAnnualReturnRate2Years();
             PopulateCostcoAverageAnnualReturnRate1Year();
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate10Years()
-        {
-            var dogecoinPriceAt2015Mar25th = 0.0001304;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 10;
-            double dogecoinAverageAnnualReturnRate10Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2015Mar25th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate10Years.Content = $"{dogecoinAverageAnnualReturnRate10Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate9Years()
-        {
-            var dogecoinPriceAt2016Mar25th = 0.0002144;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 9;
-            double dogecoinAverageAnnualReturnRate9Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2016Mar25th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate9Years.Content = $"{dogecoinAverageAnnualReturnRate9Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate8Years()
-        {
-            var dogecoinPriceAt2017Mar25th = 0.0002976;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 8;
-            double dogecoinAverageAnnualReturnRate8Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2017Mar25th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate8Years.Content = $"{dogecoinAverageAnnualReturnRate8Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate7Years()
-        {
-            // It's a bull market in year of 2018
-            var dogecoinPriceAt2018Mar26th = 0.003275;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 7;
-            double dogecoinAverageAnnualReturnRate7Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2018Mar26th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate7Years.Content = $"{dogecoinAverageAnnualReturnRate7Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate6Years()
-        {
-            var dogecoinPriceAt2019Mar27th = 0.002087;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 6;
-            double dogecoinAverageAnnualReturnRate6Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2019Mar27th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate6Years.Content = $"{dogecoinAverageAnnualReturnRate6Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate5Years()
-        {
-            var dogecoinPriceAt2020Mar27th = 0.001805;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 5;
-            double dogecoinAverageAnnualReturnRate5Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2020Mar27th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate5Years.Content = $"{dogecoinAverageAnnualReturnRate5Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate4Years()
-        {
-            // It's a bull market in year of 2021
-            var dogecoinPriceAt2021Mar23th = 0.05352;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 4;
-            double dogecoinAverageAnnualReturnRate4Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2021Mar23th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate4Years.Content = $"{dogecoinAverageAnnualReturnRate4Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate3Years()
-        {
-            // It's a bull market in year of 2022
-            var dogecoinPriceAt2022Mar24th = 0.1366;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 3;
-            double dogecoinAverageAnnualReturnRate3Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2022Mar24th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate3Years.Content = $"{dogecoinAverageAnnualReturnRate3Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate2Years()
-        {
-            var dogecoinPriceAt2023Mar26th = 0.07442;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 2;
-            double dogecoinAverageAnnualReturnRate2Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2023Mar26th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate2Years.Content = $"{dogecoinAverageAnnualReturnRate2Years * 100:F2}%";
-        }
-
-        private void PopulateDogecoinAverageAnnualReturnRate1Year()
-        {
-            // It's a bull market in year of 2024
-            var dogecoinPriceAt2023Mar27th = 0.1903;
-            var dogecoinPriceAt2025Mar25th = 0.1901;
-            var yearSpan = 1;
-            double dogecoinAverageAnnualReturnRate1Year = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2023Mar27th, dogecoinPriceAt2025Mar25th, yearSpan);
-            CalculatedDogecoinAverageAnnualReturnRate1Year.Content = $"{dogecoinAverageAnnualReturnRate1Year * 100:F2}%";
         }
 
         // Bitcoin section

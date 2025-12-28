@@ -154,25 +154,25 @@
                         <Label Content="Average annual return rate from birth (2013-Dec-15th):" Grid.Row="2" Grid.Column="1" Foreground="White"/>
                         <Label Content="{Binding DogecoinCAGRFromBirth}" Grid.Row="2" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 10 years ago (2015-March-25th):" Grid.Row="3" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate10Years" Grid.Row="3" Grid.Column="3" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR10Years}" Grid.Row="3" Grid.Column="3" Foreground="White"/>
                         <Label Content="Average annual return rate from 9 years ago (2016-March-25th):" Grid.Row="4" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate9Years" Grid.Row="4" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR9Years}" Grid.Row="4" Grid.Column="4" Foreground="White"/>
                         <Label Content="Average annual return rate from 8 years ago (2017-March-25th):" Grid.Row="5" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate8Years" Grid.Row="5" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR8Years}" Grid.Row="5" Grid.Column="4" Foreground="White"/>
                         <Label Content="Average annual return rate from 7 years ago (2018-March-26th, bull market):" Grid.Row="6" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate7Years" Grid.Row="6" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR7Years}" Grid.Row="6" Grid.Column="4" Foreground="White"/>
                         <Label Content="Average annual return rate from 6 years ago (2019-March-27th):" Grid.Row="7" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate6Years" Grid.Row="7" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR6Years}" Grid.Row="7" Grid.Column="4" Foreground="White"/>
                         <Label Content="Average annual return rate from 5 years ago (2020-March-27th):" Grid.Row="8" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate5Years" Grid.Row="8" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR5Years}" Grid.Row="8" Grid.Column="4" Foreground="White"/>
                         <Label Content="Average annual return rate from 4 years ago (2021-March-23th, bull market):" Grid.Row="9" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate4Years" Grid.Row="9" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR4Years}" Grid.Row="9" Grid.Column="4" Foreground="White"/>
                         <Label Content="Average annual return rate from 3 years ago (2022-March-24th, bull market):" Grid.Row="10" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate3Years" Grid.Row="10" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR3Years}" Grid.Row="10" Grid.Column="4" Foreground="White"/>
                         <Label Content="Average annual return rate from 2 years ago (2023-March-26th):" Grid.Row="11" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate2Years" Grid.Row="11" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR2Years}" Grid.Row="11" Grid.Column="4" Foreground="White"/>
                         <Label Content="Average annual return rate from 1 year ago (2024-March-27th, bull market):" Grid.Row="12" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedDogecoinAverageAnnualReturnRate1Year" Grid.Row="12" Grid.Column="4" Foreground="White"/>
+                        <Label Content="{Binding DogecoinCAGR1Year}" Grid.Row="12" Grid.Column="4" Foreground="White"/>
                         <!-- Horizontal Line Break -->
                         <Separator Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
                         <!-- Bitcoin Section -->
