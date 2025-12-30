@@ -12,6 +12,7 @@ namespace InvestmentCalculator.ViewModels
     {
         private PlotModel? _cryptoPlotModel;
 
+        // Dogecoin
         public string? DogecoinCAGRFromBirth { get; private set; }
         public string? DogecoinCAGR10Years { get; private set; }
         public string? DogecoinCAGR9Years { get; private set; }
@@ -24,6 +25,18 @@ namespace InvestmentCalculator.ViewModels
         public string? DogecoinCAGR2Years { get; private set; }
         public string? DogecoinCAGR1Year { get; private set; }
 
+        // BTC
+        public string? BTCCAGRFromBirth { get; private set; }
+        public string? BTCCAGR10Years { get; private set; }
+        public string? BTCCAGR9Years { get; private set; }
+        public string? BTCCAGR8Years { get; private set; }
+        public string? BTCCAGR7Years { get; private set; }
+        public string? BTCCAGR6Years { get; private set; }
+        public string? BTCCAGR5Years { get; private set; }
+        public string? BTCCAGR4Years { get; private set; }
+        public string? BTCCAGR3Years { get; private set; }
+        public string? BTCCAGR2Years { get; private set; }
+        public string? BTCCAGR1Year { get; private set; }
 
 
 
@@ -69,6 +82,27 @@ namespace InvestmentCalculator.ViewModels
             OnPropertyChanged(nameof(DogecoinCAGR3Years));
             OnPropertyChanged(nameof(DogecoinCAGR2Years));
             OnPropertyChanged(nameof(DogecoinCAGR1Year));
+
+
+            BTCCAGRFromBirth = GetBTCCAGRFromBirth();
+            BTCCAGR10Years = GetBTCCAGR10Years();
+            BTCCAGR9Years = GetBTCCAGR9Years();
+            BTCCAGR8Years = GetBTCCAGR8Years();
+
+
+
+            // Raise change notifications (or use SetProperty if using toolkit)
+            OnPropertyChanged(nameof(BTCCAGRFromBirth));
+            OnPropertyChanged(nameof(BTCCAGR10Years));
+            OnPropertyChanged(nameof(BTCCAGR9Years));
+            OnPropertyChanged(nameof(BTCCAGR8Years));
+            OnPropertyChanged(nameof(BTCCAGR7Years));
+            OnPropertyChanged(nameof(BTCCAGR6Years));
+            OnPropertyChanged(nameof(BTCCAGR5Years));
+            OnPropertyChanged(nameof(BTCCAGR4Years));
+            OnPropertyChanged(nameof(BTCCAGR3Years));
+            OnPropertyChanged(nameof(BTCCAGR2Years));
+            OnPropertyChanged(nameof(BTCCAGR1Year));
         }
 
         private static string GetDogecoinCAGRFromBirth()
@@ -184,6 +218,49 @@ namespace InvestmentCalculator.ViewModels
                 dogecoinPriceAt2023Mar27th, dogecoinPriceAt2025Mar25th, yearSpan);
             return $"{dogecoinCAGR1Year * 100:F2}%";
         }
+
+        private static string GetBTCCAGRFromBirth()
+        {
+            var bitcoinPriceAt2009Oct15th = 0.00099;
+            var bitcoinPriceAt2025Mar26th = 86888.01;
+            var yearSpan = 15.4757;
+            double btcCAGRFromBirth = Calculators.CalculateAverageAnualReturnRate(
+                bitcoinPriceAt2009Oct15th, bitcoinPriceAt2025Mar26th, yearSpan);
+            return $"{btcCAGRFromBirth * 100:F2}%";
+        }
+
+        private static string GetBTCCAGR10Years()
+        {
+            var bitcoinPriceAt2015Mar28th = 252.74;
+            var bitcoinPriceAt2025Mar26th = 86888.01;
+            var yearSpan = 10;
+            double btcCAGR10Years = Calculators.CalculateAverageAnualReturnRate(
+                bitcoinPriceAt2015Mar28th, bitcoinPriceAt2025Mar26th, yearSpan);
+            return $"{btcCAGR10Years * 100:F2}%";
+        }
+
+        private static string GetBTCCAGR9Years()
+        {
+            var bitcoinPriceAt2016Mar23th = 418.42;
+            var bitcoinPriceAt2025Mar26th = 86888.01;
+            var yearSpan = 9;
+            double btcCAGR9Years = Calculators.CalculateAverageAnualReturnRate(
+                bitcoinPriceAt2016Mar23th, bitcoinPriceAt2025Mar26th, yearSpan);
+            return $"{btcCAGR9Years * 100:F2}%";
+        }
+
+        private static string GetBTCCAGR8Years()
+        {
+            var bitcoinPriceAt2017Mar28th = 1046.07;
+            var bitcoinPriceAt2025Mar26th = 86888.01;
+            var yearSpan = 8;
+            double btcCAGR8Years = Calculators.CalculateAverageAnualReturnRate(
+                bitcoinPriceAt2017Mar28th, bitcoinPriceAt2025Mar26th, yearSpan);
+            return $"{btcCAGR8Years * 100:F2}%";
+        }
+
+
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

@@ -180,13 +180,13 @@
                         <Label Content="Historical data:" Grid.Row="15" Grid.Column="0" Foreground="White"/>
                         <Label Content="( Until March 26th 2025, bull market )" Grid.Row="15" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from birth (2009-Oct-15th):" Grid.Row="16" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRateFromBirth" Grid.Row="16" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGRFromBirth}" Grid.Row="16" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 10 years ago (2015-March-28th):" Grid.Row="17" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate10Years" Grid.Row="17" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR10Years}" Grid.Row="17" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 9 years ago (2016-March-23th):" Grid.Row="18" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate9Years" Grid.Row="18" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR9Years}" Grid.Row="18" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 8 years ago (2017-March-28th):" Grid.Row="19" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate8Years" Grid.Row="19" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR8Years}" Grid.Row="19" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 7 years ago (2018-March-24th, bull market):" Grid.Row="20" Grid.Column="1" Foreground="White"/>
                         <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate7Years" Grid.Row="20" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 6 years ago (2019-March-29th):" Grid.Row="21" Grid.Column="1" Foreground="White"/>

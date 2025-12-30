@@ -29,10 +29,6 @@ namespace InvestmentCalculators
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             // Bitcoin
-            PopulateBitcoinAverageAnnualReturnRateFromBirth();
-            PopulateBitcoinAverageAnnualReturnRate10Years();
-            PopulateBitcoinAverageAnnualReturnRate9Years();
-            PopulateBitcoinAverageAnnualReturnRate8Years();
             PopulateBitcoinAverageAnnualReturnRate7Years();
             PopulateBitcoinAverageAnnualReturnRate6Years();
             PopulateBitcoinAverageAnnualReturnRate5Years();
@@ -51,48 +47,6 @@ namespace InvestmentCalculators
 
         // Bitcoin section
         // ------------------------
-
-        private void PopulateBitcoinAverageAnnualReturnRateFromBirth()
-        {
-            var bitcoinPriceAt2009Oct15th = 0.00099;
-            var bitcoinPriceAt2025Mar26th = 86888.01;
-            var yearSpan = 15.4757;
-            double bitcoinAverageAnnualReturnRateFromBirth = Calculators.CalculateAverageAnualReturnRate(
-                bitcoinPriceAt2009Oct15th, bitcoinPriceAt2025Mar26th, yearSpan);
-            CalculatedBitcoinAverageAnnualReturnRateFromBirth.Content = $"{bitcoinAverageAnnualReturnRateFromBirth * 100:F2}%";
-        }
-
-        private void PopulateBitcoinAverageAnnualReturnRate10Years()
-        {
-            var bitcoinPriceAt2015Mar28th = 252.74;
-            var bitcoinPriceAt2025Mar26th = 86888.01;
-            var yearSpan = 10;
-            double bitcoinAverageAnnualReturnRate10Years = Calculators.CalculateAverageAnualReturnRate(
-                bitcoinPriceAt2015Mar28th, bitcoinPriceAt2025Mar26th, yearSpan);
-            CalculatedBitcoinAverageAnnualReturnRate10Years.Content = $"{bitcoinAverageAnnualReturnRate10Years * 100:F2}%";
-        }
-
-        private void PopulateBitcoinAverageAnnualReturnRate9Years()
-        {
-            var bitcoinPriceAt2016Mar23th = 418.42;
-            var bitcoinPriceAt2025Mar26th = 86888.01;
-            var yearSpan = 9;
-            double bitcoinAverageAnnualReturnRate9Years = Calculators.CalculateAverageAnualReturnRate(
-                bitcoinPriceAt2016Mar23th, bitcoinPriceAt2025Mar26th, yearSpan);
-            CalculatedBitcoinAverageAnnualReturnRate9Years.Content = 
-                $"{bitcoinAverageAnnualReturnRate9Years * 100:F2}%";
-        }
-
-        private void PopulateBitcoinAverageAnnualReturnRate8Years()
-        {
-            var bitcoinPriceAt2017Mar28th = 1046.07;
-            var bitcoinPriceAt2025Mar26th = 86888.01;
-            var yearSpan = 8;
-            double bitcoinAverageAnnualReturnRate8Years = Calculators.CalculateAverageAnualReturnRate(
-                bitcoinPriceAt2017Mar28th, bitcoinPriceAt2025Mar26th, yearSpan);
-            CalculatedBitcoinAverageAnnualReturnRate8Years.Content =
-                $"{bitcoinAverageAnnualReturnRate8Years * 100:F2}%";
-        }
 
         private void PopulateBitcoinAverageAnnualReturnRate7Years()
         {
