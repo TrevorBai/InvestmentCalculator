@@ -188,19 +188,19 @@
                         <Label Content="Average annual return rate from 8 years ago (2017-March-28th):" Grid.Row="19" Grid.Column="1" Foreground="White"/>
                         <Label Content="{Binding BTCCAGR8Years}" Grid.Row="19" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 7 years ago (2018-March-24th, bull market):" Grid.Row="20" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate7Years" Grid.Row="20" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR7Years}" Grid.Row="20" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 6 years ago (2019-March-29th):" Grid.Row="21" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate6Years" Grid.Row="21" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR6Years}" Grid.Row="21" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 5 years ago (2020-March-24th):" Grid.Row="22" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate5Years" Grid.Row="22" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR5Years}" Grid.Row="22" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 4 years ago (2021-March-30th, bull market):" Grid.Row="23" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate4Years" Grid.Row="23" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR4Years}" Grid.Row="23" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 3 years ago (2022-March-27th, bull market):" Grid.Row="24" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate3Years" Grid.Row="24" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR3Years}" Grid.Row="24" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 2 years ago (2023-March-24th):" Grid.Row="25" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate2Years" Grid.Row="25" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR2Years}" Grid.Row="25" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 1 year ago (2024-March-28th, bull market):" Grid.Row="26" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedBitcoinAverageAnnualReturnRate1Year" Grid.Row="26" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTCCAGR1Year}" Grid.Row="26" Grid.Column="2" Foreground="White"/>
                     </Grid>
                     <!-- Horizontal Line Break -->
                     <Separator Margin="0,10,0,10"/>
