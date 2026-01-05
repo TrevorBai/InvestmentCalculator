@@ -16,7 +16,22 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
         public string? CAGR2Years { get; private set; }
         public string? CAGR1Year { get; private set; }
 
+        // Data points
         private const double DogecoinPriceAt2025Mar25th = 0.1901;
+
+        private const double DogecoinPriceAt2013Dec15th = 0.00056;
+        private const double YearSpanFromBirthToEndingDate = 11.29;
+
+        private const double DogecoinPriceAt2015Mar25th = 0.0001304;
+        private const double DogecoinPriceAt2016Mar25th = 0.0002144;
+        private const double DogecoinPriceAt2017Mar25th = 0.0002976;
+        private const double DogecoinPriceAt2018Mar26th = 0.003275;
+        private const double DogecoinPriceAt2019Mar27th = 0.002087;
+        private const double DogecoinPriceAt2020Mar27th = 0.001805;
+        private const double DogecoinPriceAt2021Mar23th = 0.05352;
+        private const double DogecoinPriceAt2022Mar24th = 0.1366;
+        private const double DogecoinPriceAt2023Mar26th = 0.07442;
+        private const double DogecoinPriceAt2023Mar27th = 0.1903;
 
         public DogeViewModel()
         {
@@ -40,104 +55,92 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
 
         private static string GetCAGRFromBirth()
         {
-            var dogecoinPriceAt2013Dec15th = 0.00056;
-            var yearSpan = 11.29;
             double dogecoinCAGRFromBirth = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2013Dec15th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2013Dec15th, DogecoinPriceAt2025Mar25th, YearSpanFromBirthToEndingDate);
             return $"{dogecoinCAGRFromBirth * 100:F2}%";
         }
 
         private static string GetCAGR10Years()
         {
-            var dogecoinPriceAt2015Mar25th = 0.0001304;
-            var yearSpan = 10;
+            const int YearSpan = 10;
             double dogecoinCAGR10Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2015Mar25th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2015Mar25th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR10Years * 100:F2}%";
         }
 
         private static string GetCAGR9Years()
         {
-            var dogecoinPriceAt2016Mar25th = 0.0002144;
-            var yearSpan = 9;
+            const int YearSpan = 9;
             double dogecoinCAGR9Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2016Mar25th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2016Mar25th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR9Years * 100:F2}%";
         }
 
         private static string GetCAGR8Years()
         {
-            var dogecoinPriceAt2017Mar25th = 0.0002976;
-            var yearSpan = 8;
+            const int YearSpan = 8;
             double dogecoinCAGR8Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2017Mar25th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2017Mar25th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR8Years * 100:F2}%";
         }
 
         private static string GetCAGR7Years()
         {
             // It's a bull market in year of 2018
-            var dogecoinPriceAt2018Mar26th = 0.003275;
-            var yearSpan = 7;
+            const int YearSpan = 7;
             double dogecoinCAGR7Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2018Mar26th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2018Mar26th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR7Years * 100:F2}%";
         }
 
         private static string GetCAGR6Years()
         {
-            var dogecoinPriceAt2019Mar27th = 0.002087;
-            var yearSpan = 6;
+            const int YearSpan = 6;
             double dogecoinCAGR6Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2019Mar27th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2019Mar27th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR6Years * 100:F2}%";
         }
 
         private static string GetCAGR5Years()
         {
-            var dogecoinPriceAt2020Mar27th = 0.001805;
-            var yearSpan = 5;
+            const int YearSpan = 5;
             double dogecoinCAGR5Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2020Mar27th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2020Mar27th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR5Years * 100:F2}%";
         }
 
         private static string GetCAGR4Years()
         {
             // It's a bull market in year of 2021
-            var dogecoinPriceAt2021Mar23th = 0.05352;
-            var yearSpan = 4;
+            const int YearSpan = 4;
             double dogecoinCAGR4Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2021Mar23th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2021Mar23th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR4Years * 100:F2}%";
         }
 
         private static string GetCAGR3Years()
         {
             // It's a bull market in year of 2022
-            var dogecoinPriceAt2022Mar24th = 0.1366;
-            var yearSpan = 3;
+            const int YearSpan = 3;
             double dogecoinCAGR3Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2022Mar24th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2022Mar24th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR3Years * 100:F2}%";
         }
 
         private static string GetCAGR2Years()
         {
-            var dogecoinPriceAt2023Mar26th = 0.07442;
-            var yearSpan = 2;
+            const int YearSpan = 2;
             double dogecoinCAGR2Years = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2023Mar26th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2023Mar26th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR2Years * 100:F2}%";
         }
 
         private static string GetCAGR1Year()
         {
             // It's a bull market in year of 2024
-            var dogecoinPriceAt2023Mar27th = 0.1903;
-            var yearSpan = 1;
+            const int YearSpan = 1;
             double dogecoinCAGR1Year = Calculators.CalculateAverageAnualReturnRate(
-                dogecoinPriceAt2023Mar27th, DogecoinPriceAt2025Mar25th, yearSpan);
+                DogecoinPriceAt2023Mar27th, DogecoinPriceAt2025Mar25th, YearSpan);
             return $"{dogecoinCAGR1Year * 100:F2}%";
         }
 
