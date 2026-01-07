@@ -1,8 +1,8 @@
-﻿using InvestmentCalculators;
+﻿using InvestmentCalculator.ViewModels.Utilities;
 
 namespace InvestmentCalculator.ViewModels.CryptoViewModels
 {
-    internal class BTCViewModel
+    internal class BTCViewModel : CAGRCalculator
     {
         public string? CAGRFromBirth { get; private set; }
         public string? CAGR10Years { get; private set; }
@@ -33,7 +33,20 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
         private const double BitcoinPriceAt2024Mar28th = 70744.79;
 
 
-        public BTCViewModel()
+        public BTCViewModel() : base(
+            BtcPriceAt2025Mar26th,
+            BitcoinPriceAt2015Mar28th,
+            BitcoinPriceAt2016Mar23th,
+            BitcoinPriceAt2017Mar28th,
+            BitcoinPriceAt2018Mar24th,
+            BitcoinPriceAt2019Mar29th,
+            BitcoinPriceAt2020Mar24th,
+            BitcoinPriceAt2021Mar30th,
+            BitcoinPriceAt2022Mar27th,
+            BitcoinPriceAt2023Mar24th,
+            BitcoinPriceAt2024Mar28th,
+            BitcoinPriceAt2009Oct15th,
+            YearSpanFromBirthToEndingDate)
         {
             LoadData();
         }
@@ -51,97 +64,6 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
             CAGR3Years = GetCAGR3Years();
             CAGR2Years = GetCAGR2Years();
             CAGR1Year = GetCAGR1Year();
-        }
-
-        private static string GetCAGRFromBirth()
-        {
-            double btcCAGRFromBirth = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2009Oct15th, BtcPriceAt2025Mar26th, YearSpanFromBirthToEndingDate);
-            return $"{btcCAGRFromBirth * 100:F2}%";
-        }
-
-        private static string GetCAGR10Years()
-        {
-            const int YearSpan = 10;
-            double btcCAGR10Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2015Mar28th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR10Years * 100:F2}%";
-        }
-
-        private static string GetCAGR9Years()
-        {
-            const int YearSpan = 9;
-            double btcCAGR9Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2016Mar23th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR9Years * 100:F2}%";
-        }
-
-        private static string GetCAGR8Years()
-        {
-            const int YearSpan = 8;
-            double btcCAGR8Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2017Mar28th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR8Years * 100:F2}%";
-        }
-
-        private static string GetCAGR7Years()
-        {
-            // It's a bull market in year of 2018
-            const int YearSpan = 7;
-            double btcCAGR7Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2018Mar24th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR7Years * 100:F2}%";
-        }
-
-        private static string GetCAGR6Years()
-        {
-            const int YearSpan = 6;
-            double btcCAGR6Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2019Mar29th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR6Years * 100:F2}%";
-        }
-
-        private static string GetCAGR5Years()
-        {
-            const int YearSpan = 5;
-            double btcCAGR5Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2020Mar24th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR5Years * 100:F2}%";
-        }
-
-        private static string GetCAGR4Years()
-        {
-            // It's a bull market in year of 2021
-            const int YearSpan = 4;
-            double btcCAGR4Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2021Mar30th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR4Years * 100:F2}%";
-        }
-
-        private static string GetCAGR3Years()
-        {
-            // It's a bull market in year of 2022
-            const int YearSpan = 3;
-            double btcCAGR3Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2022Mar27th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR3Years * 100:F2}%";
-        }
-
-        private static string GetCAGR2Years()
-        {
-            const int YearSpan = 2;
-            double btcCAGR2Years = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2023Mar24th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR2Years * 100:F2}%";
-        }
-
-        private static string GetCAGR1Year()
-        {
-            // It's a bull market in year of 2024
-            const int YearSpan = 1;
-            double btcCAGR1Year = Calculators.CalculateAverageAnualReturnRate(
-                BitcoinPriceAt2024Mar28th, BtcPriceAt2025Mar26th, YearSpan);
-            return $"{btcCAGR1Year * 100:F2}%";
         }
 
     }
