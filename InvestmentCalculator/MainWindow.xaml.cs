@@ -26,65 +26,7 @@ namespace InvestmentCalculators
             Loaded += MainWindow_Loaded; // Hook up the Loaded event
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Costco
-            PopulateCostcoAverageAnnualReturnRate5Years();
-            PopulateCostcoAverageAnnualReturnRate4Years();
-            PopulateCostcoAverageAnnualReturnRate3Years();
-            PopulateCostcoAverageAnnualReturnRate2Years();
-            PopulateCostcoAverageAnnualReturnRate1Year();
-        }
-
-        private void PopulateCostcoAverageAnnualReturnRate5Years()
-        {
-            var costcoPriceAt2020Dec21st = 364.58;
-            var costcoPriceAt2025Dec19th = 855.62;
-            var yearSpan = 5;
-            double costcoAverageAnnualReturnRate5Years = Calculators.CalculateAverageAnualReturnRate(
-                costcoPriceAt2020Dec21st, costcoPriceAt2025Dec19th, yearSpan);
-            CalculatedCostcoAverageAnnualReturnRate5Years.Content = $"{costcoAverageAnnualReturnRate5Years * 100:F2}%";
-        }
-
-        private void PopulateCostcoAverageAnnualReturnRate4Years()
-        {
-            var costcoPriceAt2021Dec20th = 550.37;
-            var costcoPriceAt2025Dec19th = 855.62;
-            var yearSpan = 4;
-            double costcoAverageAnnualReturnRate4Years = Calculators.CalculateAverageAnualReturnRate(
-                costcoPriceAt2021Dec20th, costcoPriceAt2025Dec19th, yearSpan);
-            CalculatedCostcoAverageAnnualReturnRate4Years.Content = $"{costcoAverageAnnualReturnRate4Years * 100:F2}%";
-        }
-
-        private void PopulateCostcoAverageAnnualReturnRate3Years()
-        {
-            var costcoPriceAt2022Dec19th = 462.65;
-            var costcoPriceAt2025Dec19th = 855.62;
-            var yearSpan = 3;
-            double costcoAverageAnnualReturnRate3Years = Calculators.CalculateAverageAnualReturnRate(
-                costcoPriceAt2022Dec19th, costcoPriceAt2025Dec19th, yearSpan);
-            CalculatedCostcoAverageAnnualReturnRate3Years.Content = $"{costcoAverageAnnualReturnRate3Years * 100:F2}%";
-        }
-
-        private void PopulateCostcoAverageAnnualReturnRate2Years()
-        {
-            var costcoPriceAt2023Dec18th = 671.60;
-            var costcoPriceAt2025Dec19th = 855.62;
-            var yearSpan = 2;
-            double costcoAverageAnnualReturnRate2Years = Calculators.CalculateAverageAnualReturnRate(
-                costcoPriceAt2023Dec18th, costcoPriceAt2025Dec19th, yearSpan);
-            CalculatedCostcoAverageAnnualReturnRate2Years.Content = $"{costcoAverageAnnualReturnRate2Years * 100:F2}%";
-        }
-
-        private void PopulateCostcoAverageAnnualReturnRate1Year()
-        {
-            var costcoPriceAt2024Dec16th = 954.07;
-            var costcoPriceAt2025Dec19th = 855.62;
-            var yearSpan = 1;
-            double costcoAverageAnnualReturnRate1Year = Calculators.CalculateAverageAnualReturnRate(
-                costcoPriceAt2024Dec16th, costcoPriceAt2025Dec19th, yearSpan);
-            CalculatedCostcoAverageAnnualReturnRate1Year.Content = $"{costcoAverageAnnualReturnRate1Year * 100:F2}%";
-        }
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e) { }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {

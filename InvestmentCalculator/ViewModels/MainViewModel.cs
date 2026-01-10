@@ -1,4 +1,5 @@
 ﻿using InvestmentCalculator.ViewModels.CryptoViewModels;
+using InvestmentCalculator.ViewModels.StockViewModels;
 using OxyPlot;
 using OxyPlot.Annotations;
 using OxyPlot.Axes;
@@ -12,6 +13,7 @@ namespace InvestmentCalculator.ViewModels
     {
         private PlotModel? _cryptoPlotModel;
         private CryptoViewModel? _cryptoViewModel;
+        private StockViewModel? _stockViewModel;
 
         public PlotModel CryptoPlotModel
         {
@@ -33,9 +35,20 @@ namespace InvestmentCalculator.ViewModels
             }
         }
 
+        public StockViewModel StockViewModel
+        {
+            get => _stockViewModel!;
+            set
+            {
+                _stockViewModel = value;
+                OnPropertyChanged(nameof(StockViewModel));   // or [ObservableProperty] with toolkit
+            }
+        }
+
         public MainViewModel()
         {
             CryptoViewModel = new CryptoViewModel();
+            StockViewModel = new StockViewModel();
             AddCryptoPlotModel();
         }
 
