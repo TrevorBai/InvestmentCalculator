@@ -20,7 +20,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
         private const double PriceAt2023Mar24th = 27487.33;
         private const double PriceAt2024Mar28th = 70744.79;
 
-        public BTCViewModel() : base(
+        internal BTCViewModel() : base(
             PriceAt2025Mar26th,
             PriceAt2015Mar28th,
             PriceAt2016Mar23th,

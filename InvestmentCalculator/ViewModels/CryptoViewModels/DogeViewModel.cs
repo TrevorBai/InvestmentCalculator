@@ -2,20 +2,8 @@
 
 namespace InvestmentCalculator.ViewModels.CryptoViewModels
 {
-    internal class DogeViewModel : CAGRCalculator
+    internal class DogeViewModel : CAGRViewModel
     {
-        public string? CAGRFromBirth { get; private set; }
-        public string? CAGR10Years { get; private set; }
-        public string? CAGR9Years { get; private set; }
-        public string? CAGR8Years { get; private set; }
-        public string? CAGR7Years { get; private set; }
-        public string? CAGR6Years { get; private set; }
-        public string? CAGR5Years { get; private set; }
-        public string? CAGR4Years { get; private set; }
-        public string? CAGR3Years { get; private set; }
-        public string? CAGR2Years { get; private set; }
-        public string? CAGR1Year { get; private set; }
-
         // Data points
         private const double PriceAt2025Mar25th = 0.1901;
 
@@ -33,7 +21,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
         private const double PriceAt2023Mar26th = 0.07442;
         private const double PriceAt2024Mar27th = 0.1903;
 
-        public DogeViewModel() : base(
+        internal DogeViewModel() : base(
             PriceAt2025Mar25th,
             PriceAt2015Mar25th,
             PriceAt2016Mar25th,
@@ -46,25 +34,10 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
             PriceAt2023Mar26th,
             PriceAt2024Mar27th,
             PriceAt2013Dec15th,
-            YearSpanFromBirthToEndingDate)
-        {
-            LoadData();
-        }
+            YearSpanFromBirthToEndingDate,
+            true,
+            false) { }
 
-        private void LoadData()
-        {
-            CAGRFromBirth = GetCAGRFromBirth();
-            CAGR10Years = GetCAGR10Years();
-            CAGR9Years = GetCAGR9Years();
-            CAGR8Years = GetCAGR8Years();
-            CAGR7Years = GetCAGR7Years();
-            CAGR6Years = GetCAGR6Years();
-            CAGR5Years = GetCAGR5Years();
-            CAGR4Years = GetCAGR4Years();
-            CAGR3Years = GetCAGR3Years();
-            CAGR2Years = GetCAGR2Years();
-            CAGR1Year = GetCAGR1Year();
-        }
 
     }
 }

@@ -14,7 +14,7 @@
         public string? CAGR2Years { get; private set; }
         public string? CAGR1Year { get; private set; }
 
-        internal CAGRViewModel(double endValue, double value10YearsAgoFromEndDate, double value9YearsAgoFromEndDate, double value8YearsAgoFromEndDate, double value7YearsAgoFromEndDate, double value6YearsAgoFromEndDate, double value5YearsAgoFromEndDate, double value4YearsAgoFromEndDate, double value3YearsAgoFromEndDate, double value2YearsAgoFromEndDate, double value1YearAgoFromEndDate, double startValueFromBirth, double yearsFromBirthToEndDate,
+        protected CAGRViewModel(double endValue, double value10YearsAgoFromEndDate, double value9YearsAgoFromEndDate, double value8YearsAgoFromEndDate, double value7YearsAgoFromEndDate, double value6YearsAgoFromEndDate, double value5YearsAgoFromEndDate, double value4YearsAgoFromEndDate, double value3YearsAgoFromEndDate, double value2YearsAgoFromEndDate, double value1YearAgoFromEndDate, double startValueFromBirth, double yearsFromBirthToEndDate,
             bool calc10YearsAndFromBirthCAGRs, bool cald5YearsCAGRs) : 
             base(endValue, value10YearsAgoFromEndDate, value9YearsAgoFromEndDate, value8YearsAgoFromEndDate, value7YearsAgoFromEndDate, value6YearsAgoFromEndDate, value5YearsAgoFromEndDate, value4YearsAgoFromEndDate, value3YearsAgoFromEndDate, value2YearsAgoFromEndDate, value1YearAgoFromEndDate, startValueFromBirth, yearsFromBirthToEndDate)
         {
