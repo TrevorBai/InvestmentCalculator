@@ -16,36 +16,36 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
         public string? CAGR2Years { get; private set; }
         public string? CAGR1Year { get; private set; }
 
-        private const double BtcPriceAt2025Mar26th = 86888.01;
+        private const double PriceAt2025Mar26th = 86888.01;
 
-        private const double BitcoinPriceAt2009Oct15th = 0.00099;
+        private const double PriceAt2009Oct15th = 0.00099;
         private const double YearSpanFromBirthToEndingDate = 15.4757;
 
-        private const double BitcoinPriceAt2015Mar28th = 252.74;
-        private const double BitcoinPriceAt2016Mar23th = 418.42;
-        private const double BitcoinPriceAt2017Mar28th = 1046.07;
-        private const double BitcoinPriceAt2018Mar24th = 8612.8;
-        private const double BitcoinPriceAt2019Mar29th = 4092.13;
-        private const double BitcoinPriceAt2020Mar24th = 6738.71;
-        private const double BitcoinPriceAt2021Mar30th = 58930.27;
-        private const double BitcoinPriceAt2022Mar27th = 46821.85;
-        private const double BitcoinPriceAt2023Mar24th = 27487.33;
-        private const double BitcoinPriceAt2024Mar28th = 70744.79;
+        private const double PriceAt2015Mar28th = 252.74;
+        private const double PriceAt2016Mar23th = 418.42;
+        private const double PriceAt2017Mar28th = 1046.07;
+        private const double PriceAt2018Mar24th = 8612.8;
+        private const double PriceAt2019Mar29th = 4092.13;
+        private const double PriceAt2020Mar24th = 6738.71;
+        private const double PriceAt2021Mar30th = 58930.27;
+        private const double PriceAt2022Mar27th = 46821.85;
+        private const double PriceAt2023Mar24th = 27487.33;
+        private const double PriceAt2024Mar28th = 70744.79;
 
 
         public BTCViewModel() : base(
-            BtcPriceAt2025Mar26th,
-            BitcoinPriceAt2015Mar28th,
-            BitcoinPriceAt2016Mar23th,
-            BitcoinPriceAt2017Mar28th,
-            BitcoinPriceAt2018Mar24th,
-            BitcoinPriceAt2019Mar29th,
-            BitcoinPriceAt2020Mar24th,
-            BitcoinPriceAt2021Mar30th,
-            BitcoinPriceAt2022Mar27th,
-            BitcoinPriceAt2023Mar24th,
-            BitcoinPriceAt2024Mar28th,
-            BitcoinPriceAt2009Oct15th,
+            PriceAt2025Mar26th,
+            PriceAt2015Mar28th,
+            PriceAt2016Mar23th,
+            PriceAt2017Mar28th,
+            PriceAt2018Mar24th,
+            PriceAt2019Mar29th,
+            PriceAt2020Mar24th,
+            PriceAt2021Mar30th,
+            PriceAt2022Mar27th,
+            PriceAt2023Mar24th,
+            PriceAt2024Mar28th,
+            PriceAt2009Oct15th,
             YearSpanFromBirthToEndingDate)
         {
             LoadData();
