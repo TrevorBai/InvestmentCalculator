@@ -5,6 +5,7 @@ namespace InvestmentCalculator.ViewModels.StockViewModels
     internal class StockViewModel : INotifyPropertyChanged
     {
         private CostcoViewModel? _costcoViewModel;
+        private QQQViewModel? _qqqViewModel;
 
         public CostcoViewModel CostcoViewModel
         {
@@ -16,9 +17,20 @@ namespace InvestmentCalculator.ViewModels.StockViewModels
             }
         }
 
+        public QQQViewModel QQQViewModel
+        {
+            get => _qqqViewModel!;
+            set
+            {
+                _qqqViewModel = value;
+                OnPropertyChanged(nameof(QQQViewModel));   // or [ObservableProperty] with toolkit
+            }
+        }
+
         public StockViewModel()
         {
             CostcoViewModel = new CostcoViewModel();
+            QQQViewModel = new QQQViewModel();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -244,15 +244,15 @@
                         <Label Content="Historical data:" Grid.Row="1" Grid.Column="0" Foreground="White"/>
                         <Label Content="( Until Dec 19th 2025 )" Grid.Row="1" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 5 years ago (2020-Dec-21st):" Grid.Row="2" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedQQQAverageAnnualReturnRate5Years" Grid.Row="2" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding StockViewModel.QQQViewModel.CAGR5Years}" Grid.Row="2" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 4 years ago (2021-Dec-20th):" Grid.Row="3" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedQQQAverageAnnualReturnRate4Years" Grid.Row="3" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding StockViewModel.QQQViewModel.CAGR4Years}" Grid.Row="3" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 3 years ago (2022-Dec-19th):" Grid.Row="4" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedQQQAverageAnnualReturnRate3Years" Grid.Row="4" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding StockViewModel.QQQViewModel.CAGR3Years}" Grid.Row="4" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 2 years ago (2023-Dec-18th):" Grid.Row="5" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedQQQAverageAnnualReturnRate2Years" Grid.Row="5" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding StockViewModel.QQQViewModel.CAGR2Years}" Grid.Row="5" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 1 year ago (2024-Dec-16th):" Grid.Row="6" Grid.Column="1" Foreground="White"/>
-                        <Label x:Name="CalculatedQQQAverageAnnualReturnRate1Year" Grid.Row="6" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding StockViewModel.QQQViewModel.CAGR1Year}" Grid.Row="6" Grid.Column="2" Foreground="White"/>
                         <!-- Horizontal Line Break -->
                         <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
                         <Label Content="Costco: (Excluding dividends)" Grid.Row="8" Grid.Column="0" Foreground="White"/>
