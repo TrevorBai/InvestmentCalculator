@@ -91,13 +91,12 @@ namespace InvestmentCalculator.ViewModels
 
         private static AssetData GetQQQData()
         {
-            // TODO all the data are placeholder data.
             const decimal PriceAt2025Dec19th = 617.05m;
-            const decimal PriceAt2020Dec21st = 0;
-            const decimal PriceAt2021Dec20th = 0;
-            const decimal PriceAt2022Dec19th = 0;
-            const decimal PriceAt2023Dec18th = 0;
-            const decimal PriceAt2024Dec16th = 0;
+            const decimal PriceAt2020Dec21st = 308.92m;
+            const decimal PriceAt2021Dec20th = 380.69m;
+            const decimal PriceAt2022Dec19th = 269.75m;
+            const decimal PriceAt2023Dec18th = 407.08m;
+            const decimal PriceAt2024Dec16th = 538.17m;
 
             var qqqData = new AssetData
             {
