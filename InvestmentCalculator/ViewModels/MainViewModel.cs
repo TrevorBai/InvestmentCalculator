@@ -1,7 +1,6 @@
 ﻿using InvestmentCalculator.Models;
 using InvestmentCalculator.Services;
 using InvestmentCalculator.ViewModels.CryptoViewModels;
-using InvestmentCalculator.ViewModels.StockViewModels;
 using OxyPlot;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,7 +13,6 @@ namespace InvestmentCalculator.ViewModels
 
         private PlotModel? _cryptoPlotModel;
         private CryptoViewModel? _cryptoViewModel;
-        private StockViewModel? _stockViewModel;
 
         public PlotModel CryptoPlotModel
         {
@@ -36,20 +34,9 @@ namespace InvestmentCalculator.ViewModels
             }
         }
 
-        public StockViewModel StockViewModel
-        {
-            get => _stockViewModel!;
-            set
-            {
-                _stockViewModel = value;
-                OnPropertyChanged(nameof(StockViewModel));   // or [ObservableProperty] with toolkit
-            }
-        }
-
         public MainViewModel()
         {
             CryptoViewModel = new CryptoViewModel();
-            StockViewModel = new StockViewModel();
             CryptoPlotModel = new PlotModel
             {
                 Title = "Bitcoin/Dogecoin Timelines",
@@ -72,6 +59,17 @@ namespace InvestmentCalculator.ViewModels
 
         private void LoadData()
         {
+            var costcoData = GetCostcoData();
+            var qqqData = GetQQQData();
+
+            var costcoPerformance = AssetPerformanceCalculator.Calculate("Costco", costcoData);
+            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", qqqData);
+            AssetPerformances.Add(costcoPerformance);
+            AssetPerformances.Add(qqqPerformance);
+        }
+
+        private static AssetData GetCostcoData()
+        {
             const decimal PriceAt2025Dec19th = 855.62m;
             const decimal PriceAt2020Dec21st = 364.58m;
             const decimal PriceAt2021Dec20th = 550.37m;
@@ -88,11 +86,30 @@ namespace InvestmentCalculator.ViewModels
                 Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
                 Price5YearsAgoFromEndDate = PriceAt2020Dec21st
             };
+            return costcoData;
+        }
 
-            var performance = AssetPerformanceCalculator.Calculate("Costco", costcoData);
-            AssetPerformances.Add(performance);
+        private static AssetData GetQQQData()
+        {
+            // TODO all the data are placeholder data.
+            const decimal PriceAt2025Dec19th = 617.05m;
+            const decimal PriceAt2020Dec21st = 0;
+            const decimal PriceAt2021Dec20th = 0;
+            const decimal PriceAt2022Dec19th = 0;
+            const decimal PriceAt2023Dec18th = 0;
+            const decimal PriceAt2024Dec16th = 0;
 
-        } 
+            var qqqData = new AssetData
+            {
+                EndPrice = PriceAt2025Dec19th,
+                Price1YearAgoFromEndDate = PriceAt2024Dec16th,
+                Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
+                Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
+                Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
+                Price5YearsAgoFromEndDate = PriceAt2020Dec21st
+            };
+            return qqqData;
+        }
 
 
     }
