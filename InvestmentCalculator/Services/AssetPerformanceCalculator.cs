@@ -4,11 +4,10 @@ namespace InvestmentCalculator.Services
 {
     internal class AssetPerformanceCalculator
     {
-        internal static AssetPerformance Calculate(string ticker, AssetData data)
+        internal static AssetPerformance Calculate(string ticker, AssetData data, double yearSpanFromBirth)
         {
             if (data == null || data.EndPrice <= 0) return new AssetPerformance { Ticker = ticker };
 
-            // Prepare object initializer for all possible properties
             var result = new AssetPerformance
             {
                 Ticker = ticker,
@@ -16,7 +15,13 @@ namespace InvestmentCalculator.Services
                 CAGR2Years = CalculateAverageAnualReturnRate(data.Price2YearsAgoFromEndDate, data.EndPrice, 2),
                 CAGR3Years = CalculateAverageAnualReturnRate(data.Price3YearsAgoFromEndDate, data.EndPrice, 3),
                 CAGR4Years = CalculateAverageAnualReturnRate(data.Price4YearsAgoFromEndDate, data.EndPrice, 4),
-                CAGR5Years = CalculateAverageAnualReturnRate(data.Price5YearsAgoFromEndDate, data.EndPrice, 5)
+                CAGR5Years = CalculateAverageAnualReturnRate(data.Price5YearsAgoFromEndDate, data.EndPrice, 5),
+                CAGR6Years = CalculateAverageAnualReturnRate(data.Price6YearsAgoFromEndDate, data.EndPrice, 6),
+                CAGR7Years = CalculateAverageAnualReturnRate(data.Price7YearsAgoFromEndDate, data.EndPrice, 7),
+                CAGR8Years = CalculateAverageAnualReturnRate(data.Price8YearsAgoFromEndDate, data.EndPrice, 8),
+                CAGR9Years = CalculateAverageAnualReturnRate(data.Price9YearsAgoFromEndDate, data.EndPrice, 9),
+                CAGR10Years = CalculateAverageAnualReturnRate(data.Price10YearsAgoFromEndDate, data.EndPrice, 10),
+                CAGRFromBirth = CalculateAverageAnualReturnRate(data.StartPriceFromBirth, data.EndPrice, yearSpanFromBirth)
             };
             return result;
         }

@@ -62,8 +62,8 @@ namespace InvestmentCalculator.ViewModels
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
 
-            var costcoPerformance = AssetPerformanceCalculator.Calculate("Costco", costcoData);
-            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", qqqData);
+            var costcoPerformance = AssetPerformanceCalculator.Calculate("Costco", costcoData, 0);
+            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", qqqData, 0);
             AssetPerformances.Add(costcoPerformance);
             AssetPerformances.Add(qqqPerformance);
         }
