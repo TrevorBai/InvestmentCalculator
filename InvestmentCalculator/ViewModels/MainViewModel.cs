@@ -18,6 +18,7 @@ namespace InvestmentCalculator.ViewModels
 
         public AssetPerformance? QQQ => GetByTicker("QQQ");
         public AssetPerformance? Costco => GetByTicker("COST");
+        public AssetPerformance? BTC => GetByTicker("BTC");
 
         private PlotModel? _cryptoPlotModel;
         private CryptoViewModel? _cryptoViewModel;
@@ -69,12 +70,15 @@ namespace InvestmentCalculator.ViewModels
         {
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
+            var btcData = GetBtcData();
 
-            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", costcoData, 0);
-            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", qqqData, 0);
+            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", costcoData);
+            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", qqqData);
+            var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", btcData);
 
             _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
+            _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
         }
 
         private static AssetData GetCostcoData()
@@ -117,6 +121,44 @@ namespace InvestmentCalculator.ViewModels
                 Price5YearsAgoFromEndDate = PriceAt2020Dec21st
             };
             return qqqData;
+        }
+
+        private static AssetData GetBtcData()
+        {
+            const decimal PriceAt2025Mar26th = 86888.01m;
+
+            const decimal PriceAt2009Oct15th = 0.00099m;
+            const double YearSpanFromBirthToEndingDate = 15.4757;
+
+            const decimal PriceAt2015Mar28th = 252.74m;
+            const decimal PriceAt2016Mar23th = 418.42m;
+            const decimal PriceAt2017Mar28th = 1046.07m;
+            const decimal PriceAt2018Mar24th = 8612.8m;
+            const decimal PriceAt2019Mar29th = 4092.13m;
+            const decimal PriceAt2020Mar24th = 6738.71m;
+            const decimal PriceAt2021Mar30th = 58930.27m;
+            const decimal PriceAt2022Mar27th = 46821.85m;
+            const decimal PriceAt2023Mar24th = 27487.33m;
+            const decimal PriceAt2024Mar28th = 70744.79m;
+
+            var btcData = new AssetData
+            {
+                EndPrice = PriceAt2025Mar26th,
+                StartPriceFromBirth = PriceAt2009Oct15th,
+                YearsFromBirthToEndDate = YearSpanFromBirthToEndingDate,
+                Price1YearAgoFromEndDate = PriceAt2024Mar28th,
+                Price2YearsAgoFromEndDate = PriceAt2023Mar24th,
+                Price3YearsAgoFromEndDate = PriceAt2022Mar27th,
+                Price4YearsAgoFromEndDate = PriceAt2021Mar30th,
+                Price5YearsAgoFromEndDate = PriceAt2020Mar24th,
+                Price6YearsAgoFromEndDate = PriceAt2019Mar29th,
+                Price7YearsAgoFromEndDate = PriceAt2018Mar24th,
+                Price8YearsAgoFromEndDate = PriceAt2017Mar28th,
+                Price9YearsAgoFromEndDate = PriceAt2016Mar23th,
+                Price10YearsAgoFromEndDate = PriceAt2015Mar28th
+            };
+
+            return btcData;
         }
 
 

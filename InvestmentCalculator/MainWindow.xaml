@@ -180,27 +180,27 @@
                         <Label Content="Historical data:" Grid.Row="15" Grid.Column="0" Foreground="White"/>
                         <Label Content="( Until March 26th 2025, bull market )" Grid.Row="15" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from birth (2009-Oct-15th):" Grid.Row="16" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGRFromBirth}" Grid.Row="16" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGRFromBirth}" ContentStringFormat="P2" Grid.Row="16" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 10 years ago (2015-March-28th):" Grid.Row="17" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR10Years}" Grid.Row="17" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR10Years}" ContentStringFormat="P2" Grid.Row="17" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 9 years ago (2016-March-23th):" Grid.Row="18" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR9Years}" Grid.Row="18" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR9Years}" ContentStringFormat="P2" Grid.Row="18" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 8 years ago (2017-March-28th):" Grid.Row="19" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR8Years}" Grid.Row="19" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR8Years}" ContentStringFormat="P2" Grid.Row="19" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 7 years ago (2018-March-24th, bull market):" Grid.Row="20" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR7Years}" Grid.Row="20" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR7Years}" ContentStringFormat="P2" Grid.Row="20" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 6 years ago (2019-March-29th):" Grid.Row="21" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR6Years}" Grid.Row="21" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR6Years}" ContentStringFormat="P2" Grid.Row="21" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 5 years ago (2020-March-24th):" Grid.Row="22" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR5Years}" Grid.Row="22" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR5Years}" ContentStringFormat="P2" Grid.Row="22" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 4 years ago (2021-March-30th, bull market):" Grid.Row="23" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR4Years}" Grid.Row="23" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR4Years}" ContentStringFormat="P2" Grid.Row="23" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 3 years ago (2022-March-27th, bull market):" Grid.Row="24" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR3Years}" Grid.Row="24" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR3Years}" ContentStringFormat="P2" Grid.Row="24" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 2 years ago (2023-March-24th):" Grid.Row="25" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR2Years}" Grid.Row="25" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR2Years}" ContentStringFormat="P2" Grid.Row="25" Grid.Column="2" Foreground="White"/>
                         <Label Content="Average annual return rate from 1 year ago (2024-March-28th, bull market):" Grid.Row="26" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding CryptoViewModel.BTCViewModel.CAGR1Year}" Grid.Row="26" Grid.Column="2" Foreground="White"/>
+                        <Label Content="{Binding BTC.CAGR1Year}" ContentStringFormat="P2" Grid.Row="26" Grid.Column="2" Foreground="White"/>
                     </Grid>
                     <!-- Horizontal Line Break -->
                     <Separator Margin="0,10,0,10"/>

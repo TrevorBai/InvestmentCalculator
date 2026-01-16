@@ -4,7 +4,7 @@ namespace InvestmentCalculator.Services
 {
     internal class AssetPerformanceCalculator
     {
-        internal static AssetPerformance Calculate(string ticker, AssetData data, double yearSpanFromBirth)
+        internal static AssetPerformance Calculate(string ticker, AssetData data)
         {
             if (data == null || data.EndPrice <= 0) return new AssetPerformance { Ticker = ticker };
 
@@ -21,7 +21,7 @@ namespace InvestmentCalculator.Services
                 CAGR8Years = CalculateAverageAnualReturnRate(data.Price8YearsAgoFromEndDate, data.EndPrice, 8),
                 CAGR9Years = CalculateAverageAnualReturnRate(data.Price9YearsAgoFromEndDate, data.EndPrice, 9),
                 CAGR10Years = CalculateAverageAnualReturnRate(data.Price10YearsAgoFromEndDate, data.EndPrice, 10),
-                CAGRFromBirth = CalculateAverageAnualReturnRate(data.StartPriceFromBirth, data.EndPrice, yearSpanFromBirth)
+                CAGRFromBirth = CalculateAverageAnualReturnRate(data.StartPriceFromBirth, data.EndPrice, data.YearsFromBirthToEndDate)
             };
             return result;
         }

@@ -4,18 +4,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
 {
     internal class CryptoViewModel : INotifyPropertyChanged
     {
-        private BTCViewModel? _btcViewModel;
         private DogeViewModel? _dogeViewModel;
-
-        public BTCViewModel BTCViewModel
-        {
-            get => _btcViewModel!;
-            set
-            {
-                _btcViewModel = value;
-                OnPropertyChanged(nameof(BTCViewModel));   // or [ObservableProperty] with toolkit
-            }
-        }
 
         public DogeViewModel DogeViewModel
         {
@@ -29,7 +18,6 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
 
         public CryptoViewModel()
         {
-            BTCViewModel = new BTCViewModel();
             DogeViewModel = new DogeViewModel();
         }
 
