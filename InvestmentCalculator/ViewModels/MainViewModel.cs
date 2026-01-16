@@ -2,14 +2,22 @@
 using InvestmentCalculator.Services;
 using InvestmentCalculator.ViewModels.CryptoViewModels;
 using OxyPlot;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace InvestmentCalculator.ViewModels
 {
     internal class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<AssetPerformance> AssetPerformances { get; } = [];
+        private readonly Dictionary<string, AssetPerformance> _assetPerformanceDict = [];
+
+        private AssetPerformance? GetByTicker(string ticker)
+        {
+            _assetPerformanceDict.TryGetValue(ticker, out var performance);
+            return performance;
+        }
+
+        public AssetPerformance? QQQ => GetByTicker("QQQ");
+        public AssetPerformance? Costco => GetByTicker("COST");
 
         private PlotModel? _cryptoPlotModel;
         private CryptoViewModel? _cryptoViewModel;
@@ -62,10 +70,11 @@ namespace InvestmentCalculator.ViewModels
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
 
-            var costcoPerformance = AssetPerformanceCalculator.Calculate("Costco", costcoData, 0);
+            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", costcoData, 0);
             var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", qqqData, 0);
-            AssetPerformances.Add(costcoPerformance);
-            AssetPerformances.Add(qqqPerformance);
+
+            _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
+            _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
         }
 
         private static AssetData GetCostcoData()
