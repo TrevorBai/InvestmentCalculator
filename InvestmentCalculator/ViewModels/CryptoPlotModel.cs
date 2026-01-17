@@ -4,7 +4,7 @@ using OxyPlot.Axes;
 using OxyPlot.Legends;
 using OxyPlot.Series;
 
-namespace InvestmentCalculator.ViewModels.CryptoViewModels
+namespace InvestmentCalculator.ViewModels
 {
     internal class CryptoPlotModel(PlotModel cryptoPlotModel)
     {
@@ -137,7 +137,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
-                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+                TextHorizontalAlignment = HorizontalAlignment.Center
             };
             _cryptoPlotModel.Annotations.Add(firstBitcoinHalvingDateAnnotation);
         }
@@ -162,7 +162,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
-                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+                TextHorizontalAlignment = HorizontalAlignment.Center
             };
             _cryptoPlotModel.Annotations.Add(firstBitcoinHalvingDateAnnotation);
         }
@@ -187,7 +187,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
-                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+                TextHorizontalAlignment = HorizontalAlignment.Center
             };
             _cryptoPlotModel.Annotations.Add(secondBitcoinHalvingDateAnnotation);
         }
@@ -212,7 +212,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
-                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+                TextHorizontalAlignment = HorizontalAlignment.Center
             };
             _cryptoPlotModel.Annotations.Add(thirdBitcoinHalvingDateAnnotation);
         }
@@ -237,7 +237,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
-                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+                TextHorizontalAlignment = HorizontalAlignment.Center
             };
             _cryptoPlotModel.Annotations.Add(forthBitcoinHalvingDateAnnotation);
         }
@@ -262,7 +262,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
-                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+                TextHorizontalAlignment = HorizontalAlignment.Center
             };
             _cryptoPlotModel.Annotations.Add(forthBitcoinHalvingDateAnnotation);
         }
@@ -287,7 +287,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
-                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+                TextHorizontalAlignment = HorizontalAlignment.Center
             };
             _cryptoPlotModel.Annotations.Add(dogecoinBirthDateAnnotation);
         }
@@ -311,7 +311,7 @@ namespace InvestmentCalculator.ViewModels.CryptoViewModels
                 TextColor = OxyColors.White,
                 Stroke = OxyColors.Transparent,
                 FontSize = 12,
-                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+                TextHorizontalAlignment = HorizontalAlignment.Center
             };
             _cryptoPlotModel.Annotations.Add(forthBitcoinHalvingDateAnnotation);
         }

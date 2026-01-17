@@ -1,6 +1,5 @@
 ﻿using InvestmentCalculator.Models;
 using InvestmentCalculator.Services;
-using InvestmentCalculator.ViewModels.CryptoViewModels;
 using OxyPlot;
 using System.ComponentModel;
 
