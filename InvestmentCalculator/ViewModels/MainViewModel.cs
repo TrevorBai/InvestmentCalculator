@@ -19,9 +19,9 @@ namespace InvestmentCalculator.ViewModels
         public AssetPerformance? QQQ => GetByTicker("QQQ");
         public AssetPerformance? Costco => GetByTicker("COST");
         public AssetPerformance? BTC => GetByTicker("BTC");
+        public AssetPerformance? DOGE => GetByTicker("DOGE");
 
         private PlotModel? _cryptoPlotModel;
-        private CryptoViewModel? _cryptoViewModel;
 
         public PlotModel CryptoPlotModel
         {
@@ -33,19 +33,9 @@ namespace InvestmentCalculator.ViewModels
             }
         }
 
-        public CryptoViewModel CryptoViewModel
-        {
-            get => _cryptoViewModel!;
-            set
-            {
-                _cryptoViewModel = value;
-                OnPropertyChanged(nameof(CryptoViewModel));   // or [ObservableProperty] with toolkit
-            }
-        }
 
         public MainViewModel()
         {
-            CryptoViewModel = new CryptoViewModel();
             CryptoPlotModel = new PlotModel
             {
                 Title = "Bitcoin/Dogecoin Timelines",
@@ -71,14 +61,17 @@ namespace InvestmentCalculator.ViewModels
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
             var btcData = GetBtcData();
+            var dogeData = GetDogeData();
 
             var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", costcoData);
             var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", qqqData);
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", btcData);
+            var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", dogeData);
 
             _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
+            _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
         }
 
         private static AssetData GetCostcoData()
@@ -159,6 +152,45 @@ namespace InvestmentCalculator.ViewModels
             };
 
             return btcData;
+        }
+
+        private static AssetData GetDogeData()
+        {
+            // Data points
+            const decimal PriceAt2025Mar25th = 0.1901m;
+                  
+            const decimal PriceAt2013Dec15th = 0.00056m;
+            const double YearSpanFromBirthToEndingDate = 11.29;
+                  
+            const decimal PriceAt2015Mar25th = 0.0001304m;
+            const decimal PriceAt2016Mar25th = 0.0002144m;
+            const decimal PriceAt2017Mar25th = 0.0002976m;
+            const decimal PriceAt2018Mar26th = 0.003275m;
+            const decimal PriceAt2019Mar27th = 0.002087m;
+            const decimal PriceAt2020Mar27th = 0.001805m;
+            const decimal PriceAt2021Mar23th = 0.05352m;
+            const decimal PriceAt2022Mar24th = 0.1366m;
+            const decimal PriceAt2023Mar26th = 0.07442m;
+            const decimal PriceAt2024Mar27th = 0.1903m;
+
+            var dogeData = new AssetData
+            {
+                EndPrice = PriceAt2025Mar25th,
+                StartPriceFromBirth = PriceAt2013Dec15th,
+                YearsFromBirthToEndDate = YearSpanFromBirthToEndingDate,
+                Price1YearAgoFromEndDate = PriceAt2024Mar27th,
+                Price2YearsAgoFromEndDate = PriceAt2023Mar26th,
+                Price3YearsAgoFromEndDate = PriceAt2022Mar24th,
+                Price4YearsAgoFromEndDate = PriceAt2021Mar23th,
+                Price5YearsAgoFromEndDate = PriceAt2020Mar27th,
+                Price6YearsAgoFromEndDate = PriceAt2019Mar27th,
+                Price7YearsAgoFromEndDate = PriceAt2018Mar26th,
+                Price8YearsAgoFromEndDate = PriceAt2017Mar25th,
+                Price9YearsAgoFromEndDate = PriceAt2016Mar25th,
+                Price10YearsAgoFromEndDate = PriceAt2015Mar25th
+            };
+
+            return dogeData;
         }
 
 
