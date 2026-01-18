@@ -1,6 +1,6 @@
-﻿namespace InvestmentCalculator.Models
+﻿namespace InvestmentCalculators.Models
 {
-    internal class AssetPerformance
+    public class AssetPerformance
     {
         public string? Ticker { get; init; }
         public string? Name { get; init; }

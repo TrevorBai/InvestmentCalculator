@@ -1,11 +1,11 @@
-﻿using InvestmentCalculator.Models;
-using InvestmentCalculator.Services;
+﻿using InvestmentCalculators.Models;
+using InvestmentCalculators.Services;
 using OxyPlot;
 using System.ComponentModel;
 
-namespace InvestmentCalculator.ViewModels
+namespace InvestmentCalculators.ViewModels
 {
-    internal class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         private readonly Dictionary<string, AssetPerformance> _assetPerformanceDict = [];
 

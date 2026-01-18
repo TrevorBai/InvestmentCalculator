@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace InvestmentCalculator
+namespace InvestmentCalculators
 {
     /// <summary>
     /// Interaction logic for App.xaml

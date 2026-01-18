@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace InvestmentCalculator.Views
+namespace InvestmentCalculators.Views
 {
     public partial class CryptoStatView : UserControl
     {

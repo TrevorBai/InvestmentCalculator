@@ -1,4 +1,4 @@
-﻿namespace InvestmentCalculator.Models
+﻿namespace InvestmentCalculators.Models
 {
     internal class AssetData
     {

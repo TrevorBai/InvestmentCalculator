@@ -4,7 +4,7 @@ using OxyPlot.Axes;
 using OxyPlot.Legends;
 using OxyPlot.Series;
 
-namespace InvestmentCalculator.ViewModels
+namespace InvestmentCalculators.ViewModels
 {
     internal class CryptoPlotModel(PlotModel cryptoPlotModel)
     {

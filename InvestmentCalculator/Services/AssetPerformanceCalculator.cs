@@ -1,6 +1,6 @@
-﻿using InvestmentCalculator.Models;
+﻿using InvestmentCalculators.Models;
 
-namespace InvestmentCalculator.Services
+namespace InvestmentCalculators.Services
 {
     internal class AssetPerformanceCalculator
     {
