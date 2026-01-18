@@ -4,13 +4,26 @@ namespace InvestmentCalculator.Services
 {
     internal class AssetPerformanceCalculator
     {
-        internal static AssetPerformance Calculate(string ticker, AssetData data)
+        internal static AssetPerformance Calculate(string ticker, string assetName, AssetData data)
         {
             if (data == null || data.EndPrice <= 0) return new AssetPerformance { Ticker = ticker };
 
             var result = new AssetPerformance
             {
                 Ticker = ticker,
+                Name = assetName,
+                EndDate = data.EndDate,
+                BirthDate = data.BirthDate,
+                Date10YearsAgo = data.Date10YearsAgo,
+                Date9YearsAgo = data.Date9YearsAgo,
+                Date8YearsAgo = data.Date8YearsAgo,
+                Date7YearsAgo = data.Date7YearsAgo,
+                Date6YearsAgo = data.Date6YearsAgo,
+                Date5YearsAgo = data.Date5YearsAgo,
+                Date4YearsAgo = data.Date4YearsAgo,
+                Date3YearsAgo = data.Date3YearsAgo,
+                Date2YearsAgo = data.Date2YearsAgo,
+                Date1YearAgo = data.Date1YearAgo,
                 CAGR1Year = CalculateAverageAnualReturnRate(data.Price1YearAgoFromEndDate, data.EndPrice, 1),
                 CAGR2Years = CalculateAverageAnualReturnRate(data.Price2YearsAgoFromEndDate, data.EndPrice, 2),
                 CAGR3Years = CalculateAverageAnualReturnRate(data.Price3YearsAgoFromEndDate, data.EndPrice, 3),

@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace InvestmentCalculators
+namespace InvestmentCalculator
 {
     [ValueConversion(typeof(bool), typeof(Visibility))]
     public class BooleanToVisibilityConverter : IValueConverter
