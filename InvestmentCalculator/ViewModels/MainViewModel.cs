@@ -36,7 +36,6 @@ namespace InvestmentCalculators.ViewModels
             }
         }
 
-
         public MainViewModel()
         {
             CryptoPlotModel = new PlotModel
@@ -66,8 +65,8 @@ namespace InvestmentCalculators.ViewModels
             var btcData = GetBtcData();
             var dogeData = GetDogeData();
 
-            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData);
-            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "QQQ", qqqData);
+            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
+            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "QQQ", qqqData, true);
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
             var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", dogeData);
 
@@ -89,11 +88,17 @@ namespace InvestmentCalculators.ViewModels
             var costcoData = new AssetData
             {
                 EndPrice = PriceAt2025Dec19th,
+                EndDate = new DateOnly(2025, 12, 19),
                 Price1YearAgoFromEndDate = PriceAt2024Dec16th,
+                Date1YearAgo = new DateOnly(2024, 12, 16),
                 Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
+                Date2YearsAgo = new DateOnly(2023, 12, 18),
                 Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
+                Date3YearsAgo = new DateOnly(2022, 12, 19),
                 Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
-                Price5YearsAgoFromEndDate = PriceAt2020Dec21st
+                Date4YearsAgo = new DateOnly(2021, 12, 20),
+                Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
+                Date5YearsAgo = new DateOnly(2020, 12, 21)
             };
             return costcoData;
         }
@@ -110,11 +115,17 @@ namespace InvestmentCalculators.ViewModels
             var qqqData = new AssetData
             {
                 EndPrice = PriceAt2025Dec19th,
+                EndDate = new DateOnly(2025, 12, 19),
                 Price1YearAgoFromEndDate = PriceAt2024Dec16th,
+                Date1YearAgo = new DateOnly(2024, 12, 16),
                 Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
+                Date2YearsAgo = new DateOnly(2023, 12, 18),
                 Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
+                Date3YearsAgo = new DateOnly(2022, 12, 19),
                 Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
-                Price5YearsAgoFromEndDate = PriceAt2020Dec21st
+                Date4YearsAgo = new DateOnly(2021, 12, 20),
+                Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
+                Date5YearsAgo = new DateOnly(2020, 12, 21)
             };
             return qqqData;
         }

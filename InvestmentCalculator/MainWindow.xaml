@@ -111,11 +111,8 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel Margin="10" Background="Black">
                     <views:CryptoStatView DataContext="{Binding DOGE}" />
-                    <!-- Horizontal Line Break -->
-                    <Separator Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
-                    <!-- Bitcoin Section -->
+                    <Separator Margin="0,10,0,10"/>
                     <views:CryptoStatView DataContext="{Binding BTC}" />
-                    <!-- Horizontal Line Break -->
                     <Separator Margin="0,10,0,10"/>
                     <Grid Height="400" Width="2000" Margin="10">
                         <oxy:PlotView Model="{Binding CryptoPlotModel}" />
@@ -127,66 +124,12 @@
         <TabItem Header="Stock Calculators">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel Margin="10" Background="Black">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <!-- QQQ Section -->
-                        <Label Content="QQQ: (Excluding dividends)" Grid.Row="0" Grid.Column="0" Foreground="White"/>
-                        <Label Content="Historical data:" Grid.Row="1" Grid.Column="0" Foreground="White"/>
-                        <Label Content="( Until Dec 19th 2025 )" Grid.Row="1" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 5 years ago (2020-Dec-21st):" Grid.Row="2" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding QQQ.CAGR5Years}" ContentStringFormat="P2" Grid.Row="2" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 4 years ago (2021-Dec-20th):" Grid.Row="3" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding QQQ.CAGR4Years}" ContentStringFormat="P2" Grid.Row="3" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 3 years ago (2022-Dec-19th):" Grid.Row="4" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding QQQ.CAGR3Years}" ContentStringFormat="P2" Grid.Row="4" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 2 years ago (2023-Dec-18th):" Grid.Row="5" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding QQQ.CAGR2Years}" ContentStringFormat="P2" Grid.Row="5" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 1 year ago (2024-Dec-16th):" Grid.Row="6" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding QQQ.CAGR1Year}" ContentStringFormat="P2" Grid.Row="6" Grid.Column="2" Foreground="White"/>
-                        <!-- Horizontal Line Break -->
-                        <!-- Costco Section -->
-                        <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
-                        <Label Content="Costco: (Excluding dividends)" Grid.Row="8" Grid.Column="0" Foreground="White"/>
-                        <Label Content="Historical data:" Grid.Row="9" Grid.Column="0" Foreground="White"/>
-                        <Label Content="( Until Dec 19th 2025 )" Grid.Row="9" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 5 years ago (2020-Dec-21st):" Grid.Row="10" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding Costco.CAGR5Years}" ContentStringFormat="P2" Grid.Row="10" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 4 years ago (2021-Dec-20th):" Grid.Row="11" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding Costco.CAGR4Years}" ContentStringFormat="P2" Grid.Row="11" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 3 years ago (2022-Dec-19th):" Grid.Row="12" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding Costco.CAGR3Years}" ContentStringFormat="P2" Grid.Row="12" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 2 years ago (2023-Dec-18th):" Grid.Row="13" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding Costco.CAGR2Years}" ContentStringFormat="P2" Grid.Row="13" Grid.Column="2" Foreground="White"/>
-                        <Label Content="Average annual return rate from 1 year ago (2024-Dec-16th):" Grid.Row="14" Grid.Column="1" Foreground="White"/>
-                        <Label Content="{Binding Costco.CAGR1Year}" ContentStringFormat="P2" Grid.Row="14" Grid.Column="2" Foreground="White"/>
-                        <!-- Horizontal Line Break -->
-                        <Separator Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10"/>
-                        <!-- Tesla Section -->
-                        <Label Content="Tesla:" Grid.Row="16" Grid.Column="0" Foreground="White"/>
-                    </Grid>
+                    <views:StockStatView DataContext="{Binding QQQ}" />
+                    <Separator Margin="0,10,0,10"/>
+                    <views:StockStatView DataContext="{Binding Costco}" />
+                    <Separator Margin="0,10,0,10"/>
+                    <!-- Tesla Section -->
+                    <Label Content="Tesla:" Grid.Row="16" Grid.Column="0" Foreground="White"/>
                 </StackPanel>
             </ScrollViewer>
         </TabItem>
