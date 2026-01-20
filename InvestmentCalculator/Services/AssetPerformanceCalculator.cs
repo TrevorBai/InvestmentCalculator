@@ -5,14 +5,14 @@ namespace InvestmentCalculators.Services
     internal class AssetPerformanceCalculator
     {
         internal static AssetPerformance Calculate(string ticker, string assetName, AssetData data,
-            bool excludingDividents = false)
+            bool excludingDividends = false)
         {
             if (data == null || data.EndPrice <= 0) return new AssetPerformance { Ticker = ticker };
 
             var result = new AssetPerformance
             {
                 Ticker = ticker,
-                Name = excludingDividents ? assetName + " (Excluding Dividends)" : assetName,
+                Name = excludingDividends ? assetName + " (Excluding Dividends)" : assetName,
                 EndDate = data.EndDate,
                 BirthDate = data.BirthDate,
                 Date10YearsAgo = data.Date10YearsAgo,
