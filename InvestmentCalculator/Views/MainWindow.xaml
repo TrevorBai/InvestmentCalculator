@@ -130,6 +130,8 @@
                     <Separator Margin="0,10,0,10"/>
                     <views:StockStatView DataContext="{Binding Tesla}" />
                     <Separator Margin="0,10,0,10"/>
+                    <views:StockStatView DataContext="{Binding BrkB}" />
+                    <Separator Margin="0,10,0,10"/>
                 </StackPanel>
             </ScrollViewer>
         </TabItem>

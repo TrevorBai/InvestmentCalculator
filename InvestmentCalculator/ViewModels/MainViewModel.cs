@@ -23,6 +23,10 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? QQQ => GetByTicker("QQQ");
         public AssetPerformance? Costco => GetByTicker("COST");
         public AssetPerformance? Tesla => GetByTicker("TSLA");
+        public AssetPerformance? BrkB => GetByTicker("BRK-B");
+
+
+
 
 
         private PlotModel? _cryptoPlotModel;
@@ -64,6 +68,7 @@ namespace InvestmentCalculators.ViewModels
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
             var teslaData = GetTeslaData();
+            var brkBData = GetBrkBData();
 
             var btcData = GetBtcData();
             var dogeData = GetDogeData();
@@ -71,12 +76,16 @@ namespace InvestmentCalculators.ViewModels
             var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "QQQ", qqqData, true);
             var teslaPerformance = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
+            var brkBPerformance = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
+
+
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
             var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", dogeData);
 
             _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
             _assetPerformanceDict.Add(teslaPerformance.Ticker!, teslaPerformance);
+            _assetPerformanceDict.Add(brkBPerformance.Ticker!, brkBPerformance);
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
         }
@@ -160,6 +169,34 @@ namespace InvestmentCalculators.ViewModels
                 Date5YearsAgo = new DateOnly(2020, 12, 21)
             };
             return teslaData;
+        }
+
+        private static AssetData GetBrkBData()
+        {
+            // TODO Placeholder data, need to update data
+            const decimal PriceAt2025Dec19th = 481.20m;
+            const decimal PriceAt2024Dec16th = 463.02m;
+            const decimal PriceAt2023Dec18th = 252.08m;
+            const decimal PriceAt2022Dec19th = 149.87m;
+            const decimal PriceAt2021Dec20th = 299.98m;
+            const decimal PriceAt2020Dec21st = 216.62m;
+
+            var brkBData = new AssetData
+            {
+                EndPrice = PriceAt2025Dec19th,
+                EndDate = new DateOnly(2025, 12, 19),
+                Price1YearAgoFromEndDate = PriceAt2024Dec16th,
+                Date1YearAgo = new DateOnly(2024, 12, 16),
+                Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
+                Date2YearsAgo = new DateOnly(2023, 12, 18),
+                Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
+                Date3YearsAgo = new DateOnly(2022, 12, 19),
+                Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
+                Date4YearsAgo = new DateOnly(2021, 12, 20),
+                Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
+                Date5YearsAgo = new DateOnly(2020, 12, 21)
+            };
+            return brkBData;
         }
 
         private static AssetData GetBtcData()
