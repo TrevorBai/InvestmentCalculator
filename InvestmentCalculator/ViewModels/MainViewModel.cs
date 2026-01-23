@@ -22,6 +22,7 @@ namespace InvestmentCalculators.ViewModels
         // Stocks
         public AssetPerformance? QQQ => GetByTicker("QQQ");
         public AssetPerformance? Costco => GetByTicker("COST");
+        public AssetPerformance? Tesla => GetByTicker("TSLA");
 
 
         private PlotModel? _cryptoPlotModel;
@@ -62,28 +63,59 @@ namespace InvestmentCalculators.ViewModels
         {
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
+            var teslaData = GetTeslaData();
+
             var btcData = GetBtcData();
             var dogeData = GetDogeData();
 
             var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "QQQ", qqqData, true);
+            var teslaPerformance = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
             var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", dogeData);
 
             _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
+            _assetPerformanceDict.Add(teslaPerformance.Ticker!, teslaPerformance);
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
+        }
+
+        private static AssetData GetQQQData()
+        {
+            const decimal PriceAt2025Dec19th = 617.05m;
+            const decimal PriceAt2024Dec16th = 538.17m;
+            const decimal PriceAt2023Dec18th = 407.08m;
+            const decimal PriceAt2022Dec19th = 269.75m;
+            const decimal PriceAt2021Dec20th = 380.69m;
+            const decimal PriceAt2020Dec21st = 308.92m;
+
+            var qqqData = new AssetData
+            {
+                EndPrice = PriceAt2025Dec19th,
+                EndDate = new DateOnly(2025, 12, 19),
+                Price1YearAgoFromEndDate = PriceAt2024Dec16th,
+                Date1YearAgo = new DateOnly(2024, 12, 16),
+                Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
+                Date2YearsAgo = new DateOnly(2023, 12, 18),
+                Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
+                Date3YearsAgo = new DateOnly(2022, 12, 19),
+                Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
+                Date4YearsAgo = new DateOnly(2021, 12, 20),
+                Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
+                Date5YearsAgo = new DateOnly(2020, 12, 21)
+            };
+            return qqqData;
         }
 
         private static AssetData GetCostcoData()
         {
             const decimal PriceAt2025Dec19th = 855.62m;
-            const decimal PriceAt2020Dec21st = 364.58m;
-            const decimal PriceAt2021Dec20th = 550.37m;
-            const decimal PriceAt2022Dec19th = 462.65m;
-            const decimal PriceAt2023Dec18th = 671.60m;
             const decimal PriceAt2024Dec16th = 954.07m;
+            const decimal PriceAt2023Dec18th = 671.60m;
+            const decimal PriceAt2022Dec19th = 462.65m;
+            const decimal PriceAt2021Dec20th = 550.37m;
+            const decimal PriceAt2020Dec21st = 364.58m;
 
             var costcoData = new AssetData
             {
@@ -103,16 +135,16 @@ namespace InvestmentCalculators.ViewModels
             return costcoData;
         }
 
-        private static AssetData GetQQQData()
+        private static AssetData GetTeslaData()
         {
-            const decimal PriceAt2025Dec19th = 617.05m;
-            const decimal PriceAt2020Dec21st = 308.92m;
-            const decimal PriceAt2021Dec20th = 380.69m;
-            const decimal PriceAt2022Dec19th = 269.75m;
-            const decimal PriceAt2023Dec18th = 407.08m;
-            const decimal PriceAt2024Dec16th = 538.17m;
+            const decimal PriceAt2025Dec19th = 481.20m;
+            const decimal PriceAt2024Dec16th = 463.02m;
+            const decimal PriceAt2023Dec18th = 252.08m;
+            const decimal PriceAt2022Dec19th = 149.87m;
+            const decimal PriceAt2021Dec20th = 299.98m;          
+            const decimal PriceAt2020Dec21st = 216.62m;
 
-            var qqqData = new AssetData
+            var teslaData = new AssetData
             {
                 EndPrice = PriceAt2025Dec19th,
                 EndDate = new DateOnly(2025, 12, 19),
@@ -127,7 +159,7 @@ namespace InvestmentCalculators.ViewModels
                 Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
                 Date5YearsAgo = new DateOnly(2020, 12, 21)
             };
-            return qqqData;
+            return teslaData;
         }
 
         private static AssetData GetBtcData()

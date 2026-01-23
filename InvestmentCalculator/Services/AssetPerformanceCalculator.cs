@@ -12,7 +12,9 @@ namespace InvestmentCalculators.Services
             var result = new AssetPerformance
             {
                 Ticker = ticker,
-                Name = excludingDividends ? assetName + " (Excluding Dividends)" : assetName,
+                Name = excludingDividends 
+                    ? assetName + " (Excluding Dividends)" 
+                    : assetName,
                 EndDate = data.EndDate,
                 BirthDate = data.BirthDate,
                 Date10YearsAgo = data.Date10YearsAgo,
