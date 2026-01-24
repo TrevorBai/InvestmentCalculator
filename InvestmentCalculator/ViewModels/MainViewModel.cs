@@ -173,13 +173,12 @@ namespace InvestmentCalculators.ViewModels
 
         private static AssetData GetBrkBData()
         {
-            // TODO Placeholder data, need to update data
-            const decimal PriceAt2025Dec19th = 481.20m;
-            const decimal PriceAt2024Dec16th = 463.02m;
-            const decimal PriceAt2023Dec18th = 252.08m;
-            const decimal PriceAt2022Dec19th = 149.87m;
-            const decimal PriceAt2021Dec20th = 299.98m;
-            const decimal PriceAt2020Dec21st = 216.62m;
+            const decimal PriceAt2025Dec19th = 494.53m;
+            const decimal PriceAt2024Dec16th = 455.20m;
+            const decimal PriceAt2023Dec18th = 359.65m;
+            const decimal PriceAt2022Dec19th = 300.03m;
+            const decimal PriceAt2021Dec20th = 289.61m;
+            const decimal PriceAt2020Dec21st = 223.49m;
 
             var brkBData = new AssetData
             {
