@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using InvestmentCalculators.Data;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
@@ -24,6 +25,10 @@ namespace InvestmentCalculators.Views
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded; // Hook up the Loaded event
+
+            // Creates the .db file and the StockPrices table if they don't exist
+            using var db = new AppDbContext();
+            db.Database.EnsureCreated();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e) { }
