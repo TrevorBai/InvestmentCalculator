@@ -55,6 +55,18 @@ namespace InvestmentCalculators.ViewModels
             new CryptoPlotModel(CryptoPlotModel).AddMoreEntitiesToPlot();
 
             LoadData();
+            _ = LoadTable("QQQ");
+        }
+
+        public async Task LoadTable(string ticker)
+        {
+            var service = new StockDataService();
+            var prices = await service.GetHistoricalDataAsync(ticker, 5);
+
+
+            // Then calc all the CAGA's
+
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
