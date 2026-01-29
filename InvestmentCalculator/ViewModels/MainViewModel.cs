@@ -55,18 +55,18 @@ namespace InvestmentCalculators.ViewModels
             new CryptoPlotModel(CryptoPlotModel).AddMoreEntitiesToPlot();
 
             LoadData();
-            _ = LoadTable("QQQ");
+
+            // Should run only once
+            //_ = PolulateStockDataIntoDb("QQQ");
+            //_ = PolulateStockDataIntoDb("COST");
+            //_ = PolulateStockDataIntoDb("TSLA");
+            //_ = PolulateStockDataIntoDb("BRK-B");
         }
 
-        public async Task LoadTable(string ticker)
+        public async Task PolulateStockDataIntoDb(string ticker)
         {
             var service = new StockDataService();
-            var prices = await service.GetHistoricalDataAsync(ticker, 5);
-
-
-            // Then calc all the CAGA's
-
-
+            await service.GetHistoricalDataAsync(ticker, 5);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
