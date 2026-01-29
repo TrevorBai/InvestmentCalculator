@@ -3,6 +3,7 @@ using InvestmentCalculators.Models;
 using Microsoft.EntityFrameworkCore;
 using OoplesFinance.YahooFinanceAPI;
 using OoplesFinance.YahooFinanceAPI.Enums;
+using OoplesFinance.YahooFinanceAPI.Models;
 
 namespace InvestmentCalculators.Services
 {
@@ -25,39 +26,50 @@ namespace InvestmentCalculators.Services
                 .ToListAsync();
 
             // If we have data adn it's up to date (within 24 hours), use it!
-            if (localData.Any() && localData.Max(p => p.Date) >= DateTime.Now.AddDays(-1)) 
+            if (localData.Any() && localData.Max(p => p.Date) >= DateTime.Now.AddDays(-1))
             {
-                return localData;       
+                return localData;
             }
 
-            // 2. If no data, fetch from Yahoo
+            IEnumerable<HistoricalChartInfo> history = await FetchStockDataFromYahooFinanceAsync(ticker, startDate);
+
+            var newStockPricesFromYahooFinanceAPI = GetConvertedStockPricesFromFetchedData(ticker, history);
+
+            await PopulateDbWithNewFetchedStockData(ticker, db, newStockPricesFromYahooFinanceAPI);
+
+            return newStockPricesFromYahooFinanceAPI;
+        }
+
+        private static async Task<IEnumerable<HistoricalChartInfo>> FetchStockDataFromYahooFinanceAsync(
+            string ticker, DateTime startDate)
+        {
             var yahooClient = new YahooClient();
             var history = await yahooClient.GetHistoricalDataAsync(ticker, DataFrequency.Daily,
                 startDate, DateTime.Now);
+            return history;
+        }
 
+        private static List<StockPrice> GetConvertedStockPricesFromFetchedData(string ticker, IEnumerable<HistoricalChartInfo> history)
+        {
             // 3. Convert Yahoo data to our SQLite model
-            var newPrices = history.Select(h => new StockPrice
-                {
-                    Ticker = ticker,
-                    Date = h.Date,
-                    AdjClose = h.AdjustedClose
-                }).ToList();
+            return history.Select(h => new StockPrice
+            {
+                Ticker = ticker,
+                Date = h.Date,
+                AdjClose = h.AdjustedClose
+            }).ToList();
+        }
 
+        private static async Task PopulateDbWithNewFetchedStockData(string ticker, AppDbContext db, List<StockPrice> newStockPricesFromYahooFinanceAPI)
+        {
             // 4. Save to SQLite (Avoiding duplicates)
             // Note: In a production app, you'd check for duplicates more carefully,
             // but for a 5-year chunk, clearing and re-saving is a simple start.
-            var existing = db.StockPrices.Where(p => p.Ticker == ticker).ToList();
-            db.StockPrices.RemoveRange(existing);
-
-            db.StockPrices.AddRange(newPrices);
+            var existingStockDataFromDb = db.StockPrices.Where(p => p.Ticker == ticker).ToList();
+            db.StockPrices.RemoveRange(existingStockDataFromDb);
+            db.StockPrices.AddRange(newStockPricesFromYahooFinanceAPI);
             await db.SaveChangesAsync();
-
-            return newPrices;
         }
-
-
-
-
 
 
     }
