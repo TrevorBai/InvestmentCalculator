@@ -1,5 +1,7 @@
-﻿using InvestmentCalculators.Models;
+﻿using InvestmentCalculators.Data;
+using InvestmentCalculators.Models;
 using InvestmentCalculators.Services;
+using Microsoft.EntityFrameworkCore;
 using OxyPlot;
 using System.ComponentModel;
 
@@ -57,16 +59,16 @@ namespace InvestmentCalculators.ViewModels
             LoadData();
 
             // Should run only once
-            //_ = PolulateStockDataIntoDb("QQQ");
-            //_ = PolulateStockDataIntoDb("COST");
-            //_ = PolulateStockDataIntoDb("TSLA");
-            //_ = PolulateStockDataIntoDb("BRK-B");
+            //_ = PolulateStockDataIntoDb("QQQ", 5);
+            //_ = PolulateStockDataIntoDb("COST", 5);
+            //_ = PolulateStockDataIntoDb("TSLA", 5);
+            //_ = PolulateStockDataIntoDb("BRK-B", 10);
         }
 
-        public async Task PolulateStockDataIntoDb(string ticker)
+        public async Task PolulateStockDataIntoDb(string ticker, int yearsBack)
         {
             var service = new StockDataService();
-            await service.GetHistoricalDataAsync(ticker, 5);
+            await service.GetHistoricalDataAsyncAndSaveInDb(ticker, yearsBack);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -75,12 +77,12 @@ namespace InvestmentCalculators.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
             var teslaData = GetTeslaData();
-            var brkBData = GetBrkBData();
+            var brkBData = await GetBrkBDataFromDb();
 
             var btcData = GetBtcData();
             var dogeData = GetDogeData();
@@ -183,28 +185,28 @@ namespace InvestmentCalculators.ViewModels
             return teslaData;
         }
 
-        private static AssetData GetBrkBData()
+        private async Task<AssetData> GetBrkBDataFromDb()
         {
-            const decimal PriceAt2025Dec19th = 494.53m;
-            const decimal PriceAt2024Dec16th = 455.20m;
-            const decimal PriceAt2023Dec18th = 359.65m;
-            const decimal PriceAt2022Dec19th = 300.03m;
-            const decimal PriceAt2021Dec20th = 289.61m;
-            const decimal PriceAt2020Dec21st = 223.49m;
+            var priceAt2025Dec19th = await GetStockPriceOnDate("BRK-B", new DateTime(2025, 12, 19));
+            var priceAt2024Dec16th = await GetStockPriceOnDate("BRK-B", new DateTime(2024, 12, 16));
+            var priceAt2023Dec18th = await GetStockPriceOnDate("BRK-B", new DateTime(2023, 12, 18));
+            var priceAt2022Dec19th = await GetStockPriceOnDate("BRK-B", new DateTime(2022, 12, 19));
+            var priceAt2021Dec20th = await GetStockPriceOnDate("BRK-B", new DateTime(2021, 12, 20));
+            var priceAt2020Dec21st = await GetStockPriceOnDate("BRK-B", new DateTime(2020, 12, 21));
 
             var brkBData = new AssetData
             {
-                EndPrice = PriceAt2025Dec19th,
+                EndPrice = (decimal)priceAt2025Dec19th,
                 EndDate = new DateOnly(2025, 12, 19),
-                Price1YearAgoFromEndDate = PriceAt2024Dec16th,
+                Price1YearAgoFromEndDate = (decimal)priceAt2024Dec16th,
                 Date1YearAgo = new DateOnly(2024, 12, 16),
-                Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
+                Price2YearsAgoFromEndDate = (decimal)priceAt2023Dec18th,
                 Date2YearsAgo = new DateOnly(2023, 12, 18),
-                Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
+                Price3YearsAgoFromEndDate = (decimal)priceAt2022Dec19th,
                 Date3YearsAgo = new DateOnly(2022, 12, 19),
-                Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
+                Price4YearsAgoFromEndDate = (decimal)priceAt2021Dec20th,
                 Date4YearsAgo = new DateOnly(2021, 12, 20),
-                Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
+                Price5YearsAgoFromEndDate = (decimal)priceAt2020Dec21st,
                 Date5YearsAgo = new DateOnly(2020, 12, 21)
             };
             return brkBData;
@@ -311,7 +313,16 @@ namespace InvestmentCalculators.ViewModels
             return dogeData;
         }
 
-
+        private async Task<double> GetStockPriceOnDate(string ticker, DateTime targetDate)
+        {
+            using var db = new AppDbContext();
+            // This finds the first entry that matches both ticker and date
+            var priceEntry = await db.StockPrices
+                .FirstOrDefaultAsync(p => p.Ticker == ticker && p.Date.Date == targetDate.Date);
+            double price = 0.0;
+            if (priceEntry != null) price = priceEntry.AdjClose;         
+            return price;
+        }
     }
 }
 

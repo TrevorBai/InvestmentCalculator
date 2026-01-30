@@ -16,9 +16,5 @@ namespace InvestmentCalculators.Data
             optionsBuilder.UseSqlite("Data Source=StockHistory.db");
         }
 
-
-
-
-
     }
 }

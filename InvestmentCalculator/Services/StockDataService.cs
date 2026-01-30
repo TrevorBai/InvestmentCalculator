@@ -12,7 +12,7 @@ namespace InvestmentCalculators.Services
     /// </summary>
     internal class StockDataService
     {
-        internal async Task<List<StockPrice>> GetHistoricalDataAsync(string ticker, int yearsBack)
+        internal async Task<List<StockPrice>> GetHistoricalDataAsyncAndSaveInDb(string ticker, int yearsBack)
         {
             using var db = new AppDbContext();
             db.Database.EnsureCreated();
