@@ -192,12 +192,17 @@ namespace InvestmentCalculators.ViewModels
 
         private async Task<AssetData> GetBrkBDataFromDb()
         {
-            var priceAt2025Dec19th = await GetStockPriceOnDate("BRK-B", new DateTime(2025, 12, 19));
-            var priceAt2024Dec16th = await GetStockPriceOnDate("BRK-B", new DateTime(2024, 12, 16));
-            var priceAt2023Dec18th = await GetStockPriceOnDate("BRK-B", new DateTime(2023, 12, 18));
-            var priceAt2022Dec19th = await GetStockPriceOnDate("BRK-B", new DateTime(2022, 12, 19));
-            var priceAt2021Dec20th = await GetStockPriceOnDate("BRK-B", new DateTime(2021, 12, 20));
-            var priceAt2020Dec21st = await GetStockPriceOnDate("BRK-B", new DateTime(2020, 12, 21));
+            var allPrices = await GetPriceRange("BRK-B", new DateTime(2020, 12, 1), new DateTime(2025, 12, 31));
+
+            // Local function to find price on a specific date
+            double FindPrice(DateTime date) => allPrices.FirstOrDefault(p => p.Date.Date == date.Date)?.AdjClose ?? 0;
+
+            var priceAt2025Dec19th = FindPrice(new DateTime(2025, 12, 19));
+            var priceAt2024Dec16th = FindPrice(new DateTime(2024, 12, 16));
+            var priceAt2023Dec18th = FindPrice(new DateTime(2023, 12, 18));
+            var priceAt2022Dec19th = FindPrice(new DateTime(2022, 12, 19));
+            var priceAt2021Dec20th = FindPrice(new DateTime(2021, 12, 20));
+            var priceAt2020Dec21st = FindPrice(new DateTime(2020, 12, 21));
 
             var brkBData = new AssetData
             {
@@ -333,6 +338,18 @@ namespace InvestmentCalculators.ViewModels
             double price = 0.0;
             if (priceEntry != null) price = priceEntry.AdjClose;         
             return price;
+        }
+
+        private async Task<List<StockPrice>> GetPriceRange(string ticker, DateTime start, DateTime end)
+        {
+            using var db = new AppDbContext();
+
+            // AsNoTracking makes it faster for read-only calculations
+            return await db.StockPrices
+                .AsNoTracking()
+                .Where(p => p.Ticker == ticker && p.Date >= start && p.Date <= end)
+                .OrderBy(p => p.Date)
+                .ToListAsync();
         }
 
 
