@@ -4,6 +4,7 @@ using InvestmentCalculators.Services;
 using Microsoft.EntityFrameworkCore;
 using OxyPlot;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace InvestmentCalculators.ViewModels
 {
@@ -82,7 +83,11 @@ namespace InvestmentCalculators.ViewModels
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
             var teslaData = GetTeslaData();
+            var timer = new Stopwatch();
+            timer.Start();
             var brkBData = await GetBrkBDataFromDb();
+            timer.Stop();
+            Debug.WriteLine($"Time taken to get BRK-B data from DB: {timer.ElapsedMilliseconds} ms");
 
             var btcData = GetBtcData();
             var dogeData = GetDogeData();
@@ -313,6 +318,12 @@ namespace InvestmentCalculators.ViewModels
             return dogeData;
         }
 
+        /// <summary>
+        /// Retrieving one stock price on a date is slow since it needs to query the database each time. 
+        /// </summary>
+        /// <param name="ticker"></param>
+        /// <param name="targetDate"></param>
+        /// <returns></returns>
         private async Task<double> GetStockPriceOnDate(string ticker, DateTime targetDate)
         {
             using var db = new AppDbContext();
@@ -323,6 +334,10 @@ namespace InvestmentCalculators.ViewModels
             if (priceEntry != null) price = priceEntry.AdjClose;         
             return price;
         }
+
+
+
+
     }
 }
 
