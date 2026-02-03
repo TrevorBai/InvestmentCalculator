@@ -15,5 +15,7 @@ namespace InvestmentCalculators.Models
         public DateTime Date { get; set; }
 
         public double AdjClose { get; set; }
+
+        public double Close { get; set; }
     }
 }

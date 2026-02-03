@@ -52,12 +52,13 @@ namespace InvestmentCalculators.Services
         private static List<AssetPrice> GetConvertedStockPricesFromFetchedData(string ticker, IEnumerable<HistoricalChartInfo> history)
         {
             // 3. Convert Yahoo data to our SQLite model
-            return history.Select(h => new AssetPrice
+            return [.. history.Select(h => new AssetPrice
             {
                 Ticker = ticker,
                 Date = h.Date,
-                AdjClose = h.AdjustedClose
-            }).ToList();
+                AdjClose = h.AdjustedClose,
+                Close = h.Close
+            })];
         }
 
         private static async Task PopulateDbWithNewFetchedAssetData(string ticker, AppDbContext db, List<AssetPrice> newAssetPricesFromYahooFinanceAPI)
