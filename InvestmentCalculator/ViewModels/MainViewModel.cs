@@ -68,7 +68,7 @@ namespace InvestmentCalculators.ViewModels
 
         public async Task PolulateStockDataIntoDb(string ticker, int yearsBack)
         {
-            var service = new StockDataService();
+            var service = new AssetDataService();
             await service.GetHistoricalDataAsyncAndSaveInDb(ticker, yearsBack);
         }
 
@@ -191,9 +191,9 @@ namespace InvestmentCalculators.ViewModels
             return teslaData;
         }
 
-        private AssetData GetBrkBDataFromDb(List<StockPrice> stockPrices)
+        private AssetData GetBrkBDataFromDb(List<AssetPrice> assetPrices)
         {
-            var allPrices = GetPriceRange(stockPrices, "BRK-B", new DateTime(2020, 12, 1), new DateTime(2025, 12, 31));
+            var allPrices = GetPriceRange(assetPrices, "BRK-B", new DateTime(2020, 12, 1), new DateTime(2025, 12, 31));
 
             // Local function to find price on a specific date
             double FindPrice(DateTime date) => allPrices.FirstOrDefault(p => p.Date.Date == date.Date)?.AdjClose ?? 0;
@@ -324,18 +324,18 @@ namespace InvestmentCalculators.ViewModels
             return dogeData;
         }
 
-        private static List<StockPrice> GetPriceRange(List<StockPrice> stockPrices,
+        private static List<AssetPrice> GetPriceRange(List<AssetPrice> assetPrices,
             string ticker, DateTime start, DateTime end)
         {
-            return [.. stockPrices
+            return [.. assetPrices
                 .Where(p => p.Ticker == ticker && p.Date >= start && p.Date <= end)
                 .OrderBy(p => p.Date)];
         }
 
-        private static async Task<List<StockPrice>> GetAllAssetPricesFromDb()
+        private static async Task<List<AssetPrice>> GetAllAssetPricesFromDb()
         {
             using var db = new AppDbContext();
-            return await db.StockPrices.AsNoTracking().ToListAsync();
+            return await db.AssetPrices.AsNoTracking().ToListAsync();
         }
 
 

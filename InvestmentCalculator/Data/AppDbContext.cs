@@ -8,12 +8,12 @@ namespace InvestmentCalculators.Data
     /// </summary>
     internal class AppDbContext : DbContext
     {
-        public DbSet<StockPrice> StockPrices { get; set; }
+        public DbSet<AssetPrice> AssetPrices { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // This will create a file named 'StockHistory.db' in your project's bin folder
-            optionsBuilder.UseSqlite("Data Source=StockHistory.db");
+            // This will create a file named 'AssetHistory.db' in your project's bin folder
+            optionsBuilder.UseSqlite("Data Source=AssetHistory.db");
         }
 
     }

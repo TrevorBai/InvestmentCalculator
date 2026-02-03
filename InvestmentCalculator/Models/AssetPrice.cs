@@ -2,7 +2,7 @@
 
 namespace InvestmentCalculators.Models
 {
-    internal class StockPrice
+    internal class AssetPrice
     {
         [Key] // This makes 'Id' the primary key
         public int Id { get; set; }

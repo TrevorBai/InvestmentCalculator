@@ -10,9 +10,9 @@ namespace InvestmentCalculators.Services
     /// <summary>
     /// "Traffic controller".
     /// </summary>
-    internal class StockDataService
+    internal class AssetDataService
     {
-        internal async Task<List<StockPrice>> GetHistoricalDataAsyncAndSaveInDb(string ticker, int yearsBack)
+        internal async Task<List<AssetPrice>> GetHistoricalDataAsyncAndSaveInDb(string ticker, int yearsBack)
         {
             using var db = new AppDbContext();
             db.Database.EnsureCreated();
@@ -20,7 +20,7 @@ namespace InvestmentCalculators.Services
             var startDate = DateTime.Now.AddYears(-yearsBack);
 
             // 1. Check SQLite first
-            var localData = await db.StockPrices
+            var localData = await db.AssetPrices
                 .Where(p => p.Ticker == ticker && p.Date >= startDate)
                 .OrderBy(p => p.Date)
                 .ToListAsync();
@@ -31,16 +31,16 @@ namespace InvestmentCalculators.Services
                 return localData;
             }
 
-            IEnumerable<HistoricalChartInfo> history = await FetchStockDataFromYahooFinanceAsync(ticker, startDate);
+            IEnumerable<HistoricalChartInfo> history = await FetchAssetDataFromYahooFinanceAsync(ticker, startDate);
 
-            var newStockPricesFromYahooFinanceAPI = GetConvertedStockPricesFromFetchedData(ticker, history);
+            var newAssetPricesFromYahooFinanceAPI = GetConvertedStockPricesFromFetchedData(ticker, history);
 
-            await PopulateDbWithNewFetchedStockData(ticker, db, newStockPricesFromYahooFinanceAPI);
+            await PopulateDbWithNewFetchedAssetData(ticker, db, newAssetPricesFromYahooFinanceAPI);
 
-            return newStockPricesFromYahooFinanceAPI;
+            return newAssetPricesFromYahooFinanceAPI;
         }
 
-        private static async Task<IEnumerable<HistoricalChartInfo>> FetchStockDataFromYahooFinanceAsync(
+        private static async Task<IEnumerable<HistoricalChartInfo>> FetchAssetDataFromYahooFinanceAsync(
             string ticker, DateTime startDate)
         {
             var yahooClient = new YahooClient();
@@ -49,10 +49,10 @@ namespace InvestmentCalculators.Services
             return history;
         }
 
-        private static List<StockPrice> GetConvertedStockPricesFromFetchedData(string ticker, IEnumerable<HistoricalChartInfo> history)
+        private static List<AssetPrice> GetConvertedStockPricesFromFetchedData(string ticker, IEnumerable<HistoricalChartInfo> history)
         {
             // 3. Convert Yahoo data to our SQLite model
-            return history.Select(h => new StockPrice
+            return history.Select(h => new AssetPrice
             {
                 Ticker = ticker,
                 Date = h.Date,
@@ -60,14 +60,14 @@ namespace InvestmentCalculators.Services
             }).ToList();
         }
 
-        private static async Task PopulateDbWithNewFetchedStockData(string ticker, AppDbContext db, List<StockPrice> newStockPricesFromYahooFinanceAPI)
+        private static async Task PopulateDbWithNewFetchedAssetData(string ticker, AppDbContext db, List<AssetPrice> newAssetPricesFromYahooFinanceAPI)
         {
             // 4. Save to SQLite (Avoiding duplicates)
             // Note: In a production app, you'd check for duplicates more carefully,
             // but for a 5-year chunk, clearing and re-saving is a simple start.
-            var existingStockDataFromDb = db.StockPrices.Where(p => p.Ticker == ticker).ToList();
-            db.StockPrices.RemoveRange(existingStockDataFromDb);
-            db.StockPrices.AddRange(newStockPricesFromYahooFinanceAPI);
+            var existingAssetDataFromDb = db.AssetPrices.Where(p => p.Ticker == ticker).ToList();
+            db.AssetPrices.RemoveRange(existingAssetDataFromDb);
+            db.AssetPrices.AddRange(newAssetPricesFromYahooFinanceAPI);
             await db.SaveChangesAsync();
         }
 
