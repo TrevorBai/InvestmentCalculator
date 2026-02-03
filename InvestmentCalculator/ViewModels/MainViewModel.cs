@@ -85,7 +85,8 @@ namespace InvestmentCalculators.ViewModels
             var teslaData = GetTeslaData();
             var timer = new Stopwatch();
             timer.Start();
-            var brkBData = await GetBrkBDataFromDb();
+            var allAssetDataFromDb = await GetAllAssetPricesFromDb();
+            var brkBData = GetBrkBDataFromDb(allAssetDataFromDb);
             timer.Stop();
             Debug.WriteLine($"Time taken to get BRK-B data from DB: {timer.ElapsedMilliseconds} ms");
 
@@ -190,9 +191,9 @@ namespace InvestmentCalculators.ViewModels
             return teslaData;
         }
 
-        private async Task<AssetData> GetBrkBDataFromDb()
+        private AssetData GetBrkBDataFromDb(List<StockPrice> stockPrices)
         {
-            var allPrices = await GetPriceRange("BRK-B", new DateTime(2020, 12, 1), new DateTime(2025, 12, 31));
+            var allPrices = GetPriceRange(stockPrices, "BRK-B", new DateTime(2020, 12, 1), new DateTime(2025, 12, 31));
 
             // Local function to find price on a specific date
             double FindPrice(DateTime date) => allPrices.FirstOrDefault(p => p.Date.Date == date.Date)?.AdjClose ?? 0;
@@ -323,33 +324,18 @@ namespace InvestmentCalculators.ViewModels
             return dogeData;
         }
 
-        /// <summary>
-        /// Retrieving one stock price on a date is slow since it needs to query the database each time. 
-        /// </summary>
-        /// <param name="ticker"></param>
-        /// <param name="targetDate"></param>
-        /// <returns></returns>
-        private async Task<double> GetStockPriceOnDate(string ticker, DateTime targetDate)
+        private static List<StockPrice> GetPriceRange(List<StockPrice> stockPrices,
+            string ticker, DateTime start, DateTime end)
         {
-            using var db = new AppDbContext();
-            // This finds the first entry that matches both ticker and date
-            var priceEntry = await db.StockPrices
-                .FirstOrDefaultAsync(p => p.Ticker == ticker && p.Date.Date == targetDate.Date);
-            double price = 0.0;
-            if (priceEntry != null) price = priceEntry.AdjClose;         
-            return price;
+            return [.. stockPrices
+                .Where(p => p.Ticker == ticker && p.Date >= start && p.Date <= end)
+                .OrderBy(p => p.Date)];
         }
 
-        private async Task<List<StockPrice>> GetPriceRange(string ticker, DateTime start, DateTime end)
+        private static async Task<List<StockPrice>> GetAllAssetPricesFromDb()
         {
             using var db = new AppDbContext();
-
-            // AsNoTracking makes it faster for read-only calculations
-            return await db.StockPrices
-                .AsNoTracking()
-                .Where(p => p.Ticker == ticker && p.Date >= start && p.Date <= end)
-                .OrderBy(p => p.Date)
-                .ToListAsync();
+            return await db.StockPrices.AsNoTracking().ToListAsync();
         }
 
 
