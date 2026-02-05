@@ -62,7 +62,7 @@ namespace InvestmentCalculators.ViewModels
             // Should run only once
             //_ = PolulateStockDataIntoDb("QQQ", 5);
             //_ = PolulateStockDataIntoDb("COST", 5);
-            //_ = PolulateStockDataIntoDb("TSLA", 5);
+            //_ = PolulateStockDataIntoDb("TSLA", 10);
             //_ = PolulateStockDataIntoDb("BRK-B", 10);
         }
 
@@ -82,11 +82,11 @@ namespace InvestmentCalculators.ViewModels
         {
             var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
-            var teslaData = GetTeslaData();
             var timer = new Stopwatch();
             timer.Start();
             var allAssetDataFromDb = await GetAllAssetPricesFromDb();
             var brkBData = GetBrkBDataFromDb(allAssetDataFromDb);
+            var teslaData = GetTeslaDataFromDb(allAssetDataFromDb);
             timer.Stop();
             Debug.WriteLine($"Time taken to get BRK-B data from DB: {timer.ElapsedMilliseconds} ms");
 
@@ -164,46 +164,17 @@ namespace InvestmentCalculators.ViewModels
             return costcoData;
         }
 
-        private static AssetData GetTeslaData()
+        private static AssetData GetBrkBDataFromDb(List<AssetPrice> assetPrices)
         {
-            const decimal PriceAt2025Dec19th = 481.20m;
-            const decimal PriceAt2024Dec16th = 463.02m;
-            const decimal PriceAt2023Dec18th = 252.08m;
-            const decimal PriceAt2022Dec19th = 149.87m;
-            const decimal PriceAt2021Dec20th = 299.98m;          
-            const decimal PriceAt2020Dec21st = 216.62m;
+            var allPrices = GetPriceRange(assetPrices, "BRK-B", new DateTime(2020, 12, 1),
+                new DateTime(2025, 12, 31));
 
-            var teslaData = new AssetData
-            {
-                EndPrice = PriceAt2025Dec19th,
-                EndDate = new DateOnly(2025, 12, 19),
-                Price1YearAgoFromEndDate = PriceAt2024Dec16th,
-                Date1YearAgo = new DateOnly(2024, 12, 16),
-                Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
-                Date2YearsAgo = new DateOnly(2023, 12, 18),
-                Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
-                Date3YearsAgo = new DateOnly(2022, 12, 19),
-                Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
-                Date4YearsAgo = new DateOnly(2021, 12, 20),
-                Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
-                Date5YearsAgo = new DateOnly(2020, 12, 21)
-            };
-            return teslaData;
-        }
-
-        private AssetData GetBrkBDataFromDb(List<AssetPrice> assetPrices)
-        {
-            var allPrices = GetPriceRange(assetPrices, "BRK-B", new DateTime(2020, 12, 1), new DateTime(2025, 12, 31));
-
-            // Local function to find price on a specific date
-            double FindPrice(DateTime date) => allPrices.FirstOrDefault(p => p.Date.Date == date.Date)?.AdjClose ?? 0;
-
-            var priceAt2025Dec19th = FindPrice(new DateTime(2025, 12, 19));
-            var priceAt2024Dec16th = FindPrice(new DateTime(2024, 12, 16));
-            var priceAt2023Dec18th = FindPrice(new DateTime(2023, 12, 18));
-            var priceAt2022Dec19th = FindPrice(new DateTime(2022, 12, 19));
-            var priceAt2021Dec20th = FindPrice(new DateTime(2021, 12, 20));
-            var priceAt2020Dec21st = FindPrice(new DateTime(2020, 12, 21));
+            var priceAt2025Dec19th = FindPrice(new DateTime(2025, 12, 19), allPrices);
+            var priceAt2024Dec16th = FindPrice(new DateTime(2024, 12, 16), allPrices);
+            var priceAt2023Dec18th = FindPrice(new DateTime(2023, 12, 18), allPrices);
+            var priceAt2022Dec19th = FindPrice(new DateTime(2022, 12, 19), allPrices);
+            var priceAt2021Dec20th = FindPrice(new DateTime(2021, 12, 20), allPrices);
+            var priceAt2020Dec21st = FindPrice(new DateTime(2020, 12, 21), allPrices);
 
             var brkBData = new AssetData
             {
@@ -221,6 +192,42 @@ namespace InvestmentCalculators.ViewModels
                 Date5YearsAgo = new DateOnly(2020, 12, 21)
             };
             return brkBData;
+        }
+
+        private static AssetData GetTeslaDataFromDb(List<AssetPrice> assetPrices)
+        {
+            var allPrices = GetPriceRange(assetPrices, "TSLA", new DateTime(2020, 12, 1),
+                new DateTime(2025, 12, 31));
+
+            var priceAt2025Dec19th = FindPrice(new DateTime(2025, 12, 19), allPrices);
+            var priceAt2024Dec16th = FindPrice(new DateTime(2024, 12, 16), allPrices);
+            var priceAt2023Dec18th = FindPrice(new DateTime(2023, 12, 18), allPrices);
+            var priceAt2022Dec19th = FindPrice(new DateTime(2022, 12, 19), allPrices);
+            var priceAt2021Dec20th = FindPrice(new DateTime(2021, 12, 20), allPrices);
+            var priceAt2020Dec21st = FindPrice(new DateTime(2020, 12, 21), allPrices);
+
+            var teslaData = new AssetData
+            {
+                EndPrice = (decimal)priceAt2025Dec19th,
+                EndDate = new DateOnly(2025, 12, 19),
+                Price1YearAgoFromEndDate = (decimal)priceAt2024Dec16th,
+                Date1YearAgo = new DateOnly(2024, 12, 16),
+                Price2YearsAgoFromEndDate = (decimal)priceAt2023Dec18th,
+                Date2YearsAgo = new DateOnly(2023, 12, 18),
+                Price3YearsAgoFromEndDate = (decimal)priceAt2022Dec19th,
+                Date3YearsAgo = new DateOnly(2022, 12, 19),
+                Price4YearsAgoFromEndDate = (decimal)priceAt2021Dec20th,
+                Date4YearsAgo = new DateOnly(2021, 12, 20),
+                Price5YearsAgoFromEndDate = (decimal)priceAt2020Dec21st,
+                Date5YearsAgo = new DateOnly(2020, 12, 21)
+            };
+            return teslaData;
+        }
+
+        private static double FindPrice(DateTime targetDate, List<AssetPrice> assetPrices)
+        {
+            return assetPrices.FirstOrDefault(p => 
+                p.Date.Date == targetDate.Date)?.AdjClose ?? 0;
         }
 
         private static AssetData GetBtcData()
