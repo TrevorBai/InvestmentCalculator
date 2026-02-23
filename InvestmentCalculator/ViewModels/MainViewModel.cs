@@ -61,7 +61,7 @@ namespace InvestmentCalculators.ViewModels
 
             // Should run only once
             //_ = PolulateStockDataIntoDb("QQQ", 5);
-            //_ = PolulateStockDataIntoDb("COST", 5);
+            //_ = PolulateStockDataIntoDb("COST", 10);
             //_ = PolulateStockDataIntoDb("TSLA", 10);
             //_ = PolulateStockDataIntoDb("BRK-B", 10);
         }
@@ -80,11 +80,11 @@ namespace InvestmentCalculators.ViewModels
 
         private async void LoadData()
         {
-            var costcoData = GetCostcoData();
             var qqqData = GetQQQData();
             var timer = new Stopwatch();
             timer.Start();
             var allAssetDataFromDb = await GetAllAssetPricesFromDb();
+            var costcoData = GetCostcoDataFromDb(allAssetDataFromDb);
             var brkBData = GetBrkBDataFromDb(allAssetDataFromDb);
             var teslaData = GetTeslaDataFromDb(allAssetDataFromDb);
             timer.Stop();
@@ -137,29 +137,31 @@ namespace InvestmentCalculators.ViewModels
             return qqqData;
         }
 
-        private static AssetData GetCostcoData()
+        private static AssetData GetCostcoDataFromDb(List<AssetPrice> assetPrices)
         {
-            const decimal PriceAt2025Dec19th = 855.62m;
-            const decimal PriceAt2024Dec16th = 954.07m;
-            const decimal PriceAt2023Dec18th = 671.60m;
-            const decimal PriceAt2022Dec19th = 462.65m;
-            const decimal PriceAt2021Dec20th = 550.37m;
-            const decimal PriceAt2020Dec21st = 364.58m;
+            var allPrices = GetPriceRange(assetPrices, "COST", new DateTime(2020, 12, 1), new DateTime(2025, 12, 31));
+
+            var priceAt2025Dec19th = FindPriceByClose(new DateTime(2025, 12, 19), allPrices);
+            var priceAt2024Dec20th = FindPriceByClose(new DateTime(2024, 12, 20), allPrices);
+            var priceAt2023Dec22nd = FindPriceByClose(new DateTime(2023, 12, 22), allPrices);
+            var priceAt2022Dec23rd = FindPriceByClose(new DateTime(2022, 12, 23), allPrices);
+            var priceAt2021Dec23rd = FindPriceByClose(new DateTime(2021, 12, 23), allPrices);
+            var priceAt2020Dec24th = FindPriceByClose(new DateTime(2020, 12, 24), allPrices);
 
             var costcoData = new AssetData
             {
-                EndPrice = PriceAt2025Dec19th,
+                EndPrice = (decimal)priceAt2025Dec19th,
                 EndDate = new DateOnly(2025, 12, 19),
-                Price1YearAgoFromEndDate = PriceAt2024Dec16th,
-                Date1YearAgo = new DateOnly(2024, 12, 16),
-                Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
-                Date2YearsAgo = new DateOnly(2023, 12, 18),
-                Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
-                Date3YearsAgo = new DateOnly(2022, 12, 19),
-                Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
-                Date4YearsAgo = new DateOnly(2021, 12, 20),
-                Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
-                Date5YearsAgo = new DateOnly(2020, 12, 21)
+                Price1YearAgoFromEndDate = (decimal)priceAt2024Dec20th,
+                Date1YearAgo = new DateOnly(2024, 12, 20),
+                Price2YearsAgoFromEndDate = (decimal)priceAt2023Dec22nd,
+                Date2YearsAgo = new DateOnly(2023, 12, 22),
+                Price3YearsAgoFromEndDate = (decimal)priceAt2022Dec23rd,
+                Date3YearsAgo = new DateOnly(2022, 12, 23),
+                Price4YearsAgoFromEndDate = (decimal)priceAt2021Dec23rd,
+                Date4YearsAgo = new DateOnly(2021, 12, 23),
+                Price5YearsAgoFromEndDate = (decimal)priceAt2020Dec24th,
+                Date5YearsAgo = new DateOnly(2020, 12, 24)
             };
             return costcoData;
         }
@@ -169,12 +171,12 @@ namespace InvestmentCalculators.ViewModels
             var allPrices = GetPriceRange(assetPrices, "BRK-B", new DateTime(2020, 12, 1),
                 new DateTime(2025, 12, 31));
 
-            var priceAt2025Dec19th = FindPrice(new DateTime(2025, 12, 19), allPrices);
-            var priceAt2024Dec16th = FindPrice(new DateTime(2024, 12, 16), allPrices);
-            var priceAt2023Dec18th = FindPrice(new DateTime(2023, 12, 18), allPrices);
-            var priceAt2022Dec19th = FindPrice(new DateTime(2022, 12, 19), allPrices);
-            var priceAt2021Dec20th = FindPrice(new DateTime(2021, 12, 20), allPrices);
-            var priceAt2020Dec21st = FindPrice(new DateTime(2020, 12, 21), allPrices);
+            var priceAt2025Dec19th = FindPriceByAdjClose(new DateTime(2025, 12, 19), allPrices);
+            var priceAt2024Dec16th = FindPriceByAdjClose(new DateTime(2024, 12, 16), allPrices);
+            var priceAt2023Dec18th = FindPriceByAdjClose(new DateTime(2023, 12, 18), allPrices);
+            var priceAt2022Dec19th = FindPriceByAdjClose(new DateTime(2022, 12, 19), allPrices);
+            var priceAt2021Dec20th = FindPriceByAdjClose(new DateTime(2021, 12, 20), allPrices);
+            var priceAt2020Dec21st = FindPriceByAdjClose(new DateTime(2020, 12, 21), allPrices);
 
             var brkBData = new AssetData
             {
@@ -199,12 +201,12 @@ namespace InvestmentCalculators.ViewModels
             var allPrices = GetPriceRange(assetPrices, "TSLA", new DateTime(2020, 12, 1),
                 new DateTime(2025, 12, 31));
 
-            var priceAt2025Dec19th = FindPrice(new DateTime(2025, 12, 19), allPrices);
-            var priceAt2024Dec16th = FindPrice(new DateTime(2024, 12, 16), allPrices);
-            var priceAt2023Dec18th = FindPrice(new DateTime(2023, 12, 18), allPrices);
-            var priceAt2022Dec19th = FindPrice(new DateTime(2022, 12, 19), allPrices);
-            var priceAt2021Dec20th = FindPrice(new DateTime(2021, 12, 20), allPrices);
-            var priceAt2020Dec21st = FindPrice(new DateTime(2020, 12, 21), allPrices);
+            var priceAt2025Dec19th = FindPriceByAdjClose(new DateTime(2025, 12, 19), allPrices);
+            var priceAt2024Dec16th = FindPriceByAdjClose(new DateTime(2024, 12, 16), allPrices);
+            var priceAt2023Dec18th = FindPriceByAdjClose(new DateTime(2023, 12, 18), allPrices);
+            var priceAt2022Dec19th = FindPriceByAdjClose(new DateTime(2022, 12, 19), allPrices);
+            var priceAt2021Dec20th = FindPriceByAdjClose(new DateTime(2021, 12, 20), allPrices);
+            var priceAt2020Dec21st = FindPriceByAdjClose(new DateTime(2020, 12, 21), allPrices);
 
             var teslaData = new AssetData
             {
@@ -224,10 +226,14 @@ namespace InvestmentCalculators.ViewModels
             return teslaData;
         }
 
-        private static double FindPrice(DateTime targetDate, List<AssetPrice> assetPrices)
+        private static double FindPriceByClose(DateTime targetDate, List<AssetPrice> assetPrices)
         {
-            return assetPrices.FirstOrDefault(p => 
-                p.Date.Date == targetDate.Date)?.AdjClose ?? 0;
+            return assetPrices.FirstOrDefault(p => p.Date.Date == targetDate.Date)?.Close ?? 0;
+        }
+
+        private static double FindPriceByAdjClose(DateTime targetDate, List<AssetPrice> assetPrices)
+        {
+            return assetPrices.FirstOrDefault(p => p.Date.Date == targetDate.Date)?.AdjClose ?? 0;
         }
 
         private static AssetData GetBtcData()
