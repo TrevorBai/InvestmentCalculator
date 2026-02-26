@@ -60,7 +60,7 @@ namespace InvestmentCalculators.ViewModels
             LoadData();
 
             // Should run only once
-            //_ = PolulateStockDataIntoDb("QQQ", 5);
+            //_ = PolulateStockDataIntoDb("QQQ", 10);
             //_ = PolulateStockDataIntoDb("COST", 10);
             //_ = PolulateStockDataIntoDb("TSLA", 10);
             //_ = PolulateStockDataIntoDb("BRK-B", 10);
@@ -80,15 +80,15 @@ namespace InvestmentCalculators.ViewModels
 
         private async void LoadData()
         {
-            var qqqData = GetQQQData();
             var timer = new Stopwatch();
             timer.Start();
             var allAssetDataFromDb = await GetAllAssetPricesFromDb();
+            var qqqData = GetQQQDataFromDb(allAssetDataFromDb);
             var costcoData = GetCostcoDataFromDb(allAssetDataFromDb);
             var brkBData = GetBrkBDataFromDb(allAssetDataFromDb);
             var teslaData = GetTeslaDataFromDb(allAssetDataFromDb);
             timer.Stop();
-            Debug.WriteLine($"Time taken to get BRK-B data from DB: {timer.ElapsedMilliseconds} ms");
+            Debug.WriteLine($"Time taken to get asset data from DB: {timer.ElapsedMilliseconds} ms");
 
             var btcData = GetBtcData();
             var dogeData = GetDogeData();
@@ -110,28 +110,31 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
         }
 
-        private static AssetData GetQQQData()
+        private static AssetData GetQQQDataFromDb(List<AssetPrice> assetPrices)
         {
-            const decimal PriceAt2025Dec19th = 617.05m;
-            const decimal PriceAt2024Dec16th = 538.17m;
-            const decimal PriceAt2023Dec18th = 407.08m;
-            const decimal PriceAt2022Dec19th = 269.75m;
-            const decimal PriceAt2021Dec20th = 380.69m;
-            const decimal PriceAt2020Dec21st = 308.92m;
+            var allPrices = GetPriceRange(assetPrices, "QQQ", new DateTime(2020, 12, 1),
+                new DateTime(2025, 12, 31));
+
+            var priceAt2025Dec19th = FindPriceByClose(new DateTime(2025, 12, 19), allPrices);
+            var priceAt2024Dec16th = FindPriceByClose(new DateTime(2024, 12, 16), allPrices);
+            var priceAt2023Dec18th = FindPriceByClose(new DateTime(2023, 12, 18), allPrices);
+            var priceAt2022Dec19th = FindPriceByClose(new DateTime(2022, 12, 19), allPrices);
+            var priceAt2021Dec20th = FindPriceByClose(new DateTime(2021, 12, 20), allPrices);
+            var priceAt2020Dec21st = FindPriceByClose(new DateTime(2020, 12, 21), allPrices);
 
             var qqqData = new AssetData
             {
-                EndPrice = PriceAt2025Dec19th,
+                EndPrice = (decimal)priceAt2025Dec19th,
                 EndDate = new DateOnly(2025, 12, 19),
-                Price1YearAgoFromEndDate = PriceAt2024Dec16th,
+                Price1YearAgoFromEndDate = (decimal)priceAt2024Dec16th,
                 Date1YearAgo = new DateOnly(2024, 12, 16),
-                Price2YearsAgoFromEndDate = PriceAt2023Dec18th,
+                Price2YearsAgoFromEndDate = (decimal)priceAt2023Dec18th,
                 Date2YearsAgo = new DateOnly(2023, 12, 18),
-                Price3YearsAgoFromEndDate = PriceAt2022Dec19th,
+                Price3YearsAgoFromEndDate = (decimal)priceAt2022Dec19th,
                 Date3YearsAgo = new DateOnly(2022, 12, 19),
-                Price4YearsAgoFromEndDate = PriceAt2021Dec20th,
+                Price4YearsAgoFromEndDate = (decimal)priceAt2021Dec20th,
                 Date4YearsAgo = new DateOnly(2021, 12, 20),
-                Price5YearsAgoFromEndDate = PriceAt2020Dec21st,
+                Price5YearsAgoFromEndDate = (decimal)priceAt2020Dec21st,
                 Date5YearsAgo = new DateOnly(2020, 12, 21)
             };
             return qqqData;
