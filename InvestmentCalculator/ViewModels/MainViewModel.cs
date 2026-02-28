@@ -64,6 +64,10 @@ namespace InvestmentCalculators.ViewModels
             //_ = PolulateStockDataIntoDb("COST", 10);
             //_ = PolulateStockDataIntoDb("TSLA", 10);
             //_ = PolulateStockDataIntoDb("BRK-B", 10);
+            //_ = PolulateStockDataIntoDb("DOGE-USD", 12);
+
+
+
         }
 
         public async Task PolulateStockDataIntoDb(string ticker, int yearsBack)
@@ -87,11 +91,11 @@ namespace InvestmentCalculators.ViewModels
             var costcoData = GetCostcoDataFromDb(allAssetDataFromDb);
             var brkBData = GetBrkBDataFromDb(allAssetDataFromDb);
             var teslaData = GetTeslaDataFromDb(allAssetDataFromDb);
+            var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
             timer.Stop();
             Debug.WriteLine($"Time taken to get asset data from DB: {timer.ElapsedMilliseconds} ms");
 
             var btcData = GetBtcData();
-            var dogeData = GetDogeData();
 
             var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "QQQ", qqqData, true);
@@ -142,7 +146,8 @@ namespace InvestmentCalculators.ViewModels
 
         private static AssetData GetCostcoDataFromDb(List<AssetPrice> assetPrices)
         {
-            var allPrices = GetPriceRange(assetPrices, "COST", new DateTime(2020, 12, 1), new DateTime(2025, 12, 31));
+            var allPrices = GetPriceRange(assetPrices, "COST", new DateTime(2020, 12, 1),
+                new DateTime(2025, 12, 31));
 
             var priceAt2025Dec19th = FindPriceByClose(new DateTime(2025, 12, 19), allPrices);
             var priceAt2024Dec20th = FindPriceByClose(new DateTime(2024, 12, 20), allPrices);
@@ -229,6 +234,64 @@ namespace InvestmentCalculators.ViewModels
             return teslaData;
         }
 
+        /// <summary>
+        /// Some of the doge data are too old, yahoo-finance doesn't even track them.
+        /// In fact, any data prior to Nov-09-2017 were not there.
+        /// </summary>
+        /// <returns></returns>
+        private static AssetData GetDogeDataPartiallyFromDb(List<AssetPrice> assetPrices)
+        {
+            const decimal PriceAt2013Dec15th = 0.00056m;
+            const double YearSpanFromBirthToEndingDate = 11.29;
+
+            const decimal PriceAt2015Mar25th = 0.0001304m;
+            const decimal PriceAt2016Mar25th = 0.0002144m;
+            const decimal PriceAt2017Mar25th = 0.0002976m;
+
+            var allPrices = GetPriceRange(assetPrices, "DOGE-USD", new DateTime(2018, 3, 1),
+                new DateTime(2025, 3, 31));
+
+            var priceAt2025Mar25th = FindPriceByClose(new DateTime(2025, 3, 25), allPrices);
+            var priceAt2024Mar27th = FindPriceByClose(new DateTime(2024, 3, 27), allPrices);
+            var priceAt2023Mar26th = FindPriceByClose(new DateTime(2023, 3, 26), allPrices);
+            var priceAt2022Mar24th = FindPriceByClose(new DateTime(2022, 3, 24), allPrices);
+            var priceAt2021Mar23rd = FindPriceByClose(new DateTime(2021, 3, 23), allPrices);
+            var priceAt2020Mar27th = FindPriceByClose(new DateTime(2020, 3, 27), allPrices);
+            var priceAt2019Mar27th = FindPriceByClose(new DateTime(2019, 3, 27), allPrices);
+            var priceAt2018Mar26th = FindPriceByClose(new DateTime(2018, 3, 26), allPrices);
+
+            var dogeData = new AssetData
+            {
+                EndPrice = (decimal)priceAt2025Mar25th,
+                EndDate = new DateOnly(2025, 3, 25),
+                BirthDate = new DateOnly(2013, 12, 15),
+                StartPriceFromBirth = PriceAt2013Dec15th,
+                YearsFromBirthToEndDate = YearSpanFromBirthToEndingDate,
+                Price1YearAgoFromEndDate = (decimal)priceAt2024Mar27th,
+                Date1YearAgo = new DateOnly(2024, 3, 27),
+                Price2YearsAgoFromEndDate = (decimal)priceAt2023Mar26th,
+                Date2YearsAgo = new DateOnly(2023, 3, 26),
+                Price3YearsAgoFromEndDate = (decimal)priceAt2022Mar24th,
+                Date3YearsAgo = new DateOnly(2022, 3, 24),
+                Price4YearsAgoFromEndDate = (decimal)priceAt2021Mar23rd,
+                Date4YearsAgo = new DateOnly(2021, 3, 23),
+                Price5YearsAgoFromEndDate = (decimal)priceAt2020Mar27th,
+                Date5YearsAgo = new DateOnly(2020, 3, 27),
+                Price6YearsAgoFromEndDate = (decimal)priceAt2019Mar27th,
+                Date6YearsAgo = new DateOnly(2019, 3, 27),
+                Price7YearsAgoFromEndDate = (decimal)priceAt2018Mar26th,
+                Date7YearsAgo = new DateOnly(2018, 3, 26),
+                Price8YearsAgoFromEndDate = PriceAt2017Mar25th,
+                Date8YearsAgo = new DateOnly(2017, 3, 25),
+                Price9YearsAgoFromEndDate = PriceAt2016Mar25th,
+                Date9YearsAgo = new DateOnly(2016, 3, 25),
+                Price10YearsAgoFromEndDate = PriceAt2015Mar25th,
+                Date10YearsAgo = new DateOnly(2015, 3, 25)
+            };
+
+            return dogeData;
+        }
+
         private static double FindPriceByClose(DateTime targetDate, List<AssetPrice> assetPrices)
         {
             return assetPrices.FirstOrDefault(p => p.Date.Date == targetDate.Date)?.Close ?? 0;
@@ -287,57 +350,6 @@ namespace InvestmentCalculators.ViewModels
             };
 
             return btcData;
-        }
-
-        private static AssetData GetDogeData()
-        {
-            // Data points
-            const decimal PriceAt2025Mar25th = 0.1901m;
-                  
-            const decimal PriceAt2013Dec15th = 0.00056m;
-            const double YearSpanFromBirthToEndingDate = 11.29;
-                  
-            const decimal PriceAt2015Mar25th = 0.0001304m;
-            const decimal PriceAt2016Mar25th = 0.0002144m;
-            const decimal PriceAt2017Mar25th = 0.0002976m;
-            const decimal PriceAt2018Mar26th = 0.003275m;
-            const decimal PriceAt2019Mar27th = 0.002087m;
-            const decimal PriceAt2020Mar27th = 0.001805m;
-            const decimal PriceAt2021Mar23th = 0.05352m;
-            const decimal PriceAt2022Mar24th = 0.1366m;
-            const decimal PriceAt2023Mar26th = 0.07442m;
-            const decimal PriceAt2024Mar27th = 0.1903m;
-
-            var dogeData = new AssetData
-            {
-                EndPrice = PriceAt2025Mar25th,
-                EndDate = new DateOnly(2025, 3, 25),
-                BirthDate = new DateOnly(2013, 12, 15),
-                StartPriceFromBirth = PriceAt2013Dec15th,
-                YearsFromBirthToEndDate = YearSpanFromBirthToEndingDate,
-                Price1YearAgoFromEndDate = PriceAt2024Mar27th,
-                Date1YearAgo = new DateOnly(2024, 3, 27),
-                Price2YearsAgoFromEndDate = PriceAt2023Mar26th,
-                Date2YearsAgo = new DateOnly(2023, 3, 26),
-                Price3YearsAgoFromEndDate = PriceAt2022Mar24th,
-                Date3YearsAgo = new DateOnly(2022, 3, 24),
-                Price4YearsAgoFromEndDate = PriceAt2021Mar23th,
-                Date4YearsAgo = new DateOnly(2021, 3, 23),
-                Price5YearsAgoFromEndDate = PriceAt2020Mar27th,
-                Date5YearsAgo = new DateOnly(2020, 3, 27),
-                Price6YearsAgoFromEndDate = PriceAt2019Mar27th,
-                Date6YearsAgo = new DateOnly(2019, 3, 27),
-                Price7YearsAgoFromEndDate = PriceAt2018Mar26th,
-                Date7YearsAgo = new DateOnly(2018, 3, 26),
-                Price8YearsAgoFromEndDate = PriceAt2017Mar25th,
-                Date8YearsAgo = new DateOnly(2017, 3, 25),
-                Price9YearsAgoFromEndDate = PriceAt2016Mar25th,
-                Date9YearsAgo = new DateOnly(2016, 3, 25),
-                Price10YearsAgoFromEndDate = PriceAt2015Mar25th,
-                Date10YearsAgo = new DateOnly(2015, 3, 25)
-            };
-
-            return dogeData;
         }
 
         private static List<AssetPrice> GetPriceRange(List<AssetPrice> assetPrices,
