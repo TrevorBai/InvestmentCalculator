@@ -25,7 +25,7 @@ namespace InvestmentCalculators.Services
                 .OrderBy(p => p.Date)
                 .ToListAsync();
 
-            // If we have data adn it's up to date (within 24 hours), use it!
+            // If we have data and it's up to date (within 24 hours), use it!
             if (localData.Any() && localData.Max(p => p.Date) >= DateTime.Now.AddDays(-1))
             {
                 return localData;

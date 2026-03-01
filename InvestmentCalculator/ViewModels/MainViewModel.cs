@@ -65,9 +65,7 @@ namespace InvestmentCalculators.ViewModels
             //_ = PolulateStockDataIntoDb("TSLA", 10);
             //_ = PolulateStockDataIntoDb("BRK-B", 10);
             //_ = PolulateStockDataIntoDb("DOGE-USD", 12);
-
-
-
+            //_ = PolulateStockDataIntoDb("BTC-USD", 12);
         }
 
         public async Task PolulateStockDataIntoDb(string ticker, int yearsBack)
@@ -92,10 +90,10 @@ namespace InvestmentCalculators.ViewModels
             var brkBData = GetBrkBDataFromDb(allAssetDataFromDb);
             var teslaData = GetTeslaDataFromDb(allAssetDataFromDb);
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
+            var btcData = GetBtcDataPartiallyFromDb(allAssetDataFromDb);
             timer.Stop();
             Debug.WriteLine($"Time taken to get asset data from DB: {timer.ElapsedMilliseconds} ms");
 
-            var btcData = GetBtcData();
 
             var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "QQQ", qqqData, true);
@@ -292,6 +290,63 @@ namespace InvestmentCalculators.ViewModels
             return dogeData;
         }
 
+        /// <summary>
+        /// Any btc data prior to Sept-17-2014 were not in yahoo finance.
+        /// </summary>
+        /// <returns></returns>
+        private static AssetData GetBtcDataPartiallyFromDb(List<AssetPrice> assetPrices)
+        {
+            const decimal PriceAt2009Oct15th = 0.00099m;
+            const double YearSpanFromBirthToEndingDate = 15.4757;
+
+
+            var allPrices = GetPriceRange(assetPrices, "BTC-USD", new DateTime(2015, 3, 1),
+                new DateTime(2025, 3, 31));
+            
+            var priceAt2025Mar26th = FindPriceByClose(new DateTime(2025, 3, 26), allPrices);
+            var priceAt2024Mar28th = FindPriceByClose(new DateTime(2024, 3, 28), allPrices);
+            var priceAt2023Mar24th = FindPriceByClose(new DateTime(2023, 3, 24), allPrices);
+            var priceAt2022Mar27th = FindPriceByClose(new DateTime(2022, 3, 27), allPrices);
+            var priceAt2021Mar30th = FindPriceByClose(new DateTime(2021, 3, 30), allPrices);
+            var priceAt2020Mar24th = FindPriceByClose(new DateTime(2020, 3, 24), allPrices);
+            var priceAt2019Mar29th = FindPriceByClose(new DateTime(2019, 3, 29), allPrices);
+            var priceAt2018Mar24th = FindPriceByClose(new DateTime(2018, 3, 24), allPrices);
+            var priceAt2017Mar28th = FindPriceByClose(new DateTime(2017, 3, 28), allPrices);
+            var priceAt2016Mar23rd = FindPriceByClose(new DateTime(2016, 3, 23), allPrices);
+            var priceAt2015Mar28th = FindPriceByClose(new DateTime(2015, 3, 28), allPrices);
+
+            var btcData = new AssetData
+            {
+                EndPrice = (decimal)priceAt2025Mar26th,
+                EndDate = new DateOnly(2025, 3, 26),
+                BirthDate = new DateOnly(2009, 10, 15),
+                StartPriceFromBirth = PriceAt2009Oct15th,
+                YearsFromBirthToEndDate = YearSpanFromBirthToEndingDate,
+                Price1YearAgoFromEndDate = (decimal)priceAt2024Mar28th,
+                Date1YearAgo = new DateOnly(2024, 3, 28),
+                Price2YearsAgoFromEndDate = (decimal)priceAt2023Mar24th,
+                Date2YearsAgo = new DateOnly(2023, 3, 24),
+                Price3YearsAgoFromEndDate = (decimal)priceAt2022Mar27th,
+                Date3YearsAgo = new DateOnly(2022, 3, 27),
+                Price4YearsAgoFromEndDate = (decimal)priceAt2021Mar30th,
+                Date4YearsAgo = new DateOnly(2021, 3, 30),
+                Price5YearsAgoFromEndDate = (decimal)priceAt2020Mar24th,
+                Date5YearsAgo = new DateOnly(2020, 3, 24),
+                Price6YearsAgoFromEndDate = (decimal)priceAt2019Mar29th,
+                Date6YearsAgo = new DateOnly(2019, 3, 29),
+                Price7YearsAgoFromEndDate = (decimal)priceAt2018Mar24th,
+                Date7YearsAgo = new DateOnly(2018, 3, 24),
+                Price8YearsAgoFromEndDate = (decimal)priceAt2017Mar28th,
+                Date8YearsAgo = new DateOnly(2017, 3, 28),
+                Price9YearsAgoFromEndDate = (decimal)priceAt2016Mar23rd,
+                Date9YearsAgo = new DateOnly(2016, 3, 23),
+                Price10YearsAgoFromEndDate = (decimal)priceAt2015Mar28th,
+                Date10YearsAgo = new DateOnly(2015, 3, 28)
+            };
+
+            return btcData;
+        }
+
         private static double FindPriceByClose(DateTime targetDate, List<AssetPrice> assetPrices)
         {
             return assetPrices.FirstOrDefault(p => p.Date.Date == targetDate.Date)?.Close ?? 0;
@@ -300,56 +355,6 @@ namespace InvestmentCalculators.ViewModels
         private static double FindPriceByAdjClose(DateTime targetDate, List<AssetPrice> assetPrices)
         {
             return assetPrices.FirstOrDefault(p => p.Date.Date == targetDate.Date)?.AdjClose ?? 0;
-        }
-
-        private static AssetData GetBtcData()
-        {
-            const decimal PriceAt2025Mar26th = 86888.01m;
-
-            const decimal PriceAt2009Oct15th = 0.00099m;
-            const double YearSpanFromBirthToEndingDate = 15.4757;
-
-            const decimal PriceAt2015Mar28th = 252.74m;
-            const decimal PriceAt2016Mar23th = 418.42m;
-            const decimal PriceAt2017Mar28th = 1046.07m;
-            const decimal PriceAt2018Mar24th = 8612.8m;
-            const decimal PriceAt2019Mar29th = 4092.13m;
-            const decimal PriceAt2020Mar24th = 6738.71m;
-            const decimal PriceAt2021Mar30th = 58930.27m;
-            const decimal PriceAt2022Mar27th = 46821.85m;
-            const decimal PriceAt2023Mar24th = 27487.33m;
-            const decimal PriceAt2024Mar28th = 70744.79m;
-
-            var btcData = new AssetData
-            {
-                EndPrice = PriceAt2025Mar26th,
-                EndDate = new DateOnly(2025, 3, 26),
-                BirthDate = new DateOnly(2009, 10, 15),
-                StartPriceFromBirth = PriceAt2009Oct15th,
-                YearsFromBirthToEndDate = YearSpanFromBirthToEndingDate,
-                Price1YearAgoFromEndDate = PriceAt2024Mar28th,
-                Date1YearAgo = new DateOnly(2024, 3, 28),
-                Price2YearsAgoFromEndDate = PriceAt2023Mar24th,
-                Date2YearsAgo = new DateOnly(2023, 3, 24),
-                Price3YearsAgoFromEndDate = PriceAt2022Mar27th,
-                Date3YearsAgo = new DateOnly(2022, 3, 27),
-                Price4YearsAgoFromEndDate = PriceAt2021Mar30th,
-                Date4YearsAgo = new DateOnly(2021, 3, 30),
-                Price5YearsAgoFromEndDate = PriceAt2020Mar24th,
-                Date5YearsAgo = new DateOnly(2020, 3, 24),
-                Price6YearsAgoFromEndDate = PriceAt2019Mar29th,
-                Date6YearsAgo = new DateOnly(2019, 3, 29),
-                Price7YearsAgoFromEndDate = PriceAt2018Mar24th,
-                Date7YearsAgo = new DateOnly(2018, 3, 24),
-                Price8YearsAgoFromEndDate = PriceAt2017Mar28th,
-                Date8YearsAgo = new DateOnly(2017, 3, 28),
-                Price9YearsAgoFromEndDate = PriceAt2016Mar23th,
-                Date9YearsAgo = new DateOnly(2016, 3, 23),
-                Price10YearsAgoFromEndDate = PriceAt2015Mar28th,
-                Date10YearsAgo = new DateOnly(2015, 3, 28)
-            };
-
-            return btcData;
         }
 
         private static List<AssetPrice> GetPriceRange(List<AssetPrice> assetPrices,
