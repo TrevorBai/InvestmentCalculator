@@ -239,6 +239,7 @@ namespace InvestmentCalculators.ViewModels
         /// <returns></returns>
         private static AssetData GetDogeDataPartiallyFromDb(List<AssetPrice> assetPrices)
         {
+            // These data can't be retrieved from db since yahoo finance doesn't have them
             const decimal PriceAt2013Dec15th = 0.00056m;
             const double YearSpanFromBirthToEndingDate = 11.29;
 
@@ -249,42 +250,55 @@ namespace InvestmentCalculators.ViewModels
             var allPrices = GetPriceRange(assetPrices, "DOGE-USD", new DateTime(2018, 3, 1),
                 new DateTime(2025, 3, 31));
 
-            var priceAt2025Mar25th = FindPriceByClose(new DateTime(2025, 3, 25), allPrices);
-            var priceAt2024Mar27th = FindPriceByClose(new DateTime(2024, 3, 27), allPrices);
-            var priceAt2023Mar26th = FindPriceByClose(new DateTime(2023, 3, 26), allPrices);
-            var priceAt2022Mar24th = FindPriceByClose(new DateTime(2022, 3, 24), allPrices);
-            var priceAt2021Mar23rd = FindPriceByClose(new DateTime(2021, 3, 23), allPrices);
-            var priceAt2020Mar27th = FindPriceByClose(new DateTime(2020, 3, 27), allPrices);
-            var priceAt2019Mar27th = FindPriceByClose(new DateTime(2019, 3, 27), allPrices);
-            var priceAt2018Mar26th = FindPriceByClose(new DateTime(2018, 3, 26), allPrices);
+            var endingDate = new DateTime(2025, 3, 25);
+            var date1YearAgo = endingDate.AddYears(-1);
+            var date2YearsAgo = endingDate.AddYears(-2);
+            var date3YearsAgo = endingDate.AddYears(-3);
+            var date4YearsAgo = endingDate.AddYears(-4);
+            var date5YearsAgo = endingDate.AddYears(-5);
+            var date6YearsAgo = endingDate.AddYears(-6);
+            var date7YearsAgo = endingDate.AddYears(-7);
+            var date8YearsAgo = endingDate.AddYears(-8);
+            var date9YearsAgo = endingDate.AddYears(-9);
+            var date10YearsAgo = endingDate.AddYears(-10);
+
+
+            var priceAt2025Mar25th = FindPriceByClose(endingDate, allPrices);
+            var priceAt2024Mar27th = FindPriceByClose(date1YearAgo, allPrices);
+            var priceAt2023Mar26th = FindPriceByClose(date2YearsAgo, allPrices);
+            var priceAt2022Mar24th = FindPriceByClose(date3YearsAgo, allPrices);
+            var priceAt2021Mar23rd = FindPriceByClose(date4YearsAgo, allPrices);
+            var priceAt2020Mar27th = FindPriceByClose(date5YearsAgo, allPrices);
+            var priceAt2019Mar27th = FindPriceByClose(date6YearsAgo, allPrices);
+            var priceAt2018Mar26th = FindPriceByClose(date7YearsAgo, allPrices);
 
             var dogeData = new AssetData
             {
                 EndPrice = (decimal)priceAt2025Mar25th,
-                EndDate = new DateOnly(2025, 3, 25),
+                EndDate = DateOnly.FromDateTime(endingDate),
                 BirthDate = new DateOnly(2013, 12, 15),
                 StartPriceFromBirth = PriceAt2013Dec15th,
                 YearsFromBirthToEndDate = YearSpanFromBirthToEndingDate,
                 Price1YearAgoFromEndDate = (decimal)priceAt2024Mar27th,
-                Date1YearAgo = new DateOnly(2024, 3, 27),
+                Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
                 Price2YearsAgoFromEndDate = (decimal)priceAt2023Mar26th,
-                Date2YearsAgo = new DateOnly(2023, 3, 26),
+                Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
                 Price3YearsAgoFromEndDate = (decimal)priceAt2022Mar24th,
-                Date3YearsAgo = new DateOnly(2022, 3, 24),
+                Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
                 Price4YearsAgoFromEndDate = (decimal)priceAt2021Mar23rd,
-                Date4YearsAgo = new DateOnly(2021, 3, 23),
+                Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
                 Price5YearsAgoFromEndDate = (decimal)priceAt2020Mar27th,
-                Date5YearsAgo = new DateOnly(2020, 3, 27),
+                Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo),
                 Price6YearsAgoFromEndDate = (decimal)priceAt2019Mar27th,
-                Date6YearsAgo = new DateOnly(2019, 3, 27),
+                Date6YearsAgo = DateOnly.FromDateTime(date6YearsAgo),
                 Price7YearsAgoFromEndDate = (decimal)priceAt2018Mar26th,
-                Date7YearsAgo = new DateOnly(2018, 3, 26),
+                Date7YearsAgo = DateOnly.FromDateTime(date7YearsAgo),
                 Price8YearsAgoFromEndDate = PriceAt2017Mar25th,
-                Date8YearsAgo = new DateOnly(2017, 3, 25),
+                Date8YearsAgo = DateOnly.FromDateTime(date8YearsAgo),
                 Price9YearsAgoFromEndDate = PriceAt2016Mar25th,
-                Date9YearsAgo = new DateOnly(2016, 3, 25),
+                Date9YearsAgo = DateOnly.FromDateTime(date9YearsAgo),
                 Price10YearsAgoFromEndDate = PriceAt2015Mar25th,
-                Date10YearsAgo = new DateOnly(2015, 3, 25)
+                Date10YearsAgo = DateOnly.FromDateTime(date10YearsAgo)
             };
 
             return dogeData;
