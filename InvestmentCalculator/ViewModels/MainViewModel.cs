@@ -262,7 +262,6 @@ namespace InvestmentCalculators.ViewModels
             var date9YearsAgo = endingDate.AddYears(-9);
             var date10YearsAgo = endingDate.AddYears(-10);
 
-
             var priceAt2025Mar25th = FindPriceByClose(endingDate, allPrices);
             var priceAt2024Mar27th = FindPriceByClose(date1YearAgo, allPrices);
             var priceAt2023Mar26th = FindPriceByClose(date2YearsAgo, allPrices);
@@ -372,14 +371,30 @@ namespace InvestmentCalculators.ViewModels
             return btcData;
         }
 
+        /// <summary>
+        /// If can't find the price on that specific date, find the most recent price
+        /// before that date.
+        /// </summary>
         private static double FindPriceByClose(DateTime targetDate, List<AssetPrice> assetPrices)
         {
-            return assetPrices.FirstOrDefault(p => p.Date.Date == targetDate.Date)?.Close ?? 0;
+            var lastAvailable = assetPrices
+                .Where(p => p.Date.Date <= targetDate.Date) // Only look at today or earlier
+                .OrderByDescending(p => p.Date)            // Get the most recent one
+                .FirstOrDefault();
+            return lastAvailable?.Close ?? 0;
         }
 
+        /// <summary>
+        /// If can't find the price on that specific date, find the most recent price
+        /// before that date.
+        /// </summary>
         private static double FindPriceByAdjClose(DateTime targetDate, List<AssetPrice> assetPrices)
         {
-            return assetPrices.FirstOrDefault(p => p.Date.Date == targetDate.Date)?.AdjClose ?? 0;
+            var lastAvailable = assetPrices
+                .Where(p => p.Date.Date <= targetDate.Date)
+                .OrderByDescending(p => p.Date)            
+                .FirstOrDefault();
+            return lastAvailable?.AdjClose ?? 0;
         }
 
         private static List<AssetPrice> GetPriceRange(List<AssetPrice> assetPrices,
