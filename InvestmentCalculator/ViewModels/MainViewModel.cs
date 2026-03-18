@@ -184,26 +184,26 @@ namespace InvestmentCalculators.ViewModels
             var date4YearsAgo = endingDate.AddYears(-4);
             var date5YearsAgo = endingDate.AddYears(-5);
 
-            var priceAt2025Dec19th = FindPriceByAdjClose(endingDate, allPrices);
-            var priceAt2024Dec16th = FindPriceByAdjClose(date1YearAgo, allPrices);
-            var priceAt2023Dec18th = FindPriceByAdjClose(date2YearsAgo, allPrices);
-            var priceAt2022Dec19th = FindPriceByAdjClose(date3YearsAgo, allPrices);
-            var priceAt2021Dec20th = FindPriceByAdjClose(date4YearsAgo, allPrices);
-            var priceAt2020Dec21st = FindPriceByAdjClose(date5YearsAgo, allPrices);
+            var priceAtEndingDate = FindPriceByAdjClose(endingDate, allPrices);
+            var priceAt1YearAgo = FindPriceByAdjClose(date1YearAgo, allPrices);
+            var priceAt2YearsAgo = FindPriceByAdjClose(date2YearsAgo, allPrices);
+            var priceAt3YearsAgo = FindPriceByAdjClose(date3YearsAgo, allPrices);
+            var priceAt4YearsAgo = FindPriceByAdjClose(date4YearsAgo, allPrices);
+            var priceAt5YearsAgo = FindPriceByAdjClose(date5YearsAgo, allPrices);
 
             var brkBData = new AssetData
             {
-                EndPrice = (decimal)priceAt2025Dec19th,
+                EndPrice = (decimal)priceAtEndingDate,
                 EndDate = DateOnly.FromDateTime(endingDate),
-                Price1YearAgoFromEndDate = (decimal)priceAt2024Dec16th,
+                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
                 Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
-                Price2YearsAgoFromEndDate = (decimal)priceAt2023Dec18th,
+                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
                 Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
-                Price3YearsAgoFromEndDate = (decimal)priceAt2022Dec19th,
+                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
                 Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
-                Price4YearsAgoFromEndDate = (decimal)priceAt2021Dec20th,
+                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
                 Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
-                Price5YearsAgoFromEndDate = (decimal)priceAt2020Dec21st,
+                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
                 Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo)
             };
             return brkBData;
@@ -221,26 +221,26 @@ namespace InvestmentCalculators.ViewModels
             var date4YearsAgo = endingDate.AddYears(-4);
             var date5YearsAgo = endingDate.AddYears(-5);
 
-            var priceAt2025Dec19th = FindPriceByAdjClose(endingDate, allPrices);
-            var priceAt2024Dec16th = FindPriceByAdjClose(date1YearAgo, allPrices);
-            var priceAt2023Dec18th = FindPriceByAdjClose(date2YearsAgo, allPrices);
-            var priceAt2022Dec19th = FindPriceByAdjClose(date3YearsAgo, allPrices);
-            var priceAt2021Dec20th = FindPriceByAdjClose(date4YearsAgo, allPrices);
-            var priceAt2020Dec21st = FindPriceByAdjClose(date5YearsAgo, allPrices);
+            var priceAtEndingDate = FindPriceByAdjClose(endingDate, allPrices);
+            var priceAt1YearAgo = FindPriceByAdjClose(date1YearAgo, allPrices);
+            var priceAt2YearsAgo = FindPriceByAdjClose(date2YearsAgo, allPrices);
+            var priceAt3YearsAgo = FindPriceByAdjClose(date3YearsAgo, allPrices);
+            var priceAt4YearsAgo = FindPriceByAdjClose(date4YearsAgo, allPrices);
+            var priceAt5YearsAgo = FindPriceByAdjClose(date5YearsAgo, allPrices);
 
             var teslaData = new AssetData
             {
-                EndPrice = (decimal)priceAt2025Dec19th,
+                EndPrice = (decimal)priceAtEndingDate,
                 EndDate = DateOnly.FromDateTime(endingDate),
-                Price1YearAgoFromEndDate = (decimal)priceAt2024Dec16th,
+                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
                 Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
-                Price2YearsAgoFromEndDate = (decimal)priceAt2023Dec18th,
+                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
                 Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
-                Price3YearsAgoFromEndDate = (decimal)priceAt2022Dec19th,
+                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
                 Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
-                Price4YearsAgoFromEndDate = (decimal)priceAt2021Dec20th,
+                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
                 Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
-                Price5YearsAgoFromEndDate = (decimal)priceAt2020Dec21st,
+                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
                 Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo)
             };
             return teslaData;
@@ -276,35 +276,35 @@ namespace InvestmentCalculators.ViewModels
             var date9YearsAgo = endingDate.AddYears(-9);
             var date10YearsAgo = endingDate.AddYears(-10);
 
-            var priceAt2025Mar25th = FindPriceByClose(endingDate, allPrices);
-            var priceAt2024Mar27th = FindPriceByClose(date1YearAgo, allPrices);
-            var priceAt2023Mar26th = FindPriceByClose(date2YearsAgo, allPrices);
-            var priceAt2022Mar24th = FindPriceByClose(date3YearsAgo, allPrices);
-            var priceAt2021Mar23rd = FindPriceByClose(date4YearsAgo, allPrices);
-            var priceAt2020Mar27th = FindPriceByClose(date5YearsAgo, allPrices);
-            var priceAt2019Mar27th = FindPriceByClose(date6YearsAgo, allPrices);
-            var priceAt2018Mar26th = FindPriceByClose(date7YearsAgo, allPrices);
+            var priceAtEndingDate = FindPriceByClose(endingDate, allPrices);
+            var priceAt1YearAgo = FindPriceByClose(date1YearAgo, allPrices);
+            var priceAt2YearsAgo = FindPriceByClose(date2YearsAgo, allPrices);
+            var priceAt3YearsAgo = FindPriceByClose(date3YearsAgo, allPrices);
+            var priceAt4YearsAgo = FindPriceByClose(date4YearsAgo, allPrices);
+            var priceAt5YearsAgo = FindPriceByClose(date5YearsAgo, allPrices);
+            var priceAt6YearsAgo = FindPriceByClose(date6YearsAgo, allPrices);
+            var priceAt7YearsAgo = FindPriceByClose(date7YearsAgo, allPrices);
 
             var dogeData = new AssetData
             {
-                EndPrice = (decimal)priceAt2025Mar25th,
+                EndPrice = (decimal)priceAtEndingDate,
                 EndDate = DateOnly.FromDateTime(endingDate),
                 BirthDate = new DateOnly(2013, 12, 15),
                 StartPriceFromBirth = PriceAt2013Dec15th,
                 YearsFromBirthToEndDate = YearSpanFromBirthToEndingDate,
-                Price1YearAgoFromEndDate = (decimal)priceAt2024Mar27th,
+                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
                 Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
-                Price2YearsAgoFromEndDate = (decimal)priceAt2023Mar26th,
+                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
                 Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
-                Price3YearsAgoFromEndDate = (decimal)priceAt2022Mar24th,
+                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
                 Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
-                Price4YearsAgoFromEndDate = (decimal)priceAt2021Mar23rd,
+                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
                 Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
-                Price5YearsAgoFromEndDate = (decimal)priceAt2020Mar27th,
+                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
                 Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo),
-                Price6YearsAgoFromEndDate = (decimal)priceAt2019Mar27th,
+                Price6YearsAgoFromEndDate = (decimal)priceAt6YearsAgo,
                 Date6YearsAgo = DateOnly.FromDateTime(date6YearsAgo),
-                Price7YearsAgoFromEndDate = (decimal)priceAt2018Mar26th,
+                Price7YearsAgoFromEndDate = (decimal)priceAt7YearsAgo,
                 Date7YearsAgo = DateOnly.FromDateTime(date7YearsAgo),
                 Price8YearsAgoFromEndDate = PriceAt2017Mar25th,
                 Date8YearsAgo = DateOnly.FromDateTime(date8YearsAgo),
