@@ -85,10 +85,14 @@ namespace InvestmentCalculators.ViewModels
             var timer = new Stopwatch();
             timer.Start();
             var allAssetDataFromDb = await GetAllAssetPricesFromDb();
-            var qqqData = GetQQQDataFromDb(allAssetDataFromDb);
-            var costcoData = GetCostcoDataFromDb(allAssetDataFromDb);
-            var brkBData = GetBrkBDataFromDb(allAssetDataFromDb);
-            var teslaData = GetTeslaDataFromDb(allAssetDataFromDb);
+            var qqqData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "QQQ",
+                new DateTime(2025, 12, 19));
+            var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST",
+                new DateTime(2025, 12, 19));
+            var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
+                new DateTime(2025, 12, 19), true);
+            var brkBData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "BRK-B", 
+                new DateTime(2025, 12, 19), true);
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
             var btcData = GetBtcDataPartiallyFromDb(allAssetDataFromDb);
             timer.Stop();
@@ -110,154 +114,6 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(brkBPerformance.Ticker!, brkBPerformance);
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
-        }
-
-        private static AssetData GetQQQDataFromDb(List<AssetPrice> assetPrices)
-        {
-            var allPrices = GetPriceRange(assetPrices, "QQQ", new DateTime(2020, 12, 1),
-                new DateTime(2025, 12, 31));
-
-            var endingDate = new DateTime(2025, 12, 19);
-            var date1YearAgo = endingDate.AddYears(-1);
-            var date2YearsAgo = endingDate.AddYears(-2);
-            var date3YearsAgo = endingDate.AddYears(-3);
-            var date4YearsAgo = endingDate.AddYears(-4);
-            var date5YearsAgo = endingDate.AddYears(-5);
-
-            var priceAtEndingDate = FindPriceByClose(endingDate, allPrices);
-            var priceAt1YearAgo = FindPriceByClose(date1YearAgo, allPrices);
-            var priceAt2YearsAgo = FindPriceByClose(date2YearsAgo, allPrices);
-            var priceAt3YearsAgo = FindPriceByClose(date3YearsAgo, allPrices);
-            var priceAt4YearsAgo = FindPriceByClose(date4YearsAgo, allPrices);
-            var priceAt5YearsAgo = FindPriceByClose(date5YearsAgo, allPrices);
-
-            var qqqData = new AssetData
-            {
-                EndPrice = (decimal)priceAtEndingDate,
-                EndDate = DateOnly.FromDateTime(endingDate),
-                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
-                Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
-                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
-                Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
-                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
-                Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
-                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
-                Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
-                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
-                Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo)
-            };
-            return qqqData;
-        }
-
-        private static AssetData GetCostcoDataFromDb(List<AssetPrice> assetPrices)
-        {
-            var allPrices = GetPriceRange(assetPrices, "COST", new DateTime(2020, 12, 1),
-                new DateTime(2025, 12, 31));
-
-            var endingDate = new DateTime(2025, 12, 19);
-            var date1YearAgo = endingDate.AddYears(-1);
-            var date2YearsAgo = endingDate.AddYears(-2);
-            var date3YearsAgo = endingDate.AddYears(-3);
-            var date4YearsAgo = endingDate.AddYears(-4);
-            var date5YearsAgo = endingDate.AddYears(-5);
-
-            var priceAtEndingDate = FindPriceByClose(endingDate, allPrices);
-            var priceAt1YearAgo = FindPriceByClose(date1YearAgo, allPrices);
-            var priceAt2YearsAgo = FindPriceByClose(date2YearsAgo, allPrices);
-            var priceAt3YearsAgo = FindPriceByClose(date3YearsAgo, allPrices);
-            var priceAt4YearsAgo = FindPriceByClose(date4YearsAgo, allPrices);
-            var priceAt5YearsAgo = FindPriceByClose(date5YearsAgo, allPrices);
-
-            var costcoData = new AssetData
-            {
-                EndPrice = (decimal)priceAtEndingDate,
-                EndDate = DateOnly.FromDateTime(endingDate),
-                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
-                Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
-                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
-                Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
-                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
-                Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
-                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
-                Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
-                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
-                Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo)
-            };
-            return costcoData;
-        }
-
-        private static AssetData GetBrkBDataFromDb(List<AssetPrice> assetPrices)
-        {
-            var allPrices = GetPriceRange(assetPrices, "BRK-B", new DateTime(2020, 12, 1),
-                new DateTime(2025, 12, 31));
-
-            var endingDate = new DateTime(2025, 12, 19);
-            var date1YearAgo = endingDate.AddYears(-1);
-            var date2YearsAgo = endingDate.AddYears(-2);
-            var date3YearsAgo = endingDate.AddYears(-3);
-            var date4YearsAgo = endingDate.AddYears(-4);
-            var date5YearsAgo = endingDate.AddYears(-5);
-
-            var priceAtEndingDate = FindPriceByAdjClose(endingDate, allPrices);
-            var priceAt1YearAgo = FindPriceByAdjClose(date1YearAgo, allPrices);
-            var priceAt2YearsAgo = FindPriceByAdjClose(date2YearsAgo, allPrices);
-            var priceAt3YearsAgo = FindPriceByAdjClose(date3YearsAgo, allPrices);
-            var priceAt4YearsAgo = FindPriceByAdjClose(date4YearsAgo, allPrices);
-            var priceAt5YearsAgo = FindPriceByAdjClose(date5YearsAgo, allPrices);
-
-            var brkBData = new AssetData
-            {
-                EndPrice = (decimal)priceAtEndingDate,
-                EndDate = DateOnly.FromDateTime(endingDate),
-                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
-                Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
-                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
-                Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
-                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
-                Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
-                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
-                Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
-                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
-                Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo)
-            };
-            return brkBData;
-        }
-
-        private static AssetData GetTeslaDataFromDb(List<AssetPrice> assetPrices)
-        {
-            var allPrices = GetPriceRange(assetPrices, "TSLA", new DateTime(2020, 12, 1),
-                new DateTime(2025, 12, 31));
-
-            var endingDate = new DateTime(2025, 12, 19);
-            var date1YearAgo = endingDate.AddYears(-1);
-            var date2YearsAgo = endingDate.AddYears(-2);
-            var date3YearsAgo = endingDate.AddYears(-3);
-            var date4YearsAgo = endingDate.AddYears(-4);
-            var date5YearsAgo = endingDate.AddYears(-5);
-
-            var priceAtEndingDate = FindPriceByAdjClose(endingDate, allPrices);
-            var priceAt1YearAgo = FindPriceByAdjClose(date1YearAgo, allPrices);
-            var priceAt2YearsAgo = FindPriceByAdjClose(date2YearsAgo, allPrices);
-            var priceAt3YearsAgo = FindPriceByAdjClose(date3YearsAgo, allPrices);
-            var priceAt4YearsAgo = FindPriceByAdjClose(date4YearsAgo, allPrices);
-            var priceAt5YearsAgo = FindPriceByAdjClose(date5YearsAgo, allPrices);
-
-            var teslaData = new AssetData
-            {
-                EndPrice = (decimal)priceAtEndingDate,
-                EndDate = DateOnly.FromDateTime(endingDate),
-                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
-                Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
-                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
-                Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
-                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
-                Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
-                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
-                Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
-                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
-                Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo)
-            };
-            return teslaData;
         }
 
         /// <summary>
@@ -397,6 +253,59 @@ namespace InvestmentCalculators.ViewModels
             };
 
             return btcData;
+        }
+
+
+        private static AssetData Get5YrsAssetDataFromDb(List<AssetPrice> assetPrices,
+            string assetTicker, DateTime anchorEndingDate, bool byAdjustedClose = false)
+        {
+            var startRangeDate = new DateTime(anchorEndingDate.Year - 5, anchorEndingDate.Month, 1);
+            var endRangeDate = new DateTime(anchorEndingDate.Year, anchorEndingDate.Month, 1)
+                .AddMonths(1).AddDays(-1);
+
+            var allPrices = GetPriceRange(assetPrices, assetTicker, startRangeDate, endRangeDate);
+
+            var date1YearAgo = anchorEndingDate.AddYears(-1);
+            var date2YearsAgo = anchorEndingDate.AddYears(-2);
+            var date3YearsAgo = anchorEndingDate.AddYears(-3);
+            var date4YearsAgo = anchorEndingDate.AddYears(-4);
+            var date5YearsAgo = anchorEndingDate.AddYears(-5);
+
+            var priceAtEndingDate = byAdjustedClose 
+                ? FindPriceByAdjClose(anchorEndingDate, allPrices)
+                : FindPriceByClose(anchorEndingDate, allPrices);
+            var priceAt1YearAgo = byAdjustedClose 
+                ? FindPriceByAdjClose(date1YearAgo, allPrices)
+                : FindPriceByClose(date1YearAgo, allPrices);
+            var priceAt2YearsAgo = byAdjustedClose 
+                ? FindPriceByAdjClose(date2YearsAgo, allPrices) 
+                : FindPriceByClose(date2YearsAgo, allPrices);
+            var priceAt3YearsAgo = byAdjustedClose 
+                ? FindPriceByAdjClose(date3YearsAgo, allPrices) 
+                : FindPriceByClose(date3YearsAgo, allPrices);
+            var priceAt4YearsAgo = byAdjustedClose 
+                ? FindPriceByAdjClose(date4YearsAgo, allPrices) 
+                : FindPriceByClose(date4YearsAgo, allPrices);
+            var priceAt5YearsAgo = byAdjustedClose 
+                ? FindPriceByAdjClose(date5YearsAgo, allPrices) 
+                : FindPriceByClose(date5YearsAgo, allPrices);
+
+            var assetData = new AssetData
+            {
+                EndPrice = (decimal)priceAtEndingDate,
+                EndDate = DateOnly.FromDateTime(anchorEndingDate),
+                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
+                Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
+                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
+                Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
+                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
+                Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
+                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
+                Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
+                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
+                Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo)
+            };
+            return assetData;
         }
 
         /// <summary>
