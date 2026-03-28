@@ -117,27 +117,34 @@ namespace InvestmentCalculators.ViewModels
             var allPrices = GetPriceRange(assetPrices, "QQQ", new DateTime(2020, 12, 1),
                 new DateTime(2025, 12, 31));
 
-            var priceAt2025Dec19th = FindPriceByClose(new DateTime(2025, 12, 19), allPrices);
-            var priceAt2024Dec16th = FindPriceByClose(new DateTime(2024, 12, 16), allPrices);
-            var priceAt2023Dec18th = FindPriceByClose(new DateTime(2023, 12, 18), allPrices);
-            var priceAt2022Dec19th = FindPriceByClose(new DateTime(2022, 12, 19), allPrices);
-            var priceAt2021Dec20th = FindPriceByClose(new DateTime(2021, 12, 20), allPrices);
-            var priceAt2020Dec21st = FindPriceByClose(new DateTime(2020, 12, 21), allPrices);
+            var endingDate = new DateTime(2025, 12, 19);
+            var date1YearAgo = endingDate.AddYears(-1);
+            var date2YearsAgo = endingDate.AddYears(-2);
+            var date3YearsAgo = endingDate.AddYears(-3);
+            var date4YearsAgo = endingDate.AddYears(-4);
+            var date5YearsAgo = endingDate.AddYears(-5);
+
+            var priceAtEndingDate = FindPriceByClose(endingDate, allPrices);
+            var priceAt1YearAgo = FindPriceByClose(date1YearAgo, allPrices);
+            var priceAt2YearsAgo = FindPriceByClose(date2YearsAgo, allPrices);
+            var priceAt3YearsAgo = FindPriceByClose(date3YearsAgo, allPrices);
+            var priceAt4YearsAgo = FindPriceByClose(date4YearsAgo, allPrices);
+            var priceAt5YearsAgo = FindPriceByClose(date5YearsAgo, allPrices);
 
             var qqqData = new AssetData
             {
-                EndPrice = (decimal)priceAt2025Dec19th,
-                EndDate = new DateOnly(2025, 12, 19),
-                Price1YearAgoFromEndDate = (decimal)priceAt2024Dec16th,
-                Date1YearAgo = new DateOnly(2024, 12, 16),
-                Price2YearsAgoFromEndDate = (decimal)priceAt2023Dec18th,
-                Date2YearsAgo = new DateOnly(2023, 12, 18),
-                Price3YearsAgoFromEndDate = (decimal)priceAt2022Dec19th,
-                Date3YearsAgo = new DateOnly(2022, 12, 19),
-                Price4YearsAgoFromEndDate = (decimal)priceAt2021Dec20th,
-                Date4YearsAgo = new DateOnly(2021, 12, 20),
-                Price5YearsAgoFromEndDate = (decimal)priceAt2020Dec21st,
-                Date5YearsAgo = new DateOnly(2020, 12, 21)
+                EndPrice = (decimal)priceAtEndingDate,
+                EndDate = DateOnly.FromDateTime(endingDate),
+                Price1YearAgoFromEndDate = (decimal)priceAt1YearAgo,
+                Date1YearAgo = DateOnly.FromDateTime(date1YearAgo),
+                Price2YearsAgoFromEndDate = (decimal)priceAt2YearsAgo,
+                Date2YearsAgo = DateOnly.FromDateTime(date2YearsAgo),
+                Price3YearsAgoFromEndDate = (decimal)priceAt3YearsAgo,
+                Date3YearsAgo = DateOnly.FromDateTime(date3YearsAgo),
+                Price4YearsAgoFromEndDate = (decimal)priceAt4YearsAgo,
+                Date4YearsAgo = DateOnly.FromDateTime(date4YearsAgo),
+                Price5YearsAgoFromEndDate = (decimal)priceAt5YearsAgo,
+                Date5YearsAgo = DateOnly.FromDateTime(date5YearsAgo)
             };
             return qqqData;
         }
