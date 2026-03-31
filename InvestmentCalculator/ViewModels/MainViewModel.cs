@@ -60,12 +60,15 @@ namespace InvestmentCalculators.ViewModels
             LoadData();
 
             // Should run only once
+            //_ = PolulateStockDataIntoDb("VOO", 10);
             //_ = PolulateStockDataIntoDb("QQQ", 10);
+
             //_ = PolulateStockDataIntoDb("COST", 10);
             //_ = PolulateStockDataIntoDb("TSLA", 10);
             //_ = PolulateStockDataIntoDb("BRK-B", 10);
-            //_ = PolulateStockDataIntoDb("DOGE-USD", 12);
+
             //_ = PolulateStockDataIntoDb("BTC-USD", 12);
+            //_ = PolulateStockDataIntoDb("DOGE-USD", 12);
         }
 
         public async Task PolulateStockDataIntoDb(string ticker, int yearsBack)
