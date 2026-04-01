@@ -23,6 +23,7 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? DOGE => GetByTicker("DOGE");
 
         // Stocks
+        public AssetPerformance? VOO => GetByTicker("VOO");
         public AssetPerformance? QQQ => GetByTicker("QQQ");
         public AssetPerformance? Costco => GetByTicker("COST");
         public AssetPerformance? Tesla => GetByTicker("TSLA");
@@ -88,6 +89,8 @@ namespace InvestmentCalculators.ViewModels
             var timer = new Stopwatch();
             timer.Start();
             var allAssetDataFromDb = await GetAllAssetPricesFromDb();
+            var vooData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "VOO",
+                new DateTime(2025, 12, 19));
             var qqqData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "QQQ",
                 new DateTime(2025, 12, 19));
             var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST",
@@ -101,20 +104,27 @@ namespace InvestmentCalculators.ViewModels
             timer.Stop();
             Debug.WriteLine($"Time taken to get asset data from DB: {timer.ElapsedMilliseconds} ms");
 
-
-            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
+            // Etfs
+            var vooPerformance = AssetPerformanceCalculator.Calculate("VOO", "S&P 500", vooData, true);
             var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "QQQ", qqqData, true);
+
+            // Individual stocks
+            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData,
+                true);
             var teslaPerformance = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
             var brkBPerformance = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
 
-
+            // Crypto
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
             var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", dogeData);
 
-            _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
+            _assetPerformanceDict.Add(vooPerformance.Ticker!, vooPerformance);
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
+
+            _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
             _assetPerformanceDict.Add(teslaPerformance.Ticker!, teslaPerformance);
             _assetPerformanceDict.Add(brkBPerformance.Ticker!, brkBPerformance);
+
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
         }

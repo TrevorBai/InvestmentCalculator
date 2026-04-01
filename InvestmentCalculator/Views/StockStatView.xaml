@@ -21,7 +21,7 @@
             <ColumnDefinition Width="*"/>
             <!-- For TextBoxes and Button -->
         </Grid.ColumnDefinitions>
-        <!-- Dogecoin Section -->
+        <!-- Stock Section -->
         <Label Content="{Binding Name}" ContentStringFormat="{}{0}:" Grid.Row="0" Grid.Column="0" Foreground="White"/>
         <Label Content="Historical data:" Grid.Row="1" Grid.Column="0" Foreground="White"/>
         <Label Content="{Binding EndDate}"
