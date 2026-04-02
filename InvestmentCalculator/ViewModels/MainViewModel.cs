@@ -106,7 +106,8 @@ namespace InvestmentCalculators.ViewModels
 
             // Etfs
             var vooPerformance = AssetPerformanceCalculator.Calculate("VOO", "S&P 500", vooData, true);
-            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "QQQ", qqqData, true);
+            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "Nasdaq-100", qqqData,
+                true);
 
             // Individual stocks
             var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData,
