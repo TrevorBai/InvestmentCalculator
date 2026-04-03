@@ -63,6 +63,7 @@ namespace InvestmentCalculators.ViewModels
             // Should run only once
             //_ = PolulateStockDataIntoDb("VOO", 10);
             //_ = PolulateStockDataIntoDb("QQQ", 10);
+            //_ = PolulateStockDataIntoDb("DIA", 10);
 
             //_ = PolulateStockDataIntoDb("COST", 10);
             //_ = PolulateStockDataIntoDb("TSLA", 10);
