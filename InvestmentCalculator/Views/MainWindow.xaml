@@ -135,6 +135,8 @@
                     <views:StockStatView DataContext="{Binding VOO}" />
                     <Separator Margin="0,10,0,10"/>
                     <views:StockStatView DataContext="{Binding QQQ}" />
+                    <Separator Margin="0,10,0,10"/>
+                    <views:StockStatView DataContext="{Binding DIA}" />
                     <Rectangle Height="30" />
                     <Label Content="Individual Stocks:" FontSize="24" />
                     <TextBlock Text="##############################################################################################################################################################################################################################################################################" 

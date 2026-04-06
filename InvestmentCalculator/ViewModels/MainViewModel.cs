@@ -23,8 +23,12 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? DOGE => GetByTicker("DOGE");
 
         // Stocks
+        // Etfs
         public AssetPerformance? VOO => GetByTicker("VOO");
         public AssetPerformance? QQQ => GetByTicker("QQQ");
+        public AssetPerformance? DIA => GetByTicker("DIA");
+
+        // Individual stocks
         public AssetPerformance? Costco => GetByTicker("COST");
         public AssetPerformance? Tesla => GetByTicker("TSLA");
         public AssetPerformance? BrkB => GetByTicker("BRK-B");
@@ -94,6 +98,8 @@ namespace InvestmentCalculators.ViewModels
                 new DateTime(2025, 12, 19));
             var qqqData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "QQQ",
                 new DateTime(2025, 12, 19));
+            var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
+                new DateTime(2025, 12, 19));
             var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST",
                 new DateTime(2025, 12, 19));
             var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
@@ -109,6 +115,8 @@ namespace InvestmentCalculators.ViewModels
             var vooPerformance = AssetPerformanceCalculator.Calculate("VOO", "S&P 500", vooData, true);
             var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "Nasdaq-100", qqqData,
                 true);
+            var diaPerformance = AssetPerformanceCalculator.Calculate("DIA", "Dow Jones", diaData,
+                true);
 
             // Individual stocks
             var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData,
@@ -116,12 +124,13 @@ namespace InvestmentCalculators.ViewModels
             var teslaPerformance = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
             var brkBPerformance = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
 
-            // Crypto
+            // Cryptos
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
             var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", dogeData);
 
             _assetPerformanceDict.Add(vooPerformance.Ticker!, vooPerformance);
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
+            _assetPerformanceDict.Add(diaPerformance.Ticker!, diaPerformance);
 
             _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
             _assetPerformanceDict.Add(teslaPerformance.Ticker!, teslaPerformance);
