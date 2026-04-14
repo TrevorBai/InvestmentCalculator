@@ -72,6 +72,7 @@ namespace InvestmentCalculators.ViewModels
             //_ = PolulateStockDataIntoDb("COST", 10);
             //_ = PolulateStockDataIntoDb("TSLA", 10);
             //_ = PolulateStockDataIntoDb("BRK-B", 10);
+            //_ = PolulateStockDataIntoDb("NVDA", 10);
 
             //_ = PolulateStockDataIntoDb("BTC-USD", 12);
             //_ = PolulateStockDataIntoDb("DOGE-USD", 12);
