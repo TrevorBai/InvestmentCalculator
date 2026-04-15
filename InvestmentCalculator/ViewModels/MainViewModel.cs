@@ -32,7 +32,7 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? Costco => GetByTicker("COST");
         public AssetPerformance? Tesla => GetByTicker("TSLA");
         public AssetPerformance? BrkB => GetByTicker("BRK-B");
-
+        public AssetPerformance? Nvidia => GetByTicker("NVDA");
 
 
 
@@ -107,6 +107,8 @@ namespace InvestmentCalculators.ViewModels
                 new DateTime(2025, 12, 19), true);
             var brkBData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "BRK-B", 
                 new DateTime(2025, 12, 19), true);
+            var nvidiaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "NVDA",
+                new DateTime(2025, 12, 19));
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
             var btcData = GetBtcDataPartiallyFromDb(allAssetDataFromDb);
             timer.Stop();
@@ -120,10 +122,10 @@ namespace InvestmentCalculators.ViewModels
                 true);
 
             // Individual stocks
-            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData,
-                true);
+            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             var teslaPerformance = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
             var brkBPerformance = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
+            var nvidiaPerformance = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
 
             // Cryptos
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
@@ -136,6 +138,7 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
             _assetPerformanceDict.Add(teslaPerformance.Ticker!, teslaPerformance);
             _assetPerformanceDict.Add(brkBPerformance.Ticker!, brkBPerformance);
+            _assetPerformanceDict.Add(nvidiaPerformance.Ticker!, nvidiaPerformance);
 
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
