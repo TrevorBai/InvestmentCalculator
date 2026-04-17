@@ -33,6 +33,7 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? Tesla => GetByTicker("TSLA");
         public AssetPerformance? BrkB => GetByTicker("BRK-B");
         public AssetPerformance? Nvidia => GetByTicker("NVDA");
+        public AssetPerformance? Broadcom => GetByTicker("AVGO");
 
 
 
@@ -96,12 +97,16 @@ namespace InvestmentCalculators.ViewModels
             var timer = new Stopwatch();
             timer.Start();
             var allAssetDataFromDb = await GetAllAssetPricesFromDb();
+
+            // Etfs
             var vooData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "VOO",
                 new DateTime(2025, 12, 19));
             var qqqData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "QQQ",
                 new DateTime(2025, 12, 19));
             var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
                 new DateTime(2025, 12, 19));
+
+            // Stocks
             var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST",
                 new DateTime(2025, 12, 19));
             var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
@@ -110,6 +115,10 @@ namespace InvestmentCalculators.ViewModels
                 new DateTime(2025, 12, 19), true);
             var nvidiaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "NVDA",
                 new DateTime(2025, 12, 19));
+            var broadcomData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "AVGO",
+                new DateTime(2025, 12, 19));
+
+
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
             var btcData = GetBtcDataPartiallyFromDb(allAssetDataFromDb);
             timer.Stop();
@@ -127,10 +136,12 @@ namespace InvestmentCalculators.ViewModels
             var teslaPerformance = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
             var brkBPerformance = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
             var nvidiaPerformance = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
+            var broadcomPerformance = AssetPerformanceCalculator.Calculate("AVGO", "Broadcom", broadcomData, true);
 
             // Cryptos
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
-            var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", dogeData);
+            var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", 
+                dogeData);
 
             _assetPerformanceDict.Add(vooPerformance.Ticker!, vooPerformance);
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
@@ -140,6 +151,7 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(teslaPerformance.Ticker!, teslaPerformance);
             _assetPerformanceDict.Add(brkBPerformance.Ticker!, brkBPerformance);
             _assetPerformanceDict.Add(nvidiaPerformance.Ticker!, nvidiaPerformance);
+            _assetPerformanceDict.Add(broadcomPerformance.Ticker!, broadcomPerformance);
 
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
