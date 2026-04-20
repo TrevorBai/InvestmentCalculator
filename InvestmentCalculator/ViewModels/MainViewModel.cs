@@ -34,8 +34,9 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? BrkB => GetByTicker("BRK-B");
         public AssetPerformance? Nvidia => GetByTicker("NVDA");
         public AssetPerformance? Broadcom => GetByTicker("AVGO");
+        public AssetPerformance? Alphabet => GetByTicker("GOOG");
 
-
+        
 
 
         private PlotModel? _cryptoPlotModel;
@@ -118,6 +119,8 @@ namespace InvestmentCalculators.ViewModels
                 new DateTime(2025, 12, 19));
             var broadcomData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "AVGO",
                 new DateTime(2025, 12, 19));
+            var alphabetData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "GOOG",
+                new DateTime(2025, 12, 19));
 
 
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
@@ -138,6 +141,7 @@ namespace InvestmentCalculators.ViewModels
             var brkBPerformance = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
             var nvidiaPerformance = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
             var broadcomPerformance = AssetPerformanceCalculator.Calculate("AVGO", "Broadcom", broadcomData, true);
+            var alphabetPerformance = AssetPerformanceCalculator.Calculate("GOOG", "Alphabet", alphabetData, true);
 
             // Cryptos
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
@@ -153,6 +157,7 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(brkBPerformance.Ticker!, brkBPerformance);
             _assetPerformanceDict.Add(nvidiaPerformance.Ticker!, nvidiaPerformance);
             _assetPerformanceDict.Add(broadcomPerformance.Ticker!, broadcomPerformance);
+            _assetPerformanceDict.Add(alphabetPerformance.Ticker!, alphabetPerformance);
 
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);

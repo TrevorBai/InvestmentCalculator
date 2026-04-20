@@ -155,6 +155,8 @@
                     <views:StockStatView DataContext="{Binding Nvidia}" />
                     <Separator Margin="0,10,0,10"/>
                     <views:StockStatView DataContext="{Binding Broadcom}" />
+                    <Separator Margin="0,10,0,10"/>
+                    <views:StockStatView DataContext="{Binding Alphabet}" />
                 </StackPanel>
             </ScrollViewer>
         </TabItem>
