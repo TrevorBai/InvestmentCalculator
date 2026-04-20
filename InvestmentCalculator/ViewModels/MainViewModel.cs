@@ -12,6 +12,9 @@ namespace InvestmentCalculators.ViewModels
     {
         private readonly Dictionary<string, AssetPerformance> _assetPerformanceDict = [];
 
+        // Child ViewModel
+        public StockViewModel Stocks { get; } = new();
+
         private AssetPerformance? GetByTicker(string ticker)
         {
             _assetPerformanceDict.TryGetValue(ticker, out var performance);
@@ -29,7 +32,12 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? DIA => GetByTicker("DIA");
 
         // Individual stocks
-        public AssetPerformance? Costco => GetByTicker("COST");
+
+        // The Costco property now simply redirects to the child ViewModel
+        // This maintains compatibility if your XAML already points to "Costco"
+        // Though ideally, you'd update XAML to "Stocks.Costco"
+        public AssetPerformance? Costco => Stocks.Costco;
+
         public AssetPerformance? Tesla => GetByTicker("TSLA");
         public AssetPerformance? BrkB => GetByTicker("BRK-B");
         public AssetPerformance? Nvidia => GetByTicker("NVDA");
@@ -100,6 +108,11 @@ namespace InvestmentCalculators.ViewModels
             timer.Start();
             var allAssetDataFromDb = await GetAllAssetPricesFromDb();
 
+            var anchorDate = new DateTime(2025, 12, 19);
+
+            // 2. Delegate the "Meaty" parts to the children
+            Stocks.LoadStockPerformance(allAssetDataFromDb, anchorDate);
+
             // Etfs
             var vooData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "VOO",
                 new DateTime(2025, 12, 19));
@@ -109,8 +122,6 @@ namespace InvestmentCalculators.ViewModels
                 new DateTime(2025, 12, 19));
 
             // Stocks
-            var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST",
-                new DateTime(2025, 12, 19));
             var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
                 new DateTime(2025, 12, 19), true);
             var brkBData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "BRK-B", 
@@ -121,7 +132,6 @@ namespace InvestmentCalculators.ViewModels
                 new DateTime(2025, 12, 19));
             var alphabetData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "GOOG",
                 new DateTime(2025, 12, 19));
-
 
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
             var btcData = GetBtcDataPartiallyFromDb(allAssetDataFromDb);
@@ -136,7 +146,6 @@ namespace InvestmentCalculators.ViewModels
                 true);
 
             // Individual stocks
-            var costcoPerformance = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             var teslaPerformance = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
             var brkBPerformance = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
             var nvidiaPerformance = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
@@ -152,7 +161,6 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
             _assetPerformanceDict.Add(diaPerformance.Ticker!, diaPerformance);
 
-            _assetPerformanceDict.Add(costcoPerformance.Ticker!, costcoPerformance);
             _assetPerformanceDict.Add(teslaPerformance.Ticker!, teslaPerformance);
             _assetPerformanceDict.Add(brkBPerformance.Ticker!, brkBPerformance);
             _assetPerformanceDict.Add(nvidiaPerformance.Ticker!, nvidiaPerformance);
