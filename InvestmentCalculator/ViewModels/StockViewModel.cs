@@ -7,16 +7,22 @@ namespace InvestmentCalculators.ViewModels
     public class StockViewModel : INotifyPropertyChanged
     {
         public AssetPerformance? Costco { get; private set; }
+        public AssetPerformance? Tesla { get; private set; }
 
-        internal void LoadStockPerformance(List<AssetPrice> allPrices, DateTime anchorDate)
+        internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
         {
             // The "Meaty" calculation logic now lives here
-            var costcoData = Get5YrsAssetDataFromDb(allPrices, "COST", anchorDate);
+            var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST", anchorDate);
+
+            var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
+                anchorDate, true);
 
             // We calculate and assign locally
             Costco = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
+            Tesla = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
 
             OnPropertyChanged(nameof(Costco));
+            OnPropertyChanged(nameof(Tesla));
         }
 
         private static AssetData Get5YrsAssetDataFromDb(List<AssetPrice> assetPrices,
