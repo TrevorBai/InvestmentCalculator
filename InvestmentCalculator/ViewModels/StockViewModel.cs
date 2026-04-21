@@ -8,6 +8,7 @@ namespace InvestmentCalculators.ViewModels
     {
         public AssetPerformance? Costco { get; private set; }
         public AssetPerformance? Tesla { get; private set; }
+        public AssetPerformance? BrkB { get; private set; }
 
         internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
         {
@@ -17,12 +18,17 @@ namespace InvestmentCalculators.ViewModels
             var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
                 anchorDate, true);
 
+            var brkBData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "BRK-B",
+                anchorDate, true);
+
             // We calculate and assign locally
             Costco = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             Tesla = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
+            BrkB = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
 
             OnPropertyChanged(nameof(Costco));
             OnPropertyChanged(nameof(Tesla));
+            OnPropertyChanged(nameof(BrkB));
         }
 
         private static AssetData Get5YrsAssetDataFromDb(List<AssetPrice> assetPrices,

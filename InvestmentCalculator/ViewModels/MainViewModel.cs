@@ -38,9 +38,9 @@ namespace InvestmentCalculators.ViewModels
         // Though ideally, you'd update XAML to "Stocks.Costco"
         public AssetPerformance? Costco => Stocks.Costco;
         public AssetPerformance? Tesla => Stocks.Tesla;
+        public AssetPerformance? BrkB => Stocks.BrkB;
 
 
-        public AssetPerformance? BrkB => GetByTicker("BRK-B");
         public AssetPerformance? Nvidia => GetByTicker("NVDA");
         public AssetPerformance? Broadcom => GetByTicker("AVGO");
         public AssetPerformance? Alphabet => GetByTicker("GOOG");
@@ -123,8 +123,6 @@ namespace InvestmentCalculators.ViewModels
                 new DateTime(2025, 12, 19));
 
             // Stocks
-            var brkBData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "BRK-B", 
-                new DateTime(2025, 12, 19), true);
             var nvidiaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "NVDA",
                 new DateTime(2025, 12, 19));
             var broadcomData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "AVGO",
@@ -145,7 +143,6 @@ namespace InvestmentCalculators.ViewModels
                 true);
 
             // Individual stocks
-            var brkBPerformance = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
             var nvidiaPerformance = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
             var broadcomPerformance = AssetPerformanceCalculator.Calculate("AVGO", "Broadcom", broadcomData, true);
             var alphabetPerformance = AssetPerformanceCalculator.Calculate("GOOG", "Alphabet", alphabetData, true);
@@ -159,7 +156,6 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
             _assetPerformanceDict.Add(diaPerformance.Ticker!, diaPerformance);
 
-            _assetPerformanceDict.Add(brkBPerformance.Ticker!, brkBPerformance);
             _assetPerformanceDict.Add(nvidiaPerformance.Ticker!, nvidiaPerformance);
             _assetPerformanceDict.Add(broadcomPerformance.Ticker!, broadcomPerformance);
             _assetPerformanceDict.Add(alphabetPerformance.Ticker!, alphabetPerformance);
