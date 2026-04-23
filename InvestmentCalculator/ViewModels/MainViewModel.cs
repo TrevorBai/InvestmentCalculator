@@ -39,9 +39,9 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? Costco => Stocks.Costco;
         public AssetPerformance? Tesla => Stocks.Tesla;
         public AssetPerformance? BrkB => Stocks.BrkB;
+        public AssetPerformance? Nvidia => Stocks.Nvidia;
 
 
-        public AssetPerformance? Nvidia => GetByTicker("NVDA");
         public AssetPerformance? Broadcom => GetByTicker("AVGO");
         public AssetPerformance? Alphabet => GetByTicker("GOOG");
 
@@ -122,9 +122,7 @@ namespace InvestmentCalculators.ViewModels
             var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
                 new DateTime(2025, 12, 19));
 
-            // Stocks
-            var nvidiaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "NVDA",
-                new DateTime(2025, 12, 19));
+            // Stocks          
             var broadcomData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "AVGO",
                 new DateTime(2025, 12, 19));
             var alphabetData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "GOOG",
@@ -143,7 +141,6 @@ namespace InvestmentCalculators.ViewModels
                 true);
 
             // Individual stocks
-            var nvidiaPerformance = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
             var broadcomPerformance = AssetPerformanceCalculator.Calculate("AVGO", "Broadcom", broadcomData, true);
             var alphabetPerformance = AssetPerformanceCalculator.Calculate("GOOG", "Alphabet", alphabetData, true);
 
@@ -156,7 +153,6 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
             _assetPerformanceDict.Add(diaPerformance.Ticker!, diaPerformance);
 
-            _assetPerformanceDict.Add(nvidiaPerformance.Ticker!, nvidiaPerformance);
             _assetPerformanceDict.Add(broadcomPerformance.Ticker!, broadcomPerformance);
             _assetPerformanceDict.Add(alphabetPerformance.Ticker!, alphabetPerformance);
 
