@@ -6,10 +6,12 @@ namespace InvestmentCalculators.ViewModels
 {
     public class StockViewModel : INotifyPropertyChanged
     {
+        // Individual stocks
         public AssetPerformance? Costco { get; private set; }
         public AssetPerformance? Tesla { get; private set; }
         public AssetPerformance? BrkB { get; private set; }
         public AssetPerformance? Nvidia { get; private set; }
+        public AssetPerformance? Broadcom { get; private set; }
 
         internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
         {
@@ -22,19 +24,22 @@ namespace InvestmentCalculators.ViewModels
             var brkBData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "BRK-B",
                 anchorDate, true);
 
-            var nvidiaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "NVDA",
-                anchorDate);
+            var nvidiaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "NVDA", anchorDate);
+
+            var broadcomData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "AVGO", anchorDate);
 
             // We calculate and assign locally
             Costco = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             Tesla = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
             BrkB = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
             Nvidia = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
+            Broadcom = AssetPerformanceCalculator.Calculate("AVGO", "Broadcom", broadcomData, true);
 
             OnPropertyChanged(nameof(Costco));
             OnPropertyChanged(nameof(Tesla));
             OnPropertyChanged(nameof(BrkB));
             OnPropertyChanged(nameof(Nvidia));
+            OnPropertyChanged(nameof(Broadcom));
         }
 
         private static AssetData Get5YrsAssetDataFromDb(List<AssetPrice> assetPrices,

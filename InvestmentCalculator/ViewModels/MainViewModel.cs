@@ -32,17 +32,13 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? DIA => GetByTicker("DIA");
 
         // Individual stocks
-
-        // The Costco property now simply redirects to the child ViewModel
-        // This maintains compatibility if your XAML already points to "Costco"
-        // Though ideally, you'd update XAML to "Stocks.Costco"
         public AssetPerformance? Costco => Stocks.Costco;
         public AssetPerformance? Tesla => Stocks.Tesla;
         public AssetPerformance? BrkB => Stocks.BrkB;
         public AssetPerformance? Nvidia => Stocks.Nvidia;
+        public AssetPerformance? Broadcom => Stocks.Broadcom;
 
 
-        public AssetPerformance? Broadcom => GetByTicker("AVGO");
         public AssetPerformance? Alphabet => GetByTicker("GOOG");
 
         
@@ -123,8 +119,6 @@ namespace InvestmentCalculators.ViewModels
                 new DateTime(2025, 12, 19));
 
             // Stocks          
-            var broadcomData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "AVGO",
-                new DateTime(2025, 12, 19));
             var alphabetData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "GOOG",
                 new DateTime(2025, 12, 19));
 
@@ -141,7 +135,6 @@ namespace InvestmentCalculators.ViewModels
                 true);
 
             // Individual stocks
-            var broadcomPerformance = AssetPerformanceCalculator.Calculate("AVGO", "Broadcom", broadcomData, true);
             var alphabetPerformance = AssetPerformanceCalculator.Calculate("GOOG", "Alphabet", alphabetData, true);
 
             // Cryptos
@@ -153,7 +146,6 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
             _assetPerformanceDict.Add(diaPerformance.Ticker!, diaPerformance);
 
-            _assetPerformanceDict.Add(broadcomPerformance.Ticker!, broadcomPerformance);
             _assetPerformanceDict.Add(alphabetPerformance.Ticker!, alphabetPerformance);
 
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
