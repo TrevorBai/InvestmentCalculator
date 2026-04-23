@@ -37,11 +37,7 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? BrkB => Stocks.BrkB;
         public AssetPerformance? Nvidia => Stocks.Nvidia;
         public AssetPerformance? Broadcom => Stocks.Broadcom;
-
-
-        public AssetPerformance? Alphabet => GetByTicker("GOOG");
-
-        
+        public AssetPerformance? Alphabet => Stocks.Alphabet;
 
 
         private PlotModel? _cryptoPlotModel;
@@ -118,10 +114,6 @@ namespace InvestmentCalculators.ViewModels
             var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
                 new DateTime(2025, 12, 19));
 
-            // Stocks          
-            var alphabetData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "GOOG",
-                new DateTime(2025, 12, 19));
-
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
             var btcData = GetBtcDataPartiallyFromDb(allAssetDataFromDb);
             timer.Stop();
@@ -134,9 +126,6 @@ namespace InvestmentCalculators.ViewModels
             var diaPerformance = AssetPerformanceCalculator.Calculate("DIA", "Dow Jones", diaData,
                 true);
 
-            // Individual stocks
-            var alphabetPerformance = AssetPerformanceCalculator.Calculate("GOOG", "Alphabet", alphabetData, true);
-
             // Cryptos
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
             var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", 
@@ -145,8 +134,6 @@ namespace InvestmentCalculators.ViewModels
             _assetPerformanceDict.Add(vooPerformance.Ticker!, vooPerformance);
             _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
             _assetPerformanceDict.Add(diaPerformance.Ticker!, diaPerformance);
-
-            _assetPerformanceDict.Add(alphabetPerformance.Ticker!, alphabetPerformance);
 
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);
