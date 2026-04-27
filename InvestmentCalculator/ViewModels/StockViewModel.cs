@@ -6,6 +6,13 @@ namespace InvestmentCalculators.ViewModels
 {
     public class StockViewModel : INotifyPropertyChanged
     {
+        // Etfs
+        public AssetPerformance? VOO { get; private set; }
+
+        
+
+
+
         // Individual stocks
         public AssetPerformance? Costco { get; private set; }
         public AssetPerformance? Tesla { get; private set; }
@@ -17,6 +24,14 @@ namespace InvestmentCalculators.ViewModels
         internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
         {
             // The "Meaty" calculation logic now lives here
+
+            // Etfs
+            var vooData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "VOO",
+                anchorDate);
+
+
+
+            // Individual stocks
             var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST", anchorDate);
 
             var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
@@ -32,12 +47,19 @@ namespace InvestmentCalculators.ViewModels
             var alphabetData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "GOOG", anchorDate);
 
             // We calculate and assign locally
+
+            // Etfs
+            VOO = AssetPerformanceCalculator.Calculate("VOO", "S&P 500", vooData, true);
+
+            // Individual stocks
             Costco = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
             Tesla = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
             BrkB = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
             Nvidia = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
             Broadcom = AssetPerformanceCalculator.Calculate("AVGO", "Broadcom", broadcomData, true);
             Alphabet = AssetPerformanceCalculator.Calculate("GOOG", "Alphabet", alphabetData, true);
+
+            OnPropertyChanged(nameof(VOO));
 
             OnPropertyChanged(nameof(Costco));
             OnPropertyChanged(nameof(Tesla));
