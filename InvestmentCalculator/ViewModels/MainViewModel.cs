@@ -28,7 +28,7 @@ namespace InvestmentCalculators.ViewModels
         // Stocks
         // Etfs
         public AssetPerformance? VOO => Stocks.VOO;
-        public AssetPerformance? QQQ => GetByTicker("QQQ");
+        public AssetPerformance? QQQ => Stocks.QQQ;
         public AssetPerformance? DIA => GetByTicker("DIA");
 
         // Individual stocks
@@ -107,8 +107,6 @@ namespace InvestmentCalculators.ViewModels
             Stocks.LoadStockPerformance(allAssetDataFromDb, anchorDate);
 
             // Etfs
-            var qqqData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "QQQ",
-                new DateTime(2025, 12, 19));
             var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
                 new DateTime(2025, 12, 19));
 
@@ -118,8 +116,6 @@ namespace InvestmentCalculators.ViewModels
             Debug.WriteLine($"Time taken to get asset data from DB: {timer.ElapsedMilliseconds} ms");
 
             // Etfs
-            var qqqPerformance = AssetPerformanceCalculator.Calculate("QQQ", "Nasdaq-100", qqqData,
-                true);
             var diaPerformance = AssetPerformanceCalculator.Calculate("DIA", "Dow Jones", diaData,
                 true);
 
@@ -128,7 +124,6 @@ namespace InvestmentCalculators.ViewModels
             var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", 
                 dogeData);
 
-            _assetPerformanceDict.Add(qqqPerformance.Ticker!, qqqPerformance);
             _assetPerformanceDict.Add(diaPerformance.Ticker!, diaPerformance);
 
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
