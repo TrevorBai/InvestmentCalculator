@@ -25,11 +25,10 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? BTC => GetByTicker("BTC");
         public AssetPerformance? DOGE => GetByTicker("DOGE");
 
-        // Stocks
         // Etfs
         public AssetPerformance? VOO => Stocks.VOO;
         public AssetPerformance? QQQ => Stocks.QQQ;
-        public AssetPerformance? DIA => GetByTicker("DIA");
+        public AssetPerformance? DIA => Stocks.DIA;
 
         // Individual stocks
         public AssetPerformance? Costco => Stocks.Costco;
@@ -106,25 +105,15 @@ namespace InvestmentCalculators.ViewModels
             // 2. Delegate the "Meaty" parts to the children
             Stocks.LoadStockPerformance(allAssetDataFromDb, anchorDate);
 
-            // Etfs
-            var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
-                new DateTime(2025, 12, 19));
-
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
             var btcData = GetBtcDataPartiallyFromDb(allAssetDataFromDb);
             timer.Stop();
             Debug.WriteLine($"Time taken to get asset data from DB: {timer.ElapsedMilliseconds} ms");
 
-            // Etfs
-            var diaPerformance = AssetPerformanceCalculator.Calculate("DIA", "Dow Jones", diaData,
-                true);
-
             // Cryptos
             var btcPerformance = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
             var dogePerformance = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", 
                 dogeData);
-
-            _assetPerformanceDict.Add(diaPerformance.Ticker!, diaPerformance);
 
             _assetPerformanceDict.Add(btcPerformance.Ticker!, btcPerformance);
             _assetPerformanceDict.Add(dogePerformance.Ticker!, dogePerformance);

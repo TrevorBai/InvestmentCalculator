@@ -8,10 +8,8 @@ namespace InvestmentCalculators.ViewModels
     {
         // Etfs
         public AssetPerformance? VOO { get; private set; }
-
         public AssetPerformance? QQQ { get; private set; }
-
-
+        public AssetPerformance? DIA { get; private set; }
 
         // Individual stocks
         public AssetPerformance? Costco { get; private set; }
@@ -30,8 +28,8 @@ namespace InvestmentCalculators.ViewModels
                 anchorDate);
             var qqqData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "QQQ",
                 anchorDate);
-
-
+            var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
+                anchorDate);
 
             // Individual stocks
             var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST", anchorDate);
@@ -53,6 +51,7 @@ namespace InvestmentCalculators.ViewModels
             // Etfs
             VOO = AssetPerformanceCalculator.Calculate("VOO", "S&P 500", vooData, true);
             QQQ = AssetPerformanceCalculator.Calculate("QQQ", "Nasdaq-100", qqqData, true);
+            DIA = AssetPerformanceCalculator.Calculate("DIA", "Dow Jones", diaData, true);
 
             // Individual stocks
             Costco = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
@@ -64,6 +63,7 @@ namespace InvestmentCalculators.ViewModels
 
             OnPropertyChanged(nameof(VOO));
             OnPropertyChanged(nameof(QQQ));
+            OnPropertyChanged(nameof(DIA));
 
             OnPropertyChanged(nameof(Costco));
             OnPropertyChanged(nameof(Tesla));
