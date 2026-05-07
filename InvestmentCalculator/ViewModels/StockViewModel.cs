@@ -22,10 +22,7 @@ namespace InvestmentCalculators.ViewModels
         internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
         {
             // The "Meaty" calculation logic now lives here
-
             // Etfs
-            var vooData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "VOO",
-                anchorDate);
             var qqqData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "QQQ",
                 anchorDate);
             var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
@@ -49,7 +46,9 @@ namespace InvestmentCalculators.ViewModels
             // We calculate and assign locally
 
             // Etfs
-            VOO = AssetPerformanceCalculator.Calculate("VOO", "S&P 500", vooData, true);
+            var vooPrices = allAssetDataFromDb.Where(p => p.Ticker == "VOO").OrderBy(p => p.Date).ToList();
+            VOO = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR("VOO",
+                "S&P 500", vooPrices, true);
             QQQ = AssetPerformanceCalculator.Calculate("QQQ", "Nasdaq-100", qqqData, true);
             DIA = AssetPerformanceCalculator.Calculate("DIA", "Dow Jones", diaData, true);
 

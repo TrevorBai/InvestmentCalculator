@@ -50,5 +50,68 @@ namespace InvestmentCalculators.Services
             double compoundAnnualGrowthRate = Math.Pow(totalGrowthFactor, 1 / yearSpan) - 1;
             return (decimal)compoundAnnualGrowthRate;
         }
+
+        internal static AssetPerformance CalculateStockPerformanceUsingAverageRollingCAGR(string ticker,
+            string assetName, List<AssetPrice> tenYearStockPrices, bool excludingDividends = false)
+        {
+            var result = new AssetPerformance
+            {
+                Ticker = ticker,
+                Name = excludingDividends
+                    ? assetName + " (Excluding Dividends)"
+                    : assetName,
+                CAGR1Year = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 1),
+                CAGR2Years = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 2),
+                CAGR3Years = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 3),
+                CAGR4Years = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 4),
+                CAGR5Years = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 5)
+            };
+            return result;
+        }
+
+        /// <summary>
+        /// The date of the first price is very important. It determines how many "windows" we can
+        /// sample from the list.
+        /// </summary>
+        /// <param name="prices">All the asset price data retrieved from db.</param>
+        /// <param name="years">How many years of CAGR you want to calc.</param>
+        /// <returns></returns>
+        private static double CalculateAverageRollingCAGR(List<AssetPrice> prices, int years)
+        {
+            List<double> allCagrs = [];
+
+            // We only loop through dates that actually have an 'anchor' x years prior
+            DateTime earliestPossibleEnd = prices[0].Date.AddYears(years);
+
+            // We start from the first date that actually has a full 'years' of history behind it
+            var validEndDates = prices.Where(p => p.Date >= earliestPossibleEnd).ToList();
+
+            if (!validEndDates.Any()) return 0;
+
+            foreach (var endPoint in validEndDates)
+            {
+                // 1. Calculate the exact target start date (e.g., Today minus 5 years)
+                DateTime targetStartDate = endPoint.Date.AddYears(-years);
+
+                // 2. Find the actual price closest to that date in your list
+                // (This handles weekends/holidays accurately)
+                var startPoint = prices
+                    .Where(p => p.Date <= targetStartDate)
+                    .OrderByDescending(p => p.Date)
+                    .FirstOrDefault();
+
+                if (startPoint != null && startPoint.Close > 0)
+                {
+                    double startPrice = startPoint.Close;
+                    double endPrice = endPoint.Close;
+
+                    // 3. Calculate CAGR using the exact years requested
+                    double cagr = Math.Pow(endPrice / startPrice, 1.0 / years) - 1;
+                    allCagrs.Add(cagr);
+                }
+            }
+
+            return allCagrs.Count != 0 ? allCagrs.Average() : 0;
+        }
     }
 }
