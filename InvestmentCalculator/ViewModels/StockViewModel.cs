@@ -21,12 +21,6 @@ namespace InvestmentCalculators.ViewModels
 
         internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
         {
-            // The "Meaty" calculation logic now lives here
-            // Etfs
-            var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
-                anchorDate);
-
-            // Individual stocks
             var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST", anchorDate);
 
             var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
@@ -47,10 +41,14 @@ namespace InvestmentCalculators.ViewModels
             var vooPrices = allAssetDataFromDb.Where(p => p.Ticker == "VOO").OrderBy(p => p.Date).ToList();
             VOO = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR("VOO",
                 "S&P 500", vooPrices, true);
+
             var qqqPrices = allAssetDataFromDb.Where(p => p.Ticker == "QQQ").OrderBy(p => p.Date).ToList();
             QQQ = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR("QQQ",
                 "Nasdaq-100", qqqPrices, true);
-            DIA = AssetPerformanceCalculator.Calculate("DIA", "Dow Jones", diaData, true);
+
+            var diaPrices = allAssetDataFromDb.Where(p => p.Ticker == "DIA").OrderBy(p => p.Date).ToList();
+            DIA = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR("DIA",
+                "Dow Jones", diaPrices, true);
 
             // Individual stocks
             Costco = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
