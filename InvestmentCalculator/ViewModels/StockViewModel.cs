@@ -21,20 +21,6 @@ namespace InvestmentCalculators.ViewModels
 
         internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
         {
-            var costcoData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "COST", anchorDate);
-
-            var teslaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "TSLA",
-                anchorDate, true);
-
-            var brkBData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "BRK-B",
-                anchorDate, true);
-
-            var nvidiaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "NVDA", anchorDate);
-
-            var broadcomData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "AVGO", anchorDate);
-
-            var alphabetData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "GOOG", anchorDate);
-
             // We calculate and assign locally
 
             // Etfs
@@ -51,12 +37,27 @@ namespace InvestmentCalculators.ViewModels
                 "Dow Jones", diaPrices, true);
 
             // Individual stocks
-            Costco = AssetPerformanceCalculator.Calculate("COST", "Costco", costcoData, true);
-            Tesla = AssetPerformanceCalculator.Calculate("TSLA", "Tesla", teslaData);
-            BrkB = AssetPerformanceCalculator.Calculate("BRK-B", "Brk-B", brkBData);
-            Nvidia = AssetPerformanceCalculator.Calculate("NVDA", "Nvidia", nvidiaData, true);
-            Broadcom = AssetPerformanceCalculator.Calculate("AVGO", "Broadcom", broadcomData, true);
-            Alphabet = AssetPerformanceCalculator.Calculate("GOOG", "Alphabet", alphabetData, true);
+            var costcoPrices = allAssetDataFromDb.Where(p => p.Ticker == "COST").OrderBy(p => p.Date).ToList();
+            Costco = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR("COST", "Costco", costcoPrices, true);
+
+            var teslaPrices = allAssetDataFromDb.Where(p => p.Ticker == "TSLA").OrderBy(p => p.Date).ToList();
+            Tesla = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR("TSLA", "Tesla", teslaPrices);
+
+            var brkBPrices = allAssetDataFromDb.Where(p => p.Ticker == "BRK-B").OrderBy(p => p.Date).ToList();
+            BrkB = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR(
+                "BRK-B", "Brk-B", brkBPrices);
+
+            var nvidiaPrices = allAssetDataFromDb.Where(p => p.Ticker == "NVDA").OrderBy(p => p.Date).ToList();
+            Nvidia = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR(
+                "NVDA", "Nvidia", nvidiaPrices, true);
+
+            var broadcomPrices = allAssetDataFromDb.Where(p => p.Ticker == "AVGO").OrderBy(p => p.Date).ToList();
+            Broadcom = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR(
+                "AVGO", "Broadcom", broadcomPrices, true);    
+            
+            var alphabetPrices = allAssetDataFromDb.Where(p => p.Ticker == "GOOG").OrderBy(p => p.Date).ToList();
+            Alphabet = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR(
+                "GOOG", "Alphabet", alphabetPrices, true);
 
             OnPropertyChanged(nameof(VOO));
             OnPropertyChanged(nameof(QQQ));
