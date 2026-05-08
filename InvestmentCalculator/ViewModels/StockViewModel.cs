@@ -23,8 +23,6 @@ namespace InvestmentCalculators.ViewModels
         {
             // The "Meaty" calculation logic now lives here
             // Etfs
-            var qqqData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "QQQ",
-                anchorDate);
             var diaData = Get5YrsAssetDataFromDb(allAssetDataFromDb, "DIA",
                 anchorDate);
 
@@ -49,7 +47,9 @@ namespace InvestmentCalculators.ViewModels
             var vooPrices = allAssetDataFromDb.Where(p => p.Ticker == "VOO").OrderBy(p => p.Date).ToList();
             VOO = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR("VOO",
                 "S&P 500", vooPrices, true);
-            QQQ = AssetPerformanceCalculator.Calculate("QQQ", "Nasdaq-100", qqqData, true);
+            var qqqPrices = allAssetDataFromDb.Where(p => p.Ticker == "QQQ").OrderBy(p => p.Date).ToList();
+            QQQ = AssetPerformanceCalculator.CalculateStockPerformanceUsingAverageRollingCAGR("QQQ",
+                "Nasdaq-100", qqqPrices, true);
             DIA = AssetPerformanceCalculator.Calculate("DIA", "Dow Jones", diaData, true);
 
             // Individual stocks
