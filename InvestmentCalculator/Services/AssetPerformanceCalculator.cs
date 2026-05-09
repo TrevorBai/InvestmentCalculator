@@ -4,8 +4,8 @@ namespace InvestmentCalculators.Services
 {
     internal class AssetPerformanceCalculator
     {
-        internal static AssetPerformance Calculate(string ticker, string assetName, AssetData data,
-            bool excludingDividends = false)
+        internal static AssetPerformance CalculateCryptoPerformance(string ticker, string assetName,
+            AssetData data, bool excludingDividends = false)
         {
             if (data == null || data.EndPrice <= 0) return new AssetPerformance { Ticker = ticker };
 

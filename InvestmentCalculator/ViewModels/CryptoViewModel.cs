@@ -17,9 +17,9 @@ namespace InvestmentCalculators.ViewModels
             var dogeData = GetDogeDataPartiallyFromDb(allAssetDataFromDb);
 
             // We calculate and assign locally
-            BTC = AssetPerformanceCalculator.Calculate("BTC", "Bitcoin", btcData);
-
-            DOGE = AssetPerformanceCalculator.Calculate("DOGE", "Dogecoin", dogeData);
+            BTC = AssetPerformanceCalculator.CalculateCryptoPerformance("BTC", "Bitcoin", btcData);
+            DOGE = AssetPerformanceCalculator.CalculateCryptoPerformance("DOGE", "Dogecoin",
+                dogeData);
 
             OnPropertyChanged(nameof(BTC));
             OnPropertyChanged(nameof(DOGE));
