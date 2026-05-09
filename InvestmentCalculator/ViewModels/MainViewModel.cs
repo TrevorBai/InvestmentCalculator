@@ -83,10 +83,8 @@ namespace InvestmentCalculators.ViewModels
             timer.Stop();
             Debug.WriteLine($"Time taken to get asset data from DB: {timer.ElapsedMilliseconds} ms");
 
-            var anchorDate = new DateTime(2025, 12, 19);
-            // 2. Delegate the "Meaty" parts to the children
-            Stocks.LoadStockPerformance(allAssetDataFromDb, anchorDate);
-            Cryptos.LoadCryptoPerformance(allAssetDataFromDb, anchorDate);
+            Stocks.LoadStockPerformance(allAssetDataFromDb);
+            Cryptos.LoadCryptoPerformance(allAssetDataFromDb);
         }
 
         private static async Task<List<AssetPrice>> GetAllAssetPricesFromDb()

@@ -19,7 +19,7 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? Broadcom { get; private set; }
         public AssetPerformance? Alphabet { get; private set; }
 
-        internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
+        internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb)
         {
             // We calculate and assign locally
 

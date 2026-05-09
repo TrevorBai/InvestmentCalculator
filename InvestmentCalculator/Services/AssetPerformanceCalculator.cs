@@ -51,8 +51,9 @@ namespace InvestmentCalculators.Services
             return (decimal)compoundAnnualGrowthRate;
         }
 
-        internal static AssetPerformance CalculateStockPerformanceUsingAverageRollingCAGR(string ticker,
-            string assetName, List<AssetPrice> tenYearStockPrices, bool excludingDividends = false)
+        internal static AssetPerformance CalculateStockPerformanceUsingAverageRollingCAGR(
+            string ticker, string assetName, List<AssetPrice> tenYearStockPrices,
+            bool excludingDividends = false)
         {
             var result = new AssetPerformance
             {
@@ -106,12 +107,21 @@ namespace InvestmentCalculators.Services
                     double endPrice = endPoint.Close;
 
                     // 3. Calculate CAGR using the exact years requested
-                    double cagr = Math.Pow(endPrice / startPrice, 1.0 / years) - 1;
+                    double cagr = CalculateAverageAnualReturnRate(startPrice, endPrice, years);
                     allCagrs.Add(cagr);
                 }
             }
 
             return allCagrs.Count != 0 ? allCagrs.Average() : 0;
+        }
+
+        private static double CalculateAverageAnualReturnRate(double startValue,
+            double endValue, double yearSpan)
+        {
+            if (startValue is 0 || yearSpan <= 0) return 0;
+            double totalGrowthFactor = endValue / startValue;
+            double compoundAnnualGrowthRate = Math.Pow(totalGrowthFactor, 1 / yearSpan) - 1;
+            return compoundAnnualGrowthRate;
         }
     }
 }

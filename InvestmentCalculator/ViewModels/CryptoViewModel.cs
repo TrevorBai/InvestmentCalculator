@@ -9,7 +9,7 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? BTC { get; private set; }
         public AssetPerformance? DOGE { get; private set; }
 
-        internal void LoadCryptoPerformance(List<AssetPrice> allAssetDataFromDb, DateTime anchorDate)
+        internal void LoadCryptoPerformance(List<AssetPrice> allAssetDataFromDb)
         {
             // The "Meaty" calculation logic now lives here
             var btcData = GetBtcDataPartiallyFromDb(allAssetDataFromDb);
