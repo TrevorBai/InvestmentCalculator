@@ -19,17 +19,17 @@ namespace InvestmentCalculators.ViewModels
         public AssetPerformance? DOGE => Cryptos.DOGE;
 
         // Etfs
-        public AssetPerformance? VOO => Stocks.VOO;
-        public AssetPerformance? QQQ => Stocks.QQQ;
-        public AssetPerformance? DIA => Stocks.DIA;
+        public StockPerformance? VOO => Stocks.VOO;
+        public StockPerformance? QQQ => Stocks.QQQ;
+        public StockPerformance? DIA => Stocks.DIA;
 
         // Individual stocks
-        public AssetPerformance? Costco => Stocks.Costco;
-        public AssetPerformance? Tesla => Stocks.Tesla;
-        public AssetPerformance? BrkB => Stocks.BrkB;
-        public AssetPerformance? Nvidia => Stocks.Nvidia;
-        public AssetPerformance? Broadcom => Stocks.Broadcom;
-        public AssetPerformance? Alphabet => Stocks.Alphabet;
+        public StockPerformance? Costco => Stocks.Costco;
+        public StockPerformance? Tesla => Stocks.Tesla;
+        public StockPerformance? BrkB => Stocks.BrkB;
+        public StockPerformance? Nvidia => Stocks.Nvidia;
+        public StockPerformance? Broadcom => Stocks.Broadcom;
+        public StockPerformance? Alphabet => Stocks.Alphabet;
 
 
         private PlotModel? _cryptoPlotModel;

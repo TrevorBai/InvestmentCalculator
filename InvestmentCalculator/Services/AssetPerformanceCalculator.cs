@@ -51,21 +51,26 @@ namespace InvestmentCalculators.Services
             return (decimal)compoundAnnualGrowthRate;
         }
 
-        internal static AssetPerformance CalculateStockPerformanceUsingAverageRollingCAGR(
+        internal static StockPerformance CalculateStockPerformanceUsingAverageRollingCAGR(
             string ticker, string assetName, List<AssetPrice> tenYearStockPrices,
             bool excludingDividends = false)
         {
-            var result = new AssetPerformance
+            var result = new StockPerformance
             {
                 Ticker = ticker,
                 Name = excludingDividends
                     ? assetName + " (Excluding Dividends)"
                     : assetName,
-                CAGR1Year = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 1),
-                CAGR2Years = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 2),
-                CAGR3Years = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 3),
-                CAGR4Years = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 4),
-                CAGR5Years = (decimal)CalculateAverageRollingCAGR(tenYearStockPrices, 5)
+                AverageRollingCAGR1YearWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 1),
+                AverageRollingCAGR2YearsWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 2),
+                AverageRollingCAGR3YearsWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 3),
+                AverageRollingCAGR4YearsWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 4),
+                AverageRollingCAGR5YearsWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 5),
+                NegativeCAGRPercentage1YearWindow = 0.3, // Placeholder for now
+                NegativeCAGRPercentage2YearsWindow = 0.3, // Placeholder for now
+                NegativeCAGRPercentage3YearsWindow = 0.3, // Placeholder for now
+                NegativeCAGRPercentage4YearsWindow = 0.3, // Placeholder for now
+                NegativeCAGRPercentage5YearsWindow = 0.3 // Placeholder for now
             };
             return result;
         }
@@ -87,7 +92,7 @@ namespace InvestmentCalculators.Services
             // We start from the first date that actually has a full 'years' of history behind it
             var validEndDates = prices.Where(p => p.Date >= earliestPossibleEnd).ToList();
 
-            if (!validEndDates.Any()) return 0;
+            if (validEndDates.Count == 0) return 0;
 
             foreach (var endPoint in validEndDates)
             {

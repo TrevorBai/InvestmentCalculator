@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!-- Column 0: Label 1 -->
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200"/>
             <!-- Column 1: Label 2 -->
             <ColumnDefinition Width="230"/>
             <!-- Column 2: Label 3 -->
@@ -33,28 +33,28 @@
         <Label Content="Historical data:" Grid.Row="1" Grid.Column="0" Foreground="White"/>
         <Label Content="5 years window (5 years' data points):" Grid.Row="2" Grid.Column="1" Foreground="White"/>
         <Label Content="Average rolling CAGR:" Grid.Row="2" Grid.Column="2" Foreground="White"/>
-        <Label Content="{Binding CAGR5Years}" ContentStringFormat="P2" Grid.Row="2" Grid.Column="3" Foreground="White"/>
+        <Label Content="{Binding AverageRollingCAGR5YearsWindow}" ContentStringFormat="P2" Grid.Row="2" Grid.Column="3" Foreground="White"/>
         <Label Content="Negative CAGR Percentage:" Grid.Row="2" Grid.Column="4" Foreground="White"/>
-        <Label Content="30%" Grid.Row="2" Grid.Column="5" Foreground="White"/>
+        <Label Content="{Binding NegativeCAGRPercentage5YearsWindow}" ContentStringFormat="P2" Grid.Row="2" Grid.Column="5" Foreground="White"/>
         <Label Content="4 years window (6 years' data points):" Grid.Row="3" Grid.Column="1" Foreground="White"/>
         <Label Content="Average rolling CAGR:" Grid.Row="3" Grid.Column="2" Foreground="White"/>
-        <Label Content="{Binding CAGR4Years}" ContentStringFormat="P2" Grid.Row="3" Grid.Column="3" Foreground="White"/>
+        <Label Content="{Binding AverageRollingCAGR4YearsWindow}" ContentStringFormat="P2" Grid.Row="3" Grid.Column="3" Foreground="White"/>
         <Label Content="Negative CAGR Percentage:" Grid.Row="3" Grid.Column="4" Foreground="White"/>
-        <Label Content="30%" Grid.Row="3" Grid.Column="5" Foreground="White"/>
+        <Label Content="{Binding NegativeCAGRPercentage4YearsWindow}" ContentStringFormat="P2" Grid.Row="3" Grid.Column="5" Foreground="White"/>
         <Label Content="3 years window (7 years' data points):" Grid.Row="4" Grid.Column="1" Foreground="White"/>
         <Label Content="Average rolling CAGR:" Grid.Row="4" Grid.Column="2" Foreground="White"/>
-        <Label Content="{Binding CAGR3Years}" ContentStringFormat="P2" Grid.Row="4" Grid.Column="3" Foreground="White"/>
+        <Label Content="{Binding AverageRollingCAGR3YearsWindow}" ContentStringFormat="P2" Grid.Row="4" Grid.Column="3" Foreground="White"/>
         <Label Content="Negative CAGR Percentage:" Grid.Row="4" Grid.Column="4" Foreground="White"/>
-        <Label Content="30%" Grid.Row="4" Grid.Column="5" Foreground="White"/>
+        <Label Content="{Binding NegativeCAGRPercentage3YearsWindow}" ContentStringFormat="P2" Grid.Row="4" Grid.Column="5" Foreground="White"/>
         <Label Content="2 years window (8 years' data points):" Grid.Row="5" Grid.Column="1" Foreground="White"/>
         <Label Content="Average rolling CAGR:" Grid.Row="5" Grid.Column="2" Foreground="White"/>
-        <Label Content="{Binding CAGR2Years}" ContentStringFormat="P2" Grid.Row="5" Grid.Column="3" Foreground="White"/>
+        <Label Content="{Binding AverageRollingCAGR2YearsWindow}" ContentStringFormat="P2" Grid.Row="5" Grid.Column="3" Foreground="White"/>
         <Label Content="Negative CAGR Percentage:" Grid.Row="5" Grid.Column="4" Foreground="White"/>
-        <Label Content="30%" Grid.Row="5" Grid.Column="5" Foreground="White"/>
+        <Label Content="{Binding NegativeCAGRPercentage2YearsWindow}" ContentStringFormat="P2" Grid.Row="5" Grid.Column="5" Foreground="White"/>
         <Label Content="1 year window (9 years' data points):" Grid.Row="6" Grid.Column="1" Foreground="White"/>
         <Label Content="Average rolling CAGR:" Grid.Row="6" Grid.Column="2" Foreground="White"/>
-        <Label Content="{Binding CAGR1Year}" ContentStringFormat="P2" Grid.Row="6" Grid.Column="3" Foreground="White"/>
+        <Label Content="{Binding AverageRollingCAGR1YearWindow}" ContentStringFormat="P2" Grid.Row="6" Grid.Column="3" Foreground="White"/>
         <Label Content="Negative CAGR Percentage:" Grid.Row="6" Grid.Column="4" Foreground="White"/>
-        <Label Content="30%" Grid.Row="6" Grid.Column="5" Foreground="White"/>
+        <Label Content="{Binding NegativeCAGRPercentage1YearWindow}" ContentStringFormat="P2" Grid.Row="6" Grid.Column="5" Foreground="White"/>
     </Grid>
 </UserControl>

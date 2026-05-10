@@ -28,4 +28,23 @@
         public decimal? CAGR1Year { get; init; }
         public DateOnly? Date1YearAgo { get; init; }
     }
+
+    public class StockPerformance
+    {
+        public string? Ticker { get; init; }
+        public string? Name { get; init; }
+        public double? AverageRollingCAGR5YearsWindow { get; init; }
+        public double? AverageRollingCAGR4YearsWindow { get; init; }
+        public double? AverageRollingCAGR3YearsWindow { get; init; }
+        public double? AverageRollingCAGR2YearsWindow { get; init; }
+        public double? AverageRollingCAGR1YearWindow { get; init; }
+        public double? NegativeCAGRPercentage5YearsWindow { get; init; }
+        public double? NegativeCAGRPercentage4YearsWindow { get; init; }
+        public double? NegativeCAGRPercentage3YearsWindow { get; init; }
+        public double? NegativeCAGRPercentage2YearsWindow { get; init; }
+        public double? NegativeCAGRPercentage1YearWindow { get; init; }
+    }
+
+
+
 }

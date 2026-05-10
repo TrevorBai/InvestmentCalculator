@@ -7,17 +7,17 @@ namespace InvestmentCalculators.ViewModels
     public class StockViewModel : INotifyPropertyChanged
     {
         // Etfs
-        public AssetPerformance? VOO { get; private set; }
-        public AssetPerformance? QQQ { get; private set; }
-        public AssetPerformance? DIA { get; private set; }
+        public StockPerformance? VOO { get; private set; }
+        public StockPerformance? QQQ { get; private set; }
+        public StockPerformance? DIA { get; private set; }
 
         // Individual stocks
-        public AssetPerformance? Costco { get; private set; }
-        public AssetPerformance? Tesla { get; private set; }
-        public AssetPerformance? BrkB { get; private set; }
-        public AssetPerformance? Nvidia { get; private set; }
-        public AssetPerformance? Broadcom { get; private set; }
-        public AssetPerformance? Alphabet { get; private set; }
+        public StockPerformance? Costco { get; private set; }
+        public StockPerformance? Tesla { get; private set; }
+        public StockPerformance? BrkB { get; private set; }
+        public StockPerformance? Nvidia { get; private set; }
+        public StockPerformance? Broadcom { get; private set; }
+        public StockPerformance? Alphabet { get; private set; }
 
         internal void LoadStockPerformance(List<AssetPrice> allAssetDataFromDb)
         {
