@@ -51,21 +51,30 @@ namespace InvestmentCalculators.Services
             return (decimal)compoundAnnualGrowthRate;
         }
 
-        internal static StockPerformance CalculateStockPerformanceUsingAverageRollingCAGR(
-            string ticker, string assetName, List<AssetPrice> tenYearStockPrices,
+        internal static StockPerformance CalculateStockPerformance(
+            string ticker, string assetName, List<AssetPrice> tenYearStockPricesInOrder,
             bool excludingDividends = false)
         {
+            var allCagrsInOrder1YearWindow = GetAllCAGRsInOrder(tenYearStockPricesInOrder, 1);
+            var allCagrsInOrder2YearsWindow = GetAllCAGRsInOrder(tenYearStockPricesInOrder, 2);
+            var allCagrsInOrder3YearsWindow = GetAllCAGRsInOrder(tenYearStockPricesInOrder, 3);
+            var allCagrsInOrder4YearsWindow = GetAllCAGRsInOrder(tenYearStockPricesInOrder, 4);
+            var allCagrsInOrder5YearsWindow = GetAllCAGRsInOrder(tenYearStockPricesInOrder, 5);
+
+            // After getting all the cagrs, we can calc a lot of different metrics from them.
+
+
             var result = new StockPerformance
             {
                 Ticker = ticker,
                 Name = excludingDividends
                     ? assetName + " (Excluding Dividends)"
                     : assetName,
-                AverageRollingCAGR1YearWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 1),
-                AverageRollingCAGR2YearsWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 2),
-                AverageRollingCAGR3YearsWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 3),
-                AverageRollingCAGR4YearsWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 4),
-                AverageRollingCAGR5YearsWindow = CalculateAverageRollingCAGR(tenYearStockPrices, 5),
+                AverageRollingCAGR1YearWindow = CalculateAverageRollingCAGR(allCagrsInOrder1YearWindow),
+                AverageRollingCAGR2YearsWindow = CalculateAverageRollingCAGR(allCagrsInOrder2YearsWindow),
+                AverageRollingCAGR3YearsWindow = CalculateAverageRollingCAGR(allCagrsInOrder3YearsWindow),
+                AverageRollingCAGR4YearsWindow = CalculateAverageRollingCAGR(allCagrsInOrder4YearsWindow),
+                AverageRollingCAGR5YearsWindow = CalculateAverageRollingCAGR(allCagrsInOrder5YearsWindow),
                 NegativeCAGRPercentage1YearWindow = 0.3, // Placeholder for now
                 NegativeCAGRPercentage2YearsWindow = 0.3, // Placeholder for now
                 NegativeCAGRPercentage3YearsWindow = 0.3, // Placeholder for now
@@ -75,33 +84,35 @@ namespace InvestmentCalculators.Services
             return result;
         }
 
+
+
+
         /// <summary>
         /// The date of the first price is very important. It determines how many "windows" we can
         /// sample from the list.
         /// </summary>
-        /// <param name="prices">All the asset price data retrieved from db.</param>
+        /// <param name="pricesInOrder">All the asset price data retrieved from db in order.</param>
         /// <param name="years">How many years of CAGR you want to calc.</param>
-        /// <returns></returns>
-        private static double CalculateAverageRollingCAGR(List<AssetPrice> prices, int years)
+        private static List<double> GetAllCAGRsInOrder(List<AssetPrice> pricesInOrder, int years)
         {
-            List<double> allCagrs = [];
+            List<double> allCagrsInOrder = [];
 
             // We only loop through dates that actually have an 'anchor' x years prior
-            DateTime earliestPossibleEnd = prices[0].Date.AddYears(years);
+            DateTime earliestPossibleEnd = pricesInOrder[0].Date.AddYears(years);
 
             // We start from the first date that actually has a full 'years' of history behind it
-            var validEndDates = prices.Where(p => p.Date >= earliestPossibleEnd).ToList();
+            var validEndDatesInOrder = pricesInOrder.Where(p => p.Date >= earliestPossibleEnd).ToList();
 
-            if (validEndDates.Count == 0) return 0;
+            if (validEndDatesInOrder.Count == 0) return [];
 
-            foreach (var endPoint in validEndDates)
+            foreach (var endPoint in validEndDatesInOrder)
             {
                 // 1. Calculate the exact target start date (e.g., Today minus 5 years)
                 DateTime targetStartDate = endPoint.Date.AddYears(-years);
 
                 // 2. Find the actual price closest to that date in your list
                 // (This handles weekends/holidays accurately)
-                var startPoint = prices
+                var startPoint = pricesInOrder
                     .Where(p => p.Date <= targetStartDate)
                     .OrderByDescending(p => p.Date)
                     .FirstOrDefault();
@@ -113,11 +124,11 @@ namespace InvestmentCalculators.Services
 
                     // 3. Calculate CAGR using the exact years requested
                     double cagr = CalculateAverageAnualReturnRate(startPrice, endPrice, years);
-                    allCagrs.Add(cagr);
+                    allCagrsInOrder.Add(cagr);
                 }
             }
 
-            return allCagrs.Count != 0 ? allCagrs.Average() : 0;
+            return allCagrsInOrder;
         }
 
         private static double CalculateAverageAnualReturnRate(double startValue,
@@ -128,5 +139,14 @@ namespace InvestmentCalculators.Services
             double compoundAnnualGrowthRate = Math.Pow(totalGrowthFactor, 1 / yearSpan) - 1;
             return compoundAnnualGrowthRate;
         }
+
+        private static double CalculateAverageRollingCAGR(List<double> allCagrsInOrder)
+        {
+            return allCagrsInOrder.Count != 0 ? allCagrsInOrder.Average() : 0;
+        }
+
+
+
+
     }
 }
