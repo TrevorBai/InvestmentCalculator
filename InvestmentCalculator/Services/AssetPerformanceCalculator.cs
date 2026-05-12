@@ -51,9 +51,8 @@ namespace InvestmentCalculators.Services
             return (decimal)compoundAnnualGrowthRate;
         }
 
-        internal static StockPerformance CalculateStockPerformance(
-            string ticker, string assetName, List<AssetPrice> tenYearStockPricesInOrder,
-            bool excludingDividends = false)
+        internal static StockPerformance CalculateStockPerformance(string ticker, string assetName,
+            List<AssetPrice> tenYearStockPricesInOrder, bool excludingDividends = false)
         {
             var allCagrsInOrder1YearWindow = GetAllCAGRsInOrder(tenYearStockPricesInOrder, 1);
             var allCagrsInOrder2YearsWindow = GetAllCAGRsInOrder(tenYearStockPricesInOrder, 2);
@@ -62,30 +61,35 @@ namespace InvestmentCalculators.Services
             var allCagrsInOrder5YearsWindow = GetAllCAGRsInOrder(tenYearStockPricesInOrder, 5);
 
             // After getting all the cagrs, we can calc a lot of different metrics from them.
-
-
             var result = new StockPerformance
             {
                 Ticker = ticker,
                 Name = excludingDividends
                     ? assetName + " (Excluding Dividends)"
                     : assetName,
-                AverageRollingCAGR1YearWindow = CalculateAverageRollingCAGR(allCagrsInOrder1YearWindow),
-                AverageRollingCAGR2YearsWindow = CalculateAverageRollingCAGR(allCagrsInOrder2YearsWindow),
-                AverageRollingCAGR3YearsWindow = CalculateAverageRollingCAGR(allCagrsInOrder3YearsWindow),
-                AverageRollingCAGR4YearsWindow = CalculateAverageRollingCAGR(allCagrsInOrder4YearsWindow),
-                AverageRollingCAGR5YearsWindow = CalculateAverageRollingCAGR(allCagrsInOrder5YearsWindow),
-                NegativeCAGRPercentage1YearWindow = 0.3, // Placeholder for now
-                NegativeCAGRPercentage2YearsWindow = 0.3, // Placeholder for now
-                NegativeCAGRPercentage3YearsWindow = 0.3, // Placeholder for now
-                NegativeCAGRPercentage4YearsWindow = 0.3, // Placeholder for now
-                NegativeCAGRPercentage5YearsWindow = 0.3 // Placeholder for now
+                AverageRollingCAGR1YearWindow = CalculateAverageRollingCAGR
+                    (allCagrsInOrder1YearWindow),
+                AverageRollingCAGR2YearsWindow = CalculateAverageRollingCAGR
+                    (allCagrsInOrder2YearsWindow),
+                AverageRollingCAGR3YearsWindow = CalculateAverageRollingCAGR
+                    (allCagrsInOrder3YearsWindow),
+                AverageRollingCAGR4YearsWindow = CalculateAverageRollingCAGR
+                    (allCagrsInOrder4YearsWindow),
+                AverageRollingCAGR5YearsWindow = CalculateAverageRollingCAGR
+                    (allCagrsInOrder5YearsWindow),
+                NegativeCAGRPercentage1YearWindow = CalculateNegativeCAGRPercentage
+                    (allCagrsInOrder1YearWindow),
+                NegativeCAGRPercentage2YearsWindow = CalculateNegativeCAGRPercentage
+                    (allCagrsInOrder2YearsWindow),
+                NegativeCAGRPercentage3YearsWindow = CalculateNegativeCAGRPercentage
+                    (allCagrsInOrder3YearsWindow),
+                NegativeCAGRPercentage4YearsWindow = CalculateNegativeCAGRPercentage
+                    (allCagrsInOrder4YearsWindow),
+                NegativeCAGRPercentage5YearsWindow = CalculateNegativeCAGRPercentage
+                    (allCagrsInOrder5YearsWindow)
             };
             return result;
         }
-
-
-
 
         /// <summary>
         /// The date of the first price is very important. It determines how many "windows" we can
@@ -145,7 +149,19 @@ namespace InvestmentCalculators.Services
             return allCagrsInOrder.Count != 0 ? allCagrsInOrder.Average() : 0;
         }
 
-
+        /// <summary>
+        /// The less nagative CAGR percentage, the better the stock is in general.
+        /// </summary>
+        /// <param name="allCagrsInOrder"></param>
+        /// <returns></returns>
+        private static double CalculateNegativeCAGRPercentage(List<double> allCagrsInOrder)
+        {
+            var totalCount = allCagrsInOrder.Count;
+            var negativeCAGRCount = allCagrsInOrder.Count(cagr => cagr < 0);
+            // Have to coarse one int into a double so the division would be double division
+            var negativeCAGRPercentage = (double) negativeCAGRCount / totalCount;
+            return negativeCAGRPercentage;
+        }
 
 
     }
