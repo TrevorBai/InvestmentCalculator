@@ -43,6 +43,11 @@
         public double? NegativeCAGRPercentage3YearsWindow { get; init; }
         public double? NegativeCAGRPercentage2YearsWindow { get; init; }
         public double? NegativeCAGRPercentage1YearWindow { get; init; }
+        public double? MedianRollingCAGR5YearsWindow { get; init; }
+        public double? MedianRollingCAGR4YearsWindow { get; init; }
+        public double? MedianRollingCAGR3YearsWindow { get; init; }
+        public double? MedianRollingCAGR2YearsWindow { get; init; }
+        public double? MedianRollingCAGR1YearWindow { get; init; }
     }
 
 

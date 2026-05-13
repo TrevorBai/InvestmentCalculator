@@ -12,8 +12,8 @@ namespace InvestmentCalculators.Services
             var result = new AssetPerformance
             {
                 Ticker = ticker,
-                Name = excludingDividends 
-                    ? assetName + " (Excluding Dividends)" 
+                Name = excludingDividends
+                    ? assetName + " (Excluding Dividends)"
                     : assetName,
                 EndDate = data.EndDate,
                 BirthDate = data.BirthDate,
@@ -86,7 +86,17 @@ namespace InvestmentCalculators.Services
                 NegativeCAGRPercentage4YearsWindow = CalculateNegativeCAGRPercentage
                     (allCagrsInOrder4YearsWindow),
                 NegativeCAGRPercentage5YearsWindow = CalculateNegativeCAGRPercentage
-                    (allCagrsInOrder5YearsWindow)
+                    (allCagrsInOrder5YearsWindow),
+                MedianRollingCAGR1YearWindow = CalculateMedianRollingCAGR(
+                    allCagrsInOrder1YearWindow),
+                MedianRollingCAGR2YearsWindow = CalculateMedianRollingCAGR(
+                    allCagrsInOrder2YearsWindow),
+                MedianRollingCAGR3YearsWindow = CalculateMedianRollingCAGR(
+                    allCagrsInOrder3YearsWindow),
+                MedianRollingCAGR4YearsWindow = CalculateMedianRollingCAGR(
+                    allCagrsInOrder4YearsWindow),
+                MedianRollingCAGR5YearsWindow = CalculateMedianRollingCAGR(
+                    allCagrsInOrder5YearsWindow)
             };
             return result;
         }
@@ -159,8 +169,25 @@ namespace InvestmentCalculators.Services
             var totalCount = allCagrsInOrder.Count;
             var negativeCAGRCount = allCagrsInOrder.Count(cagr => cagr < 0);
             // Have to coarse one int into a double so the division would be double division
-            var negativeCAGRPercentage = (double) negativeCAGRCount / totalCount;
+            var negativeCAGRPercentage = (double)negativeCAGRCount / totalCount;
             return negativeCAGRPercentage;
+        }
+
+        private static double CalculateMedianRollingCAGR(List<double> allCagrsInOrder)
+        {
+            if (allCagrsInOrder.Count == 0) return 0;
+            var sortedCAGRs = allCagrsInOrder.OrderBy(cagr => cagr).ToList();
+            int midIndex = sortedCAGRs.Count / 2;
+            if (sortedCAGRs.Count % 2 == 0)
+            {
+                // Even count, take the average of the two middle values
+                return (sortedCAGRs[midIndex - 1] + sortedCAGRs[midIndex]) / 2;
+            }
+            else
+            {
+                // Odd count, take the middle value
+                return sortedCAGRs[midIndex];
+            }
         }
 
 
