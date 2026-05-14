@@ -48,6 +48,11 @@
         public double? MedianRollingCAGR3YearsWindow { get; init; }
         public double? MedianRollingCAGR2YearsWindow { get; init; }
         public double? MedianRollingCAGR1YearWindow { get; init; }
+        public double? WorstCaseRollingCAGR5YearsWindow { get; init; }
+        public double? WorstCaseRollingCAGR4YearsWindow { get; init; }
+        public double? WorstCaseRollingCAGR3YearsWindow { get; init; }
+        public double? WorstCaseRollingCAGR2YearsWindow { get; init; }
+        public double? WorstCaseRollingCAGR1YearWindow { get; init; }
     }
 
 

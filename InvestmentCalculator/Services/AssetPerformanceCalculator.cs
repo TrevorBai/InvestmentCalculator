@@ -96,6 +96,16 @@ namespace InvestmentCalculators.Services
                 MedianRollingCAGR4YearsWindow = CalculateMedianRollingCAGR(
                     allCagrsInOrder4YearsWindow),
                 MedianRollingCAGR5YearsWindow = CalculateMedianRollingCAGR(
+                    allCagrsInOrder5YearsWindow),
+                WorstCaseRollingCAGR1YearWindow = CalculateWorstCaseRollingCAGR(
+                    allCagrsInOrder1YearWindow),
+                WorstCaseRollingCAGR2YearsWindow = CalculateWorstCaseRollingCAGR(
+                    allCagrsInOrder2YearsWindow),
+                WorstCaseRollingCAGR3YearsWindow = CalculateWorstCaseRollingCAGR(
+                    allCagrsInOrder3YearsWindow),
+                WorstCaseRollingCAGR4YearsWindow = CalculateWorstCaseRollingCAGR(
+                    allCagrsInOrder4YearsWindow),
+                WorstCaseRollingCAGR5YearsWindow = CalculateWorstCaseRollingCAGR(
                     allCagrsInOrder5YearsWindow)
             };
             return result;
@@ -188,6 +198,11 @@ namespace InvestmentCalculators.Services
                 // Odd count, take the middle value
                 return sortedCAGRs[midIndex];
             }
+        }
+
+        private static double CalculateWorstCaseRollingCAGR(List<double> allCagrsInOrder)
+        {
+            return allCagrsInOrder.Min();
         }
 
 
